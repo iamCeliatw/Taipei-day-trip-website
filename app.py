@@ -4,6 +4,8 @@ import mysql.connector
 from flask import *
 from flask_mysqlpool import MySQLPool
 
+from mySQL import MySQLPassword
+
 app=Flask(__name__,
     static_folder="static/",
     static_url_path="/"
@@ -13,7 +15,7 @@ app.config["TEMPLATES_AUTO_RELOAD"]=True
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_PORT'] = 3306
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASS'] = 'asd24680'
+app.config['MYSQL_PASS'] = MySQLPassword()
 app.config['MYSQL_DB'] = 'data'
 app.config['MYSQL_POOL_NAME'] = 'mysql_pool'
 app.config['MYSQL_POOL_SIZE'] = 5
