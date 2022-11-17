@@ -83,26 +83,26 @@ def attraction_spot():
 
 @app.route('/api/categories')
 def cat():
-    try:
-        conn = db.connection.get_connection()
-        #取值不重複 
-        sql = "SELECT DISTINCT `cat` FROM `spots` "
-        cursor = conn.cursor()
-        cursor.execute(sql)
-        result = cursor.fetchall()
-        # print(type(result[0]))
-        # print(result[0])
-        catList = []
-        for i in result:
-            # list(result)
-            # print(type(i[0]))
-            catList.append(i[0])
-        print(catList)
-        cursor.close()
-        conn.close()
-        return jsonify({'data': catList})
-    except:
-        return jsonify({'error': True,'message':"伺服器內部錯誤"}),500
+    # try:
+    conn = db.connection.get_connection()
+    #取值不重複
+    sql = "SELECT DISTINCT `cat` FROM `spots` "
+    cursor = conn.cursor()
+    cursor.execute(sql)
+    result = cursor.fetchall()
+    # print(type(result[0]))
+    # print(result[0])
+    catList = []
+    for i in result:
+    # list(result)
+        # print(type(i[0]))
+        catList.append(i[0])
+    print(catList)
+    cursor.close()
+    conn.close()
+    return jsonify({'data': catList})
+    # except:
+    #     return jsonify({'error': True,'message':"伺服器內部錯誤"}),500
 
 
 
