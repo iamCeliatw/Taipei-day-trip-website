@@ -27,9 +27,9 @@ db = MySQLPool(app)
 def attraction_spot():
     try:
         args = request.args
-        page = args.get("page", type=int,default=0)
+        page = args.get("page", type=int, default=0)
         keyword = args.get("keyword", default=None)
-        if page is not None :
+        if keyword is None:
             perpage = 12
             offset = page * perpage
             conn = db.connection.get_connection()
@@ -38,22 +38,21 @@ def attraction_spot():
             cursor = conn.cursor(dictionary=True)
             cursor.execute(sql, val)
             result = cursor.fetchall()
+            imgs = []
             for i in result:
                 img = i['image'].split('https://')
+                for j in range(len(img)):
+                    img[j] = 'https://' + img[j]
                 img.pop(0)
-                eachImg = []
-                for i in img:
-                    eachImg.append('https://' + i)
-                # print(eachImg)
+                imgs.append(img)
             cursor.close()
             conn.close()
             for i in range(len(result)):
-                # print(result[i]['image'])
-                result[i]['image'] = eachImg
+                result[i]['image'] = imgs[i]
             if len(result) < 12:
-                return jsonify({'nextPage': None,'data':result})
-            return jsonify({'nextPage': page+1,'data':result})
-        elif keyword is not None:
+                return jsonify({'nextPage': None, 'data':result})
+            return jsonify({'nextPage': page+1, 'data':result})
+        elif keyword:
             perpage = 12
             offset = page * perpage
             # print(startAt)
@@ -63,23 +62,25 @@ def attraction_spot():
             cursor = conn.cursor(dictionary=True)
             cursor.execute(sql, val)
             result = cursor.fetchall()
+            # print("result:" , len(result))
+            imgs = []
             for i in result:
                 img = i['image'].split('https://')
+                for j in range(len(img)):
+                    img[j] = 'https://' + img[j]
                 img.pop(0)
-                eachImg = []
-                for i in img:
-                    eachImg.append('https://' + i)
-                # print(eachImg)
+                imgs.append(img)
+            print(imgs)
             cursor.close()
             conn.close()
+            # print(result)
             for i in range(len(result)):
-                # print(result[i]['image'])
-                result[i]['image'] = eachImg
+                result[i]['image'] = imgs[i]
             if len(result) < 12:
-                return jsonify({'nextPage': None,'data':result,})
+                return jsonify({'nextPage': None,'data':result})
             return jsonify({'nextPage': page+1,'data':result})
     except:
-        return jsonify({'error': True, 'message': "伺服器內部錯誤"}),500
+        return jsonify({'error': True, 'message': "伺服器內部錯誤"}), 500
 
 @app.route('/api/categories')
 def cat():
