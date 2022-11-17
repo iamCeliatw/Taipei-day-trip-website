@@ -52,7 +52,8 @@ for key in result:
         nextPage.append({'nextPage':page,'data':spotList})
         page +=1 
         spotList = []
-        spotList.append({ 'id' : key['_id'],
+        spotList.append({
+        'id' : key['_id'],
         "name": key['name'],
         "cat" : key['CAT'],
         "description" : key['description'],
@@ -64,7 +65,8 @@ for key in result:
         'image':eachImg})
 # print(spotList)
     else:
-        spotList.append({'id' : key['_id'],
+        spotList.append({
+        'id' : key['_id'],
         "name": key['name'],
         "cat" : key['CAT'],
         "description" : key['description'],

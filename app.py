@@ -32,11 +32,14 @@ def attraction_spot():
             perpage = 12
             offset = page * perpage
             conn = db.connection.get_connection()
-            sql = "SELECT id,name,cat,description,direction,mrt,address,latitude,longitude, image FROM `spots` LIMIT %s OFFSET %s"
+            # sql = "SELECT sid,id,name,cat,description,direction,mrt,address,latitude,longitude, image FROM `spots`"
+            sql = "SELECT sid,id,name,cat,description,direction,mrt,address,latitude,longitude, image FROM `spots` LIMIT %s OFFSET %s"
             val = [perpage, offset]
             cursor = conn.cursor(dictionary=True)
+            # cursor.execute(sql)
             cursor.execute(sql, val)
             result = cursor.fetchall()
+            print(len(result))
             imgs = []
             for i in result:
                 img = i['image'].split('https://')
@@ -48,20 +51,23 @@ def attraction_spot():
             conn.close()
             for i in range(len(result)):
                 result[i]['image'] = imgs[i]
+            print(len(result))
             if len(result) < 12:
                 return jsonify({'nextPage': None, 'data':result})
             return jsonify({'nextPage': page+1, 'data':result})
+
+
         elif keyword:
             perpage = 12
             offset = page * perpage
             # print(startAt)
             conn = db.connection.get_connection()
-            sql = "SELECT id,name,cat,description,direction,mrt,address,latitude,longitude, image FROM `spots` WHERE `cat` = %s or name LIKE %s LIMIT %s OFFSET %s"
+            sql = "SELECT sid,id,name,cat,description,direction,mrt,address,latitude,longitude, image FROM `spots` WHERE `cat` = %s or name LIKE %s LIMIT %s OFFSET %s"
             val = [keyword, "%"+f"{keyword}"+"%", perpage, offset]
-            cursor = conn.cursor(dictionary=True)
+            cursor = conn.cursor(buffered=True, dictionary=True)
             cursor.execute(sql, val)
             result = cursor.fetchall()
-            # print("result:" , len(result))
+            print("result:" , len(result))
             imgs = []
             for i in result:
                 img = i['image'].split('https://')
@@ -87,7 +93,7 @@ def cat():
     conn = db.connection.get_connection()
     #取值不重複
     sql = "SELECT DISTINCT `cat` FROM `spots` "
-    cursor = conn.cursor()
+    cursor = conn.cursor(buffered=True)
     cursor.execute(sql)
     result = cursor.fetchall()
     # print(type(result[0]))
@@ -112,13 +118,13 @@ def index():
 	return render_template("index.html")
 
 
-@app.route("/attraction/<id>")
+@app.route("/api/attraction/<id>")
 def attraction(id):
-    try:
+    # try:
         conn = db.connection.get_connection()
-        sql1 = 'SELECT image FROM `spots` WHERE `id` = %s'
+        sql1 = 'SELECT image FROM `spots` WHERE `sid` = %s'
         val1 = [id]
-        cursor = conn.cursor()
+        cursor = conn.cursor(buffered=True)
         cursor.execute(sql1, val1)
         result = cursor.fetchone()
         print(result)
@@ -132,9 +138,10 @@ def attraction(id):
             for i in img:
                 arrImg.append('https://' + i)
             # print(arrImg)
-            sql2 = "SELECT id , name, cat, description, direction, mrt, address, latitude, longitude FROM `spots` WHERE `id` = %s "
+            # sql2 = "SELECT * FROM `spots` WHERE `id` = %s "
+            sql2 = "SELECT sid,id , name, cat, description, direction, mrt, address, latitude, longitude FROM `spots` WHERE `id` = %s "
             val2 = [id]
-            cursor = conn.cursor(dictionary=True)
+            cursor = conn.cursor(buffered=True, dictionary=True)
             cursor.execute(sql2, val2)
             all_result = cursor.fetchone()
             print(type(all_result))
@@ -146,8 +153,8 @@ def attraction(id):
             return jsonify({'data': all_result})
         else:
             return jsonify({"error": True, "message": "景點編號不正確"}), 400
-    except:
-            return jsonify({"error": True, "message": "伺服器內部錯誤"}), 500
+    # except:
+    #         return jsonify({"error": True, "message": "伺服器內部錯誤"}), 500
     # json_data = json.loads(json_result)
 	# return render_template("attraction.html")
 
