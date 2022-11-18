@@ -1,6 +1,3 @@
-import json
-
-import mysql.connector
 from flask import *
 from flask_mysqlpool import MySQLPool
 
@@ -32,11 +29,9 @@ def attraction_spot():
             perpage = 12
             offset = page * perpage
             conn = db.connection.get_connection()
-            # sql = "SELECT sid,id,name,cat,description,direction,mrt,address,latitude,longitude, image FROM `spots`"
             sql = "SELECT sid,id,name,cat,description,direction,mrt,address,latitude,longitude, image FROM `spots` LIMIT %s OFFSET %s"
             val = [perpage, offset]
             cursor = conn.cursor(dictionary=True)
-            # cursor.execute(sql)
             cursor.execute(sql, val)
             result = cursor.fetchall()
             print(len(result))
@@ -56,11 +51,9 @@ def attraction_spot():
                 return jsonify({'nextPage': None, 'data':result})
             return jsonify({'nextPage': page+1, 'data':result})
 
-
         elif keyword:
             perpage = 12
             offset = page * perpage
-            # print(startAt)
             conn = db.connection.get_connection()
             sql = "SELECT sid,id,name,cat,description,direction,mrt,address,latitude,longitude, image FROM `spots` WHERE `cat` = %s or name LIKE %s LIMIT %s OFFSET %s"
             val = [keyword, "%"+f"{keyword}"+"%", perpage, offset]
@@ -78,7 +71,6 @@ def attraction_spot():
             print(imgs)
             cursor.close()
             conn.close()
-            # print(result)
             for i in range(len(result)):
                 result[i]['image'] = imgs[i]
             if len(result) < 12:
@@ -89,28 +81,22 @@ def attraction_spot():
 
 @app.route('/api/categories')
 def cat():
-    # try:
-    conn = db.connection.get_connection()
-    #取值不重複
-    sql = "SELECT DISTINCT `cat` FROM `spots` "
-    cursor = conn.cursor(buffered=True)
-    cursor.execute(sql)
-    result = cursor.fetchall()
-    # print(type(result[0]))
-    # print(result[0])
-    catList = []
-    for i in result:
-    # list(result)
-        # print(type(i[0]))
-        catList.append(i[0])
-    print(catList)
-    cursor.close()
-    conn.close()
-    return jsonify({'data': catList})
-    # except:
-    #     return jsonify({'error': True,'message':"伺服器內部錯誤"}),500
-
-
+    try:
+        conn = db.connection.get_connection()
+        #取值不重複
+        sql = "SELECT DISTINCT `cat` FROM `spots` "
+        cursor = conn.cursor(buffered=True)
+        cursor.execute(sql)
+        result = cursor.fetchall()
+        catList = []
+        for i in result:
+            catList.append(i[0])
+        print(catList)
+        cursor.close()
+        conn.close()
+        return jsonify({'data': catList})
+    except:
+        return jsonify({'error': True,'message':"伺服器內部錯誤"}),500
 
 # Pages
 @app.route("/")
@@ -120,9 +106,9 @@ def index():
 
 @app.route("/api/attraction/<id>")
 def attraction(id):
-    # try:
+    try:
         conn = db.connection.get_connection()
-        sql1 = 'SELECT image FROM `spots` WHERE `sid` = %s'
+        sql1 = 'SELECT image FROM `spots` WHERE `id` = %s'
         val1 = [id]
         cursor = conn.cursor(buffered=True)
         cursor.execute(sql1, val1)
@@ -137,9 +123,7 @@ def attraction(id):
             arrImg = []
             for i in img:
                 arrImg.append('https://' + i)
-            # print(arrImg)
-            # sql2 = "SELECT * FROM `spots` WHERE `id` = %s "
-            sql2 = "SELECT sid,id , name, cat, description, direction, mrt, address, latitude, longitude FROM `spots` WHERE `id` = %s "
+            sql2 = "SELECT sid, id , name, cat, description, direction, mrt, address, latitude, longitude FROM `spots` WHERE `id` = %s "
             val2 = [id]
             cursor = conn.cursor(buffered=True, dictionary=True)
             cursor.execute(sql2, val2)
@@ -153,9 +137,8 @@ def attraction(id):
             return jsonify({'data': all_result})
         else:
             return jsonify({"error": True, "message": "景點編號不正確"}), 400
-    # except:
-    #         return jsonify({"error": True, "message": "伺服器內部錯誤"}), 500
-    # json_data = json.loads(json_result)
+    except:
+            return jsonify({"error": True, "message": "伺服器內部錯誤"}), 500
 	# return render_template("attraction.html")
 
 
@@ -165,6 +148,5 @@ def booking():
 @app.route("/thankyou")
 def thankyou():
 	return render_template("thankyou.html")
-
 
 app.run(host='0.0.0.0', port=3000, debug=True)
