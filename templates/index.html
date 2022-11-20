@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static',filename='styles/style.css')}}"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap"
+      rel="stylesheet"
+    />
+    <title>Taipei Trip台北一日遊2.0</title>
+  </head>
+  <body>
+    <div class="title">
+      <h3>台北一日遊</h3>
+      <nav class="navbar">
+        <ul>
+          <li><button>預定行程</button></li>
+          <li><button onclick="showDialog()">登入/註冊</button></li>
+        </ul>
+
+        <div class="greenBar"></div>
+        <div id="dialog" class="dialog">
+          <p>登入會員帳號</p>
+          <!-- <div class="title">登入會員帳號</div> -->
+          <div class="close" onclick="closeDialog()">
+            <img src="image/icon_close.png" alt="" />
+          </div>
+
+          <form action="" method="POST">
+            <div class="loginPage">
+              <div class="type-place">
+                <input
+                  class="inputArea"
+                  placeholder="輸入電子信箱"
+                  type="text"
+                  name="account"
+                  id="username"
+                />
+                <input
+                  class="inputArea"
+                  placeholder="輸入密碼"
+                  type="password"
+                  name="password"
+                />
+                <button class="btn" id="signBtn">登入帳戶</button>
+                <p class="notyetMessage">還沒有帳戶？點此註冊</p>
+              </div>
+            </div>
+          </form>
+        </div>
+      </nav>
+    </div>
+
+    <header>
+      <div class="text_center">
+        <div class="descript-left">
+          <h2>輕鬆享受台北一日悠閒</h2>
+          <p>探索每個角落，體驗城市的深度旅遊行程</p>
+          <input type="text" placeholder="輸入景點名稱查詢" /><button>
+            <img class="search" src="image/icon_search.png" />
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="lay hide"></div>
+
+    <main>
+      <div class="all">
+        <!-- <div class="promotion">
+          <div class="section section1"></div>
+
+          <div class="section section2"></div>
+        </div> -->
+
+        <div class="list">
+          <ul class="spotlist">
+            <li class="spot"></li>
+            <li class="spot"></li>
+            <li class="spot"></li>
+            <li class="spot"></li>
+            <li class="spot"></li>
+            <li class="spot"></li>
+            <li class="spot"></li>
+            <li class="spot"></li>
+            <li class="spot"></li>
+            <li class="spot"></li>
+            <li class="spot"></li>
+            <li class="spot"></li>
+          </ul>
+        </div>
+      </div>
+    </main>
+    <div id="hid_a">
+      <a href="#/" id="loadMore" onclick="showMore()">Load More</a>
+    </div>
+    <!-- <div class="overlay hidden"></div> -->
+    <script src="../static/styles/script.js"></script>
+    <footer>
+      <div class="footer">
+        <p>COPYRIGHT © 2022 台北一日遊</p>
+      </div>
+    </footer>
+    <script
+      type="text/javascript"
+      src="{{url_for('static', filename='styles/script.js')}}"
+    ></script>
+  </body>
+</html>
