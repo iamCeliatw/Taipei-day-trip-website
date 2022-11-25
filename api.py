@@ -30,10 +30,11 @@ def attraction_spot():
     try:
         args = request.args
         page = args.get("page", type=int, default=0)
-        keyword = args.get("keyword", default=None)
-        if keyword is None:
-            perpage = 12
-            offset = page * perpage
+        keyword = args.get("keyword", default='')
+        if keyword is '':
+            perpage = 13
+            # 第一頁 取 0~13 第二頁 取 第13~25（13筆）
+            offset = page * (perpage-1)
             conn = db.connection.get_connection()
             sql = "SELECT sid,id,name,cat,description,direction,mrt,address,latitude,longitude, image FROM `spots` LIMIT %s OFFSET %s"
             val = [perpage, offset]
@@ -51,8 +52,9 @@ def attraction_spot():
             conn.close()
             for i in range(len(result)):
                 result[i]['image'] = imgs[i]
-            if len(result) < 12:
+            if len(result) < 13:
                 return jsonify({'nextPage': None, 'data':result})
+            result = result[:-1]
             return jsonify({'nextPage': page+1, 'data':result})
 
         elif keyword:

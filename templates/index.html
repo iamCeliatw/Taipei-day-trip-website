@@ -17,7 +17,7 @@
     />
     <title>Taipei Trip台北一日遊2.0</title>
   </head>
-  <body>
+  <body id="body">
     <div class="title">
       <h3>台北一日遊</h3>
       <nav class="navbar">
@@ -58,52 +58,43 @@
         </div>
       </nav>
     </div>
-
     <header>
       <div class="text_center">
         <div class="descript-left">
           <h2>輕鬆享受台北一日悠閒</h2>
           <p>探索每個角落，體驗城市的深度旅遊行程</p>
-          <input type="text" placeholder="輸入景點名稱查詢" /><button>
-            <img class="search" src="image/icon_search.png" />
-          </button>
+          <div class="searchBtn">
+            <input
+              id="spotInput"
+              onclick="spotSearch()"
+              type="text"
+              placeholder="輸入景點名稱查詢"
+            /><button onclick="search()">
+              <img class="search" src="image/icon_search.png" />
+            </button>
+            <div class="catPlace"></div>
+          </div>
         </div>
       </div>
     </header>
 
     <div class="lay hide"></div>
 
-    <main>
-      <div class="all">
-        <!-- <div class="promotion">
-          <div class="section section1"></div>
-
-          <div class="section section2"></div>
+    <main class="main">
+      <div class="list">
+        <!-- <div class="spot">
+            <div class="box">
+                <img src="" alt="">
+                <div class="nameItem"></div>
+                <div class="mrtItem">
+                    <div class="mrt"></div>
+                    <div class="cat"></div>
+                </div>
+            </div>
         </div> -->
-
-        <div class="list">
-          <ul class="spotlist">
-            <li class="spot"></li>
-            <li class="spot"></li>
-            <li class="spot"></li>
-            <li class="spot"></li>
-            <li class="spot"></li>
-            <li class="spot"></li>
-            <li class="spot"></li>
-            <li class="spot"></li>
-            <li class="spot"></li>
-            <li class="spot"></li>
-            <li class="spot"></li>
-            <li class="spot"></li>
-          </ul>
-        </div>
       </div>
     </main>
-    <div id="hid_a">
-      <a href="#/" id="loadMore" onclick="showMore()">Load More</a>
-    </div>
-    <!-- <div class="overlay hidden"></div> -->
-    <script src="../static/styles/script.js"></script>
+
     <footer>
       <div class="footer">
         <p>COPYRIGHT © 2022 台北一日遊</p>

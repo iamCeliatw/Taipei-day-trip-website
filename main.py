@@ -1,7 +1,7 @@
 import os
 
 from flask import *
-
+# from flask_cors import CORS
 import setting
 from api import api
 from database import db
@@ -27,6 +27,8 @@ db.init_app(app)
 
 #Blueprint register
 app.register_blueprint(api)
+# CORS(app, resources=r"/*")
+# cors = CORS(app, resources={r"/cities/*": {"origins": "*"}})
 
 
 @app.route("/")
