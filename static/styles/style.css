@@ -129,6 +129,7 @@ header {
   display: flex;
   height: 300px;
   background-image: url("../image/welcome.png");
+  background-size: cover;
   align-items: center;
 }
 header .text_center {
@@ -204,6 +205,11 @@ header .text_center .descript-left .searchBtn .catPlace .catItem:hover {
   background: #e8e8e8;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.noItem {
+  margin: 0px auto 45px auto;
+  text-align: center;
 }
 
 .list {

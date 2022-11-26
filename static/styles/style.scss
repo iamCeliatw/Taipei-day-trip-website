@@ -143,6 +143,7 @@ header {
   display: flex;
   height: 300px;
   background-image: url("../image/welcome.png");
+  background-size: cover;
   align-items: center;
   .text_center {
     display: flex;
@@ -223,6 +224,11 @@ header {
   }
 }
 
+.noItem {
+  margin: 0px auto 45px auto;
+  text-align: center;
+}
+
 .list {
   width: 1200px;
   display: grid;
@@ -284,7 +290,6 @@ header {
     }
   }
 }
-
 .hid {
   display: none;
 }

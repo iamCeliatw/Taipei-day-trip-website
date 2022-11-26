@@ -70,51 +70,66 @@ function getData() {
     // console.log("before fetch", isLoad);
     if (keyword) {
       url = `${location.href}/api/attractions?page=${page}&keyword=${keyword} `;
+      console.log(page, keyword);
     } else {
       url = `${location.href}/api/attractions?page=${page}`;
+      console.log(page, keyword);
     }
+    // } else if (!page && !keyword) {
+    //   console.log("There is no result here!");
+    // }
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        // nextPage = data.nextPage;
-        let result = data.data;
-        lens = data.data.length;
-        // console.log(lens);
-        for (let i = 0; i < lens; i++) {
-          let liItem = document.createElement("div");
-          let imgItem = document.createElement("img");
-          let nameItem = document.createElement("div");
-          let mrtCat = document.createElement("div");
-          liItem.classList.add("spot");
-          spotList.appendChild(liItem);
-          let box = document.createElement("div");
-          box.classList.add("box");
-          liItem.appendChild(box);
-          //   console.log(box);
-          imgItem.setAttribute("src", result[i].image[0]);
-          imgItem.classList.add("imgItem");
-          nameItem.classList.add("nameItem");
-          mrtCat.classList.add("mrtItem");
-          nameItem.textContent = result[i].name;
-          box.appendChild(imgItem);
-          box.appendChild(nameItem);
-          box.appendChild(mrtCat);
-          //   console.log(mrtCat);
-          let mrt = document.createElement("span");
-          let cat = document.createElement("span");
-          mrt.textContent = result[i].mrt;
-          mrt.classList.add("mrt");
-          cat.textContent = result[i].cat;
-          cat.classList.add("cat");
-          mrtCat.append(mrt);
-          mrtCat.append(cat);
+        if (data.data.length === 0) {
+          //   main.replaceChildren();
+          //   spotList.innerHTML = "";
+          let noItem = document.createElement("div");
+          noItem.classList.add("noItem");
+          noItem.textContent = "There is no result !!";
+          main.appendChild(noItem);
+        } else {
+          //   console.log(data.data.length === 0);
+
+          // nextPage = data.nextPage;
+          let result = data.data;
+          lens = data.data.length;
+          // console.log(lens);
+          for (let i = 0; i < lens; i++) {
+            let liItem = document.createElement("div");
+            let imgItem = document.createElement("img");
+            let nameItem = document.createElement("div");
+            let mrtCat = document.createElement("div");
+            liItem.classList.add("spot");
+            spotList.appendChild(liItem);
+            let box = document.createElement("div");
+            box.classList.add("box");
+            liItem.appendChild(box);
+            //   console.log(box);
+            imgItem.setAttribute("src", result[i].image[0]);
+            imgItem.classList.add("imgItem");
+            nameItem.classList.add("nameItem");
+            mrtCat.classList.add("mrtItem");
+            nameItem.textContent = result[i].name;
+            box.appendChild(imgItem);
+            box.appendChild(nameItem);
+            box.appendChild(mrtCat);
+            //   console.log(mrtCat);
+            let mrt = document.createElement("span");
+            let cat = document.createElement("span");
+            mrt.textContent = result[i].mrt;
+            mrt.classList.add("mrt");
+            cat.textContent = result[i].cat;
+            cat.classList.add("cat");
+            mrtCat.append(mrt);
+            mrtCat.append(cat);
+          }
+          page = data.nextPage;
+
+          // isLoad = false;
+          // console.log("123", isLoad);
+          lens = data.data.length;
         }
-        page = data.nextPage;
-
-        // isLoad = false;
-        // console.log("123", isLoad);
-
-        lens = data.data.length;
       });
     // console.log(page);
   } catch (error) {
@@ -125,10 +140,10 @@ function getData() {
 //點擊搜尋按鈕 觸發search
 function search() {
   page = 0;
-  //   isLoad = false;
   keyword = spotInput.value;
-  //   console.log(isLoad);
+
   let spotList = document.querySelector(".list");
+
   spotList.replaceChildren();
   getData();
 }
@@ -141,7 +156,7 @@ function search() {
 let options = {
   root: null, // document viewport
   rootMargin: "0px",
-  threshold: 0.5, // 進入畫面的比例
+  threshold: 0.3, // 進入畫面的比例
 };
 
 let observer = new IntersectionObserver(handleIntersect, options);
