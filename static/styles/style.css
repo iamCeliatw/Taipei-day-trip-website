@@ -1,0 +1,413 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Noto Sans TC", sans-serif;
+}
+
+.title {
+  position: fixed; /* Set the navbar to fixed position */
+  top: 0;
+  width: 100%;
+  justify-content: center;
+  background-color: #fff;
+  display: flex;
+  z-index: 1;
+  align-items: center;
+  margin: 0 auto;
+  padding: 0;
+  justify-content: space-between;
+}
+.title .bg {
+  width: 1200px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: auto;
+}
+.title .bg h3 {
+  font-size: 30px;
+  color: #448899;
+}
+
+.navbar {
+  display: flex;
+}
+.navbar ul {
+  display: flex;
+  text-align: center;
+  color: #666666;
+}
+.navbar ul li {
+  list-style: none;
+  display: inline-block;
+  padding: 0px 10px;
+  font-size: 20px;
+}
+.navbar ul li button {
+  background: none;
+  color: #666666;
+  border: none;
+  padding: 0;
+  font-size: 16px;
+  line-height: 13px;
+  cursor: pointer;
+  outline: inherit;
+}
+.navbar .greenBar {
+  display: none;
+  z-index: 2;
+  position: fixed;
+  width: 340px;
+  height: 10px;
+  left: 630px;
+  top: 80px;
+  padding: 10px;
+  border-radius: 6px 6px 0px 0px;
+  background: linear-gradient(270deg, #337788 0%, #66aabb 100%);
+}
+.navbar .dialog {
+  z-index: 2;
+  display: none;
+  position: fixed;
+  width: 340px;
+  height: 275px;
+  left: 630px;
+  top: 80px;
+  padding: 10px;
+  background: #ffffff;
+  box-shadow: 0px 4px 60px #aaaaaa;
+  border-radius: 0px 0px 6px 6px;
+  margin-top: 15px;
+}
+.navbar .dialog p {
+  text-align: center;
+}
+.navbar .dialog .close {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  cursor: pointer;
+}
+.navbar .dialog .close img {
+  width: 16px;
+  height: 16px;
+}
+.navbar .dialog .loginPage .inputArea {
+  border: 1px solid #cccccc;
+  margin-top: 15px;
+  width: 310px;
+  height: 47px;
+  border-radius: 5px;
+}
+.navbar .dialog .btn {
+  margin-top: 15px;
+  align-items: center;
+  width: 310px;
+  height: 47px;
+  border-radius: 5px;
+  border: 1px solid #cccccc;
+  background-color: #448899;
+}
+.navbar .dialog .notyetMessage {
+  margin-top: 15px;
+}
+
+.lay {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #000000;
+  opacity: 0.25;
+}
+
+header {
+  margin-top: 45px;
+  display: flex;
+  height: 300px;
+  background-image: url("../image/welcome.png");
+  background-size: cover;
+  align-items: center;
+}
+header .text_center {
+  display: flex;
+  width: 1200px;
+  margin: 0 auto;
+}
+header .text_center .descript-left {
+  line-height: 45px;
+}
+header .text_center .descript-left h2 {
+  font-size: 28px;
+  color: #f8f8f8;
+  font-weight: 700;
+}
+header .text_center .descript-left p {
+  color: #f8f8f8;
+}
+header .text_center .descript-left .searchBtn {
+  position: relative;
+}
+header .text_center .descript-left .searchBtn input {
+  padding: 15px;
+  width: 400px;
+  height: 46px;
+  border-radius: 5px 0 0 5px;
+  border-style: none;
+  vertical-align: middle;
+  box-shadow: 0px 0px 20px #aabbcc;
+}
+header .text_center .descript-left .searchBtn button {
+  width: 60px;
+  border-style: none;
+  height: 46px;
+  vertical-align: middle;
+  background-color: #448899;
+  border-radius: 0 5px 5px 0;
+  box-shadow: 0px 0px 20px #aabbcc;
+}
+header .text_center .descript-left .searchBtn button img {
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
+}
+header .text_center .descript-left .searchBtn button:hover {
+  background-color: #5dabbf;
+  cursor: pointer;
+}
+header .text_center .descript-left .searchBtn .catPlace {
+  display: none;
+  z-index: 1;
+  position: absolute;
+  background-color: #000000;
+  width: 400px;
+  height: 162px;
+  left: 0px;
+  top: 51px;
+  background: #ffffff;
+  box-shadow: 0px 0px 20px #aabbcc;
+  border-radius: 5px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+header .text_center .descript-left .searchBtn .catPlace .catItem {
+  text-align: center;
+  width: 90px;
+  margin: 2px 11px;
+  font-size: 14px;
+  z-index: 1;
+  list-style: none;
+}
+header .text_center .descript-left .searchBtn .catPlace .catItem:hover {
+  background: #e8e8e8;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.noItem {
+  margin: 0px auto 45px auto;
+  text-align: center;
+}
+
+.list {
+  width: 1200px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin: auto;
+  margin-top: 45px;
+}
+.list .spot {
+  margin: 10px;
+  list-style: none;
+  font-size: 20px;
+  text-align: center;
+}
+.list .spot .box {
+  position: relative;
+  width: 270px;
+}
+.list .spot .box img {
+  border-radius: 5px 5px 0px 0px;
+  width: 100%;
+  aspect-ratio: 16/12;
+  vertical-align: top;
+}
+.list .spot .box .nameItem {
+  padding: 0px 10px;
+  font-size: 16px;
+  text-align: left;
+  line-height: 40px;
+  position: absolute;
+  left: 0;
+  bottom: 45px;
+  height: 40px;
+  width: 270px;
+  background: #000000;
+  color: #fff;
+  opacity: 0.6;
+  margin: 0;
+}
+.list .spot .box .mrtItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 0px 0px 5px 5px;
+  padding: 10px 10px 10px 10px;
+  height: 45px;
+  width: 270px;
+  background: #fff;
+  margin: auto;
+  border: 1px solid #cccccc;
+}
+.list .spot .box .mrtItem span {
+  color: #757575;
+  font-size: 16px;
+  line-height: 13px;
+}
+
+.hid {
+  display: none;
+}
+
+.hide {
+  display: none;
+}
+
+#loadMore {
+  width: 200px;
+  color: #fff;
+  display: block;
+  text-align: center;
+  margin: 20px auto;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  background-color: rgba(104, 143, 178, 0.486);
+  transition: 0.3s;
+}
+#loadMore:hover {
+  color: rgb(15, 39, 63);
+  background-color: #fff;
+  border: 1px solid rgb(15, 39, 63);
+  text-decoration: none;
+}
+
+.footer {
+  background-color: #757575;
+  height: 104px;
+  display: flex;
+  align-items: center;
+}
+.footer p {
+  color: #ffffff;
+  margin: auto;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 13px;
+}
+
+/*當螢幕寬度小於1200px時，套用此設定*/
+@media screen and (max-width: 1200px) {
+  header {
+    max-width: 100%;
+  }
+  header .text_center {
+    justify-content: center;
+  }
+  .title {
+    justify-content: space-between;
+    width: 100%;
+    padding: 0;
+  }
+  .title .navbar {
+    right: 0;
+  }
+  .list {
+    height: auto;
+    width: 90%;
+    grid-template-columns: repeat(auto-fit, minmax(33%, 50%));
+  }
+  .list .spot .box {
+    width: auto;
+  }
+  .list .spot .box img {
+    width: 100%;
+  }
+  .list .spot .box .nameItem {
+    width: 100%;
+  }
+  .list .spot .box .mrtItem {
+    width: 100%;
+  }
+  /*當螢幕寬度小於370px時，套用此設定*/
+}
+@media screen and (max-width: 1200px) and (max-width: 740px) {
+  .title {
+    width: 100%;
+  }
+  .title header .text_center {
+    justify-content: center;
+    width: 90%;
+  }
+  .title header .text_center .descript-left h2 {
+    font-size: 28px;
+  }
+  .title header .text_center .descript-left p {
+    font-size: 16px;
+  }
+  .title header .text_center .descript-left .searchBtn {
+    margin: auto;
+  }
+  .title header .text_center .descript-left .searchBtn input {
+    margin: 0 sauto;
+    width: 200px;
+  }
+  .title header .text_center .descript-left .searchBtn .catPlace {
+    width: auto;
+    height: auto;
+  }
+  .list {
+    grid-template-columns: repeat(auto-fit, minmax(auto, 100%));
+  }
+  .list .spot .box .nameItem {
+    width: 100%;
+  }
+  .list .spot .box .mrtItem {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 1200px) and (max-width: 400px) {
+  .title h3 {
+    margin: 5px 0px 5px 10px;
+  }
+  .navbar ul {
+    justify-content: center;
+  }
+  header {
+    align-items: center;
+  }
+  header .text_center {
+    width: 90%;
+  }
+  header .text_center .descript-left {
+    margin: auto;
+    justify-content: center;
+  }
+  header .text_center .descript-left h2 {
+    font-size: 28px;
+  }
+  header .text_center .descript-left p {
+    font-size: 16px;
+  }
+  header .text_center .descript-left .searchBtn input {
+    align-items: center;
+    width: 250px;
+  }
+  .list {
+    grid-template-columns: repeat(auto-fit, minmax(90%, auto));
+  }
+}/*# sourceMappingURL=style.css.map */
