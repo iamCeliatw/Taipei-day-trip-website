@@ -7,20 +7,26 @@
 }
 
 .title {
-  overflow: hidden;
   position: fixed; /* Set the navbar to fixed position */
   top: 0;
   width: 100%;
-  justify-content: space-between;
+  justify-content: center;
   background-color: #fff;
-  position: fixed;
   display: flex;
   z-index: 1;
   align-items: center;
-  margin: auto;
-  padding: 5px 195px;
+  margin: 0 auto;
+  padding: 0;
+  justify-content: space-between;
 }
-.title h3 {
+.title .bg {
+  width: 1200px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: auto;
+}
+.title .bg h3 {
   font-size: 30px;
   color: #448899;
 }
@@ -119,7 +125,7 @@
 }
 
 header {
-  margin-top: 55px;
+  margin-top: 45px;
   display: flex;
   height: 300px;
   background-image: url("../image/welcome.png");

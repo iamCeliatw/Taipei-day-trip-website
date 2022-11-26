@@ -19,45 +19,48 @@
   </head>
   <body id="body">
     <div class="title">
-      <h3>台北一日遊</h3>
-      <nav class="navbar">
-        <ul>
-          <li><button>預定行程</button></li>
-          <li><button onclick="showDialog()">登入/註冊</button></li>
-        </ul>
+      <div class="bg">
+        <h3>台北一日遊</h3>
+        <nav class="navbar">
+          <ul>
+            <li><button>預定行程</button></li>
+            <li><button onclick="showDialog()">登入/註冊</button></li>
+          </ul>
 
-        <div class="greenBar"></div>
-        <div id="dialog" class="dialog">
-          <p>登入會員帳號</p>
-          <!-- <div class="title">登入會員帳號</div> -->
-          <div class="close" onclick="closeDialog()">
-            <img src="image/icon_close.png" alt="" />
-          </div>
-
-          <form action="" method="POST">
-            <div class="loginPage">
-              <div class="type-place">
-                <input
-                  class="inputArea"
-                  placeholder="輸入電子信箱"
-                  type="text"
-                  name="account"
-                  id="username"
-                />
-                <input
-                  class="inputArea"
-                  placeholder="輸入密碼"
-                  type="password"
-                  name="password"
-                />
-                <button class="btn" id="signBtn">登入帳戶</button>
-                <p class="notyetMessage">還沒有帳戶？點此註冊</p>
-              </div>
+          <div class="greenBar"></div>
+          <div id="dialog" class="dialog">
+            <p>登入會員帳號</p>
+            <!-- <div class="title">登入會員帳號</div> -->
+            <div class="close" onclick="closeDialog()">
+              <img src="image/icon_close.png" alt="" />
             </div>
-          </form>
-        </div>
-      </nav>
+
+            <form action="" method="POST">
+              <div class="loginPage">
+                <div class="type-place">
+                  <input
+                    class="inputArea"
+                    placeholder="輸入電子信箱"
+                    type="text"
+                    name="account"
+                    id="username"
+                  />
+                  <input
+                    class="inputArea"
+                    placeholder="輸入密碼"
+                    type="password"
+                    name="password"
+                  />
+                  <button class="btn" id="signBtn">登入帳戶</button>
+                  <p class="notyetMessage">還沒有帳戶？點此註冊</p>
+                </div>
+              </div>
+            </form>
+          </div>
+        </nav>
+      </div>
     </div>
+
     <header>
       <div class="text_center">
         <div class="descript-left">
