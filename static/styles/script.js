@@ -19,6 +19,7 @@ let main = document.querySelector(".main");
 
 let spotList = document.querySelector(".list");
 let spot = document.querySelector(".spot");
+let noItem = document.createElement("div");
 
 function showDialog() {
   greenBar.style.display = "block";
@@ -82,15 +83,12 @@ function getData() {
       .then((response) => response.json())
       .then((data) => {
         if (data.data.length === 0) {
-          //   main.replaceChildren();
-          //   spotList.innerHTML = "";
-          let noItem = document.createElement("div");
+          noItem.replaceChildren();
           noItem.classList.add("noItem");
           noItem.textContent = "There is no result !!";
           main.appendChild(noItem);
         } else {
-          //   console.log(data.data.length === 0);
-
+          noItem.replaceChildren();
           // nextPage = data.nextPage;
           let result = data.data;
           lens = data.data.length;
@@ -126,7 +124,7 @@ function getData() {
           }
           page = data.nextPage;
 
-          // isLoad = false;
+          isLoad = false;
           // console.log("123", isLoad);
           lens = data.data.length;
         }
@@ -167,7 +165,7 @@ function handleIntersect(entires) {
     ct++;
     if (ct > 1) {
       //   console.log("before", isLoad);
-      isLoad = false;
+      //   isLoad = true;
       //   console.log("after", isLoad);
       //   console.log("page", page);
       if (!isLoad && page) {
