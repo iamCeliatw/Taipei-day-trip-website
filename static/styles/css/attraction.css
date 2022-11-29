@@ -63,13 +63,10 @@ input[type=date]::-webkit-calendar-picker-indicator {
   border: 1px solid #e8e8e8;
 }
 
-main {
-  margin-top: 45px auto;
-}
 main .attraction-space {
+  margin: 45px auto;
   width: 1200px;
   display: grid;
-  margin: auto;
   grid-template-columns: repeat(2, 1fr);
 }
 main .attraction-space .attraction-carousel {

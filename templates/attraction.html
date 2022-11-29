@@ -53,11 +53,11 @@
           </button>
           <div class="carousel__nav">
             <!-- <button class="carousel__indicator current-slide"></button> -->
-            <!--             
+            <!--
             <button class="carousel__indicator"></button>
             <button class="carousel__indicator"></button>
             <button class="carousel__indicator"></button>
-            <button class="carousel__indicator"></button> -->
+            <button class="carousel__indicator"></button>-->
           </div>
         </div>
 
@@ -67,33 +67,35 @@
                 <p>養生溫泉 at 新北投</p>
             </div>` -->
 
-          <div class="attraction-detail">
-            <h3>訂購瀏覽行程</h3>
-            <p>以此景點為中心的一日行程，帶您探索城市角落故事</p>
-            <span>選擇日期：</span>
-            <span><input class="date" type="date" /></span>
+          <form action="">
+            <div class="attraction-detail">
+              <h3>訂購瀏覽行程</h3>
+              <p>以此景點為中心的一日行程，帶您探索城市角落故事</p>
+              <span>選擇日期：</span>
+              <span><input class="date" type="date" /></span>
 
-            <div class="chooseTime">
-              <span class="question">選擇行程：</span>
-              <span>
-                <input type="radio" id="test1" name="radio-group" checked />
-                <label class="oneHalfDay" for="test1">上半天</label>
-              </span>
-              <span>
-                <input type="radio" id="test2" name="radio-group" />
-                <label class="nextHalfDay" for="test2">下半天</label>
-              </span>
+              <div class="chooseTime">
+                <span class="question">選擇行程：</span>
+                <span>
+                  <input type="radio" id="day1" name="radio-group" checked />
+                  <label class="oneHalfDay" for="day1">上半天</label>
+                </span>
+                <span>
+                  <input type="radio" id="day2" name="radio-group" />
+                  <label class="nextHalfDay" for="day2">下半天</label>
+                </span>
+              </div>
+              <span class="question">導覽費用：</span>
+              <span class="totalPrice">新台幣2000元</span>
+              <br />
+              <input
+                class="reservation"
+                value="開始預約行程"
+                type="button"
+                name="submit"
+              />
             </div>
-            <span class="question">導覽費用：</span>
-            <span class="totalPrice">新台幣2000元</span>
-            <br />
-            <input
-              class="reservation"
-              value="開始預約行程"
-              type="button"
-              name="submit"
-            />
-          </div>
+          </form>
         </section>
       </section>
     </main>

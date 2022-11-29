@@ -65,11 +65,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 main {
   //   width: 1200px;
-  margin-top: 45px auto;
+  //   margin-top: 45px auto;
   .attraction-space {
+    margin: 45px auto;
     width: 1200px;
     display: grid;
-    margin: auto;
+    // margin: auto;
     grid-template-columns: repeat(2, 1fr);
     .attraction-carousel {
       margin: auto;
