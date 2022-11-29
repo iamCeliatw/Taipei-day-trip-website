@@ -57,9 +57,9 @@ def attraction_spot():
             result = result[:-1]
             return jsonify({'nextPage': page+1, 'data':result})
 
-        elif keyword:
-            perpage = 12
-            offset = page * perpage
+        else:
+            perpage = 13
+            offset = page * (perpage-1)
             conn = db.connection.get_connection()
             sql = "SELECT sid,id,name,cat,description,direction,mrt,address,latitude,longitude, image FROM `spots` WHERE `cat` = %s or name LIKE %s LIMIT %s OFFSET %s"
             val = [keyword, "%"+f"{keyword}"+"%", perpage, offset]
@@ -77,8 +77,9 @@ def attraction_spot():
             conn.close()
             for i in range(len(result)):
                 result[i]['image'] = imgs[i]
-            if len(result) < 12:
+            if len(result) < 13:
                 return jsonify({'nextPage': None,'data':result})
+            result = result[:-1]
             return jsonify({'nextPage': page+1,'data':result})
     except:
         return jsonify({'error': True, 'message': "伺服器內部錯誤"}), 500
@@ -96,9 +97,7 @@ def attraction(id):
         print(result)
         if result is not None:
             str = ''.join(result)
-            # print(str)
             img = str.split('https://')
-            # print(img)
             img.pop(0)
             arrImg = []
             for i in img:
@@ -119,5 +118,5 @@ def attraction(id):
             return jsonify({"error": True, "message": "景點編號不正確"}), 400
     except:
             return jsonify({"error": True, "message": "伺服器內部錯誤"}), 500
-	# return render_template("attraction.html")
+
 

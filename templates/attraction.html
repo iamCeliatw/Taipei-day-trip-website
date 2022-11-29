@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static',filename='styles/css/attraction.css')}}"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="title">
+      <div class="bg">
+        <h3 href="#">台北一日遊</h3>
+        <nav class="navbar">
+          <ul>
+            <li><button>預定行程</button></li>
+            <li><button onclick="showDialog()">登入/註冊</button></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <hr class="nav-hr" />
+
+    <main>
+      <section class="attraction-space">
+        <div class="attraction-carousel">
+          <button class="carousel__button carousel__button--left is-hidden">
+            <img src="../image/btn_leftArrow.png" alt="" />
+          </button>
+
+          <div class="carousel__track-container">
+            <ul class="carousel__track">
+              <!-- <li class="carousel__slide current-slide">
+            <img class="carousel__image" src="img.png" alt="" />
+          </li>
+
+          <li class="carousel__slide">
+            <img class="carousel__image" src="123.jpg" alt="" />
+          </li>
+
+          <li class="carousel__slide">
+            <img class="carousel__image" src="456.jpg" alt="" />
+          </li> -->
+            </ul>
+          </div>
+
+          <button class="carousel__button carousel__button--right">
+            <img src="../image/btn_rightArrow.png" alt="" />
+          </button>
+          <div class="carousel__nav">
+            <!-- <button class="carousel__indicator current-slide"></button> -->
+            <!--             
+            <button class="carousel__indicator"></button>
+            <button class="carousel__indicator"></button>
+            <button class="carousel__indicator"></button>
+            <button class="carousel__indicator"></button> -->
+          </div>
+        </div>
+
+        <section class="attraction-message">
+          <!-- <div class="attraction-data">
+                <h3>新北投溫泉區</h3>
+                <p>養生溫泉 at 新北投</p>
+            </div>` -->
+
+          <div class="attraction-detail">
+            <h3>訂購瀏覽行程</h3>
+            <p>以此景點為中心的一日行程，帶您探索城市角落故事</p>
+            <span>選擇日期：</span>
+            <span><input class="date" type="date" /></span>
+
+            <div class="chooseTime">
+              <span class="question">選擇行程：</span>
+              <span>
+                <input type="radio" id="test1" name="radio-group" checked />
+                <label class="oneHalfDay" for="test1">上半天</label>
+              </span>
+              <span>
+                <input type="radio" id="test2" name="radio-group" />
+                <label class="nextHalfDay" for="test2">下半天</label>
+              </span>
+            </div>
+            <span class="question">導覽費用：</span>
+            <span class="totalPrice">新台幣2000元</span>
+            <br />
+            <input
+              class="reservation"
+              value="開始預約行程"
+              type="button"
+              name="submit"
+            />
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <hr class="middle-hr" />
+    <div class="description">
+      <!-- <p>
+        平安鐘祈求大家的平安，這是為......
+     </p>
+      <h3>景點地址：</h3>
+      <p>台北市 大安區忠孝東路</p>
+      <h3>交通方式：</h3>
+      <p>
+        捷運站名：忠孝復興站4號出口1.公車：204、212、212直、232、232副、262、262(區間)、278、299、521、605、605(副)、605(新台五線)、667、903、忠孝新幹線至頂好市場站
+        2.車位：太平洋崇光百貨地下停車場或市民大道附近地下停車場
+      </p> -->
+    </div>
+    <footer>
+      <div class="footer">
+        <p>COPYRIGHT © 2022 台北一日遊</p>
+      </div>
+    </footer>
+    <script
+      type="text/javascript"
+      src="{{url_for('static', filename='styles/js/attraction.js')}}"
+    ></script>
+  </body>
+</html>

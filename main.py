@@ -1,6 +1,7 @@
 import os
 
 from flask import *
+
 # from flask_cors import CORS
 import setting
 from api import api
@@ -31,9 +32,15 @@ app.register_blueprint(api)
 # cors = CORS(app, resources={r"/cities/*": {"origins": "*"}})
 
 
+# Pages
 @app.route("/")
 def index():
-    return render_template("index.html")
+	return render_template("index.html")
+@app.route("/attraction/<id>")
+# @app.route("/attraction")
+def attraction(id):
+# def attraction():
+    return render_template("attraction.html")
 
 @app.route("/booking")
 def booking():
@@ -41,6 +48,7 @@ def booking():
 @app.route("/thankyou")
 def thankyou():
 	return render_template("thankyou.html")
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0',port=3000, debug=True)
