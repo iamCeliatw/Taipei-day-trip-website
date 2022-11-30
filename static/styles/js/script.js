@@ -20,6 +20,7 @@ let main = document.querySelector(".main");
 let spotList = document.querySelector(".list");
 let spot = document.querySelector(".spot");
 let noItem = document.createElement("div");
+let footer = document.querySelector(".footer");
 
 function showDialog() {
   greenBar.style.display = "block";
@@ -71,17 +72,15 @@ function getData() {
     // console.log("before fetch", isLoad);
     if (keyword) {
       url = `${location.href}/api/attractions?page=${page}&keyword=${keyword} `;
-      console.log(page, keyword);
     } else {
       url = `${location.href}/api/attractions?page=${page}`;
-      console.log(page, keyword);
     }
-    // } else if (!page && !keyword) {
-    //   console.log("There is no result here!");
-    // }
+
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
+        // console.log(data.data);
+
         if (data.data.length === 0) {
           noItem.replaceChildren();
           noItem.classList.add("noItem");
@@ -94,22 +93,26 @@ function getData() {
           lens = data.data.length;
           // console.log(lens);
           for (let i = 0; i < lens; i++) {
+            let aItem = document.createElement("a");
             let liItem = document.createElement("div");
             let imgItem = document.createElement("img");
-            let nameItem = document.createElement("div");
+            let nameItem = document.createElement("a");
             let mrtCat = document.createElement("div");
+            aItem.setAttribute("href", `/attraction/${result[i].id}`);
+            nameItem.setAttribute("href", `/attraction/${result[i].id}`);
             liItem.classList.add("spot");
             spotList.appendChild(liItem);
             let box = document.createElement("div");
             box.classList.add("box");
             liItem.appendChild(box);
-            //   console.log(box);
             imgItem.setAttribute("src", result[i].image[0]);
             imgItem.classList.add("imgItem");
             nameItem.classList.add("nameItem");
+            nameItem.setAttribute("id", result[i].id);
             mrtCat.classList.add("mrtItem");
             nameItem.textContent = result[i].name;
-            box.appendChild(imgItem);
+            box.appendChild(aItem);
+            aItem.appendChild(imgItem);
             box.appendChild(nameItem);
             box.appendChild(mrtCat);
             //   console.log(mrtCat);
@@ -146,36 +149,24 @@ function search() {
   getData();
 }
 
-// function removeChildElement() {
-//   let spotList = document.querySelector(".list");
-//   spotList.replaceChildren();
-// }
-
 let options = {
   root: null, // document viewport
   rootMargin: "0px",
   threshold: 0.3, // 進入畫面的比例
 };
-
-let observer = new IntersectionObserver(handleIntersect, options);
-observer.observe(document.querySelector("footer"));
-function handleIntersect(entires) {
-  observer.observe(document.querySelector("footer"));
+//創建一個observer
+let observer = new IntersectionObserver(callback, options);
+//觀察footer
+observer.observe(footer);
+// callback
+function callback(entires) {
+  //   observer.observe(footer);
   if (entires[0].isIntersecting) {
     ct++;
     if (ct > 1) {
-      //   console.log("before", isLoad);
-      //   isLoad = true;
-      //   console.log("after", isLoad);
-      //   console.log("page", page);
       if (!isLoad && page) {
         getData();
-        // console.log(lens);
-        observer.unobserve(target);
-        observer.observe(document.querySelector("footer"));
-      } else {
-        observer.unobserve(target);
-        // observer.observe(document.querySelector("footer"));
+        observer.observe(footer);
       }
     }
   }

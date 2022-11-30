@@ -3,11 +3,11 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Noto Sans TC", sans-serif;
+  font-family: "Noto Sans TC", sans-serif !important;
 }
 
 .title {
-  position: fixed; /* Set the navbar to fixed position */
+  position: fixed;
   top: 0;
   width: 100%;
   justify-content: center;
@@ -27,35 +27,33 @@
   margin: auto;
 }
 .title .bg h3 {
+  font-weight: 700;
   font-size: 30px;
   color: #448899;
 }
-
-.navbar {
+.title .bg .navbar {
   display: flex;
 }
-.navbar ul {
+.title .bg .navbar ul {
   display: flex;
   text-align: center;
   color: #666666;
 }
-.navbar ul li {
+.title .bg .navbar li {
   list-style: none;
   display: inline-block;
   padding: 0px 10px;
   font-size: 20px;
 }
-.navbar ul li button {
+.title .bg .navbar li button {
   background: none;
   color: #666666;
   border: none;
-  padding: 0;
   font-size: 16px;
-  line-height: 13px;
   cursor: pointer;
   outline: inherit;
 }
-.navbar .greenBar {
+.title .greenBar {
   display: none;
   z-index: 2;
   position: fixed;
@@ -67,7 +65,7 @@
   border-radius: 6px 6px 0px 0px;
   background: linear-gradient(270deg, #337788 0%, #66aabb 100%);
 }
-.navbar .dialog {
+.title .dialog {
   z-index: 2;
   display: none;
   position: fixed;
@@ -81,27 +79,27 @@
   border-radius: 0px 0px 6px 6px;
   margin-top: 15px;
 }
-.navbar .dialog p {
+.title .dialog p {
   text-align: center;
 }
-.navbar .dialog .close {
+.title .dialog .close {
   position: absolute;
   top: 7px;
   right: 7px;
   cursor: pointer;
 }
-.navbar .dialog .close img {
+.title .dialog .close img {
   width: 16px;
   height: 16px;
 }
-.navbar .dialog .loginPage .inputArea {
+.title .dialog .loginPage .inputArea {
   border: 1px solid #cccccc;
   margin-top: 15px;
   width: 310px;
   height: 47px;
   border-radius: 5px;
 }
-.navbar .dialog .btn {
+.title .dialog .btn {
   margin-top: 15px;
   align-items: center;
   width: 310px;
@@ -110,12 +108,12 @@
   border: 1px solid #cccccc;
   background-color: #448899;
 }
-.navbar .dialog .notyetMessage {
+.title .dialog .notyetMessage {
   margin-top: 15px;
 }
 
 .lay {
-  z-index: 1;
+  z-index: 0;
   position: absolute;
   top: 0;
   width: 100vw;
@@ -128,7 +126,7 @@ header {
   margin-top: 45px;
   display: flex;
   height: 300px;
-  background-image: url("../image/welcome.png");
+  background-image: url("welcome.png");
   background-size: cover;
   align-items: center;
 }
@@ -236,6 +234,7 @@ header .text_center .descript-left .searchBtn .catPlace .catItem:hover {
   vertical-align: top;
 }
 .list .spot .box .nameItem {
+  text-decoration: none;
   padding: 0px 10px;
   font-size: 16px;
   text-align: left;
