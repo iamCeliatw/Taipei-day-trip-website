@@ -13,22 +13,127 @@
   </head>
   <body>
     <div class="title">
+      <div class="lay hide"></div>
       <div class="bg">
-        <h3 href="#">台北一日遊</h3>
+        <h3 onclick="backHomePage() ">台北一日遊</h3>
         <nav class="navbar">
           <ul>
             <li><button>預定行程</button></li>
-            <li><button onclick="showDialog()">登入/註冊</button></li>
+            <li class="signInBtn">
+              <button class="signinText" onclick="showSigninDialog()">
+                登入/註冊
+              </button>
+            </li>
+            <li class="signupBtn">
+              <!-- 登出function還沒設定 -->
+              <button class="logoutText hide">登出</button>
+            </li>
           </ul>
         </nav>
       </div>
     </div>
-    <hr class="nav-hr" />
 
+    <div id="signinPlace" class="signPlace">
+      <div class="greenBar"></div>
+      <div class="dialog">
+        <h3>登入會員帳號</h3>
+        <div class="close" onclick="closeSignDialog()">
+          <img src="../image/icon_close.png" alt="" />
+        </div>
+
+        <form action="" method="">
+          <div class="sign-page">
+            <div class="type-place">
+              <input
+                id="signinEmail"
+                class="inputArea"
+                placeholder="輸入電子信箱"
+                type="text"
+                name="email"
+                required
+              />
+              <input
+                id="signinPassword"
+                class="inputArea"
+                placeholder="輸入密碼"
+                type="password"
+                name="password"
+                pattern="^(?=.*[a-zA-Z])(?=.*[0-9]).{6,}$"
+                required
+              />
+              <input
+                type="submit"
+                value="登入帳戶"
+                class="btn"
+                id="signinBtn"
+              />
+              <p class="signinMsg msg"></p>
+              <span class="remindMessage">還沒有帳戶？</span
+              ><a href="javascript: void(0)" onclick="showSignupDialog()"
+                ><span class="remindMessage">點此註冊</span></a
+              >
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div id="signupPlace" class="signPlace">
+      <div class="greenBar"></div>
+      <div class="dialog">
+        <h3>註冊會員帳號</h3>
+        <div class="close" onclick="closeSignDialog()">
+          <img src="../image/icon_close.png" alt="" />
+        </div>
+        <form>
+          <div class="sign-page">
+            <div class="type-place">
+              <input
+                id="signupName"
+                class="inputArea"
+                placeholder="輸入姓名"
+                type="text"
+                name="name"
+                required
+              />
+              <input
+                id="signupEmail"
+                class="inputArea"
+                placeholder="輸入電子信箱"
+                type="text"
+                name="email"
+                required
+              />
+              <input
+                id="signupPassword"
+                class="inputArea"
+                placeholder="輸入密碼"
+                type="password"
+                name="password"
+                pattern="^(?=.*[a-zA-Z])(?=.*[0-9]).{6,}$"
+                required
+              />
+              <input
+                type="submit"
+                class="btn"
+                id="signupBtn"
+                value="註冊帳戶"
+              />
+              <span class="signupMsg msg"></span>
+              <span class="remindMessage">已經有帳戶？</span
+              ><a href="javascript: void(0)" onclick="showSigninDialog()"
+                ><span class="remindMessage">點此登入</span></a
+              >
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <hr class="nav-hr" />
     <main>
       <section class="attraction-space">
         <div class="attraction-carousel">
-          <button class="carousel__button carousel__button--left is-hidden">
+          <button class="carousel__button carousel__button--left">
             <img src="../image/btn_leftArrow.png" alt="" />
           </button>
 
