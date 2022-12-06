@@ -373,7 +373,10 @@ main .attraction-message .attraction-detail .reservation:hover {
 }
 
 iframe {
-  margin: 50px;
+  margin-top: 50px;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16/9;
 }
 
 @media screen and (max-width: 1200px) {
