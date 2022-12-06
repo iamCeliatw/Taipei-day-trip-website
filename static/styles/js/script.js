@@ -10,7 +10,7 @@ let lens;
 
 const btn = document.querySelector(".btn");
 const close = document.querySelector(".close");
-const signinPlace = document.querySelector("#signinPlace");
+const inPlace = document.querySelector("#signinPlace");
 const signupPlace = document.querySelector("#signupPlace");
 
 const lay = document.querySelector(".lay");
@@ -29,6 +29,7 @@ const logoutText = document.querySelector(".logoutText");
 const msg = document.querySelector(".msg");
 const signinMsg = document.querySelector(".signinMsg");
 const signupMsg = document.querySelector(".signupMsg");
+const reservationText = document.querySelector(".reservationText");
 // sign up
 signupBtn.addEventListener("click", (e) => {
   //   isClick = false;
@@ -111,10 +112,13 @@ function getUser() {
     .then((data) => {
       //未登入
       if (!data.data) {
+        console.log(data);
+        reservationText.classList.remove("hide");
         logoutText.classList.add("hide");
         signinText.classList.remove("hide");
       } else if (data.data) {
         console.log(data);
+        reservationText.classList.remove("hide");
         signinText.classList.add("hide");
         logoutText.classList.remove("hide");
       }

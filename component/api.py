@@ -121,7 +121,7 @@ def attraction(id):
 
 @api.route('user', methods=["POST"])
 def user():
-    try:
+    # try:
         data = request.get_json()
         name = data['name']
         email = data['email']
@@ -139,16 +139,20 @@ def user():
             return {"error": True, "message": "欄位不得為空"}, 400
         elif user:
             return {"error": True, "message": "信箱已被註冊"}, 400
-        conn = db.connection.get_connection()
+        elif len(password) < 6:
+                  return {"error":True,"message":"密碼長度至少6字元"},400
         sql = "INSERT INTO member (name, email, password) VALUES (%s, %s, %s)"
         val = [name, email, password]
+        conn = db.connection.get_connection()
+        cursor = conn.cursor()
         cursor.execute(sql, val)
         conn.commit()
         cursor.close()
         conn.close()
         return {"ok":True,  "message": "您已註冊成功✅，請登入"}
-    except:
-        return {"error": True, "message": "伺服器內部錯誤"}, 500
+    # except:
+
+    #     return {"error": True, "message": "伺服器內部錯誤"}, 500
 
 @api.route('user/auth',methods=["GET","PUT","DELETE"])
 def user_auth():
@@ -165,6 +169,8 @@ def user_auth():
             password = data['password']
             if userMail == '' or password == '':
                 return {"error":True,"message":"欄位不得為空"},400
+            if len(password) < 6:
+                  return {"error":True,"message":"密碼長度至少6字元"},400
             sql = "SELECT id, name, email, password FROM member WHERE email = %s AND password = %s "
             val = [userMail,password]
             conn = db.connection.get_connection()

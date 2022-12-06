@@ -22,6 +22,7 @@ const signinText = document.querySelector(".signinText");
 const logoutText = document.querySelector(".logoutText");
 const signinMsg = document.querySelector(".signinMsg");
 const signupMsg = document.querySelector(".signupMsg");
+const reservationText = document.querySelector(".reservationText");
 
 // 註冊按鈕
 signupBtn.addEventListener("click", (e) => {
@@ -259,10 +260,12 @@ function getUser() {
     .then((data) => {
       //未登入
       if (!data.data) {
+        reservationText.classList.remove("hide");
         logoutText.classList.add("hide");
         signinText.classList.remove("hide");
       } else if (data.data) {
         console.log(data);
+        reservationText.classList.remove("hide");
         signinText.classList.add("hide");
         logoutText.classList.remove("hide");
       }
