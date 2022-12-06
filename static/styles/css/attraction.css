@@ -9,6 +9,17 @@ input[type=date]::-webkit-calendar-picker-indicator {
   opacity: 0;
 }
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Noto Sans TC", sans-serif;
+}
+
+.hide {
+  display: none;
+}
+
 .title {
   position: fixed;
   top: 0;
@@ -30,6 +41,7 @@ input[type=date]::-webkit-calendar-picker-indicator {
   margin: auto;
 }
 .title .bg h3 {
+  cursor: pointer;
   font-size: 30px;
   color: #448899;
 }
@@ -44,23 +56,105 @@ input[type=date]::-webkit-calendar-picker-indicator {
 .title .bg .navbar li {
   list-style: none;
   display: inline-block;
-  padding: 0px 10px;
   font-size: 20px;
 }
 .title .bg .navbar li button {
   background: none;
   color: #666666;
   border: none;
-  padding: 0;
   font-size: 16px;
-  line-height: 13px;
   cursor: pointer;
   outline: inherit;
 }
+.title .bg .navbar .signInBtn {
+  padding-left: 20px;
+}
 
-.nav-hr {
-  margin-top: 45px;
-  border: 1px solid #e8e8e8;
+.signPlace {
+  position: fixed;
+  top: 8%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  z-index: 3;
+  display: none;
+}
+.signPlace .greenBar {
+  width: 340px;
+  height: 10px;
+  border-radius: 6px 6px 0px 0px;
+  background: linear-gradient(270deg, #337788 0%, #66aabb 100%);
+}
+.signPlace .dialog {
+  width: 340px;
+  height: auto;
+  padding: 10px;
+  background: #ffffff;
+  box-shadow: 0px 4px 60px #aaaaaa;
+  border-radius: 0px 0px 6px 6px;
+}
+.signPlace .dialog h3 {
+  font-size: 20px;
+  color: #666666;
+  text-align: center;
+}
+.signPlace .dialog .msg {
+  display: none;
+  color: rgb(255, 46, 46);
+}
+.signPlace .dialog .close {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  cursor: pointer;
+}
+.signPlace .dialog .close img {
+  width: 16px;
+  height: 16px;
+  margin-top: 20px;
+}
+.signPlace .dialog .sign-page {
+  display: flex;
+  text-align: center;
+}
+.signPlace .dialog .sign-page .type-place .inputArea {
+  font-size: 16px;
+  padding-left: 15px;
+  border: 1px solid #cccccc;
+  margin-top: 15px;
+  width: 310px;
+  height: 40px;
+  border-radius: 5px;
+}
+.signPlace .dialog .sign-page .btn {
+  font-size: 16px;
+  color: #fff;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  align-items: center;
+  width: 310px;
+  height: 47px;
+  border-radius: 5px;
+  border: 1px solid #cccccc;
+  background-color: #448899;
+}
+.signPlace .dialog .sign-page .btn:hover {
+  border: 2px #448899 solid;
+  background-color: #ffffff;
+  color: #448899;
+}
+.signPlace .dialog .sign-page .remindMessage {
+  color: #666666;
+  line-height: 2;
+}
+
+.lay {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #000000;
+  opacity: 0.25;
 }
 
 main .attraction-space {
@@ -108,8 +202,9 @@ main .attraction-space .attraction-carousel .carousel__button {
   cursor: pointer;
 }
 main .attraction-space .attraction-carousel .carousel__button img {
+  margin: 0px 10px;
   width: 36px;
-  opacity: 0.5;
+  opacity: 0.8;
 }
 main .attraction-space .attraction-carousel .carousel__button--left {
   z-index: 1;
@@ -119,7 +214,6 @@ main .attraction-space .attraction-carousel .carousel__button--right {
   right: 0px;
 }
 main .attraction-space .attraction-carousel .carousel__nav {
-  /* background-color: pink; */
   position: absolute;
   transform: translateX(-50%);
   left: 50%;
@@ -280,16 +374,22 @@ main .attraction-message .attraction-detail .reservation:hover {
   display: none;
 }
 
+iframe {
+  margin-top: 50px;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16/9;
+}
+
 @media screen and (max-width: 1200px) {
-  main {
-    width: auto;
-  }
   main .attraction-space {
-    height: auto;
     width: auto;
     grid-template-columns: repeat(auto-fit, minmax(65%, auto));
     justify-content: center;
     align-items: center;
+  }
+  main .attraction-space .attraction-carousel {
+    max-width: 90%;
   }
   main .attraction-message {
     margin: auto;
@@ -306,7 +406,7 @@ main .attraction-message .attraction-detail .reservation:hover {
 }
 @media screen and (max-width: 600px) {
   main .attraction-space .attraction-carousel {
-    width: 100%;
+    max-width: 100vw;
     margin: auto;
   }
   main .attraction-space .attraction-carousel .carousel__track-container {

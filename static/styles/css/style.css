@@ -3,7 +3,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Noto Sans TC", sans-serif !important;
+  font-family: "Noto Sans TC", sans-serif;
 }
 
 .title {
@@ -27,7 +27,7 @@
   margin: auto;
 }
 .title .bg h3 {
-  font-weight: 700;
+  cursor: pointer;
   font-size: 30px;
   color: #448899;
 }
@@ -42,7 +42,6 @@
 .title .bg .navbar li {
   list-style: none;
   display: inline-block;
-  padding: 0px 10px;
   font-size: 20px;
 }
 .title .bg .navbar li button {
@@ -53,54 +52,70 @@
   cursor: pointer;
   outline: inherit;
 }
-.title .greenBar {
-  display: none;
-  z-index: 2;
+.title .bg .navbar .signInBtn {
+  padding-left: 20px;
+}
+
+.signPlace {
   position: fixed;
+  top: 8%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  z-index: 3;
+  display: none;
+}
+.signPlace .greenBar {
   width: 340px;
   height: 10px;
-  left: 630px;
-  top: 80px;
-  padding: 10px;
   border-radius: 6px 6px 0px 0px;
   background: linear-gradient(270deg, #337788 0%, #66aabb 100%);
 }
-.title .dialog {
-  z-index: 2;
-  display: none;
-  position: fixed;
+.signPlace .dialog {
   width: 340px;
-  height: 275px;
-  left: 630px;
-  top: 80px;
+  height: auto;
   padding: 10px;
   background: #ffffff;
   box-shadow: 0px 4px 60px #aaaaaa;
   border-radius: 0px 0px 6px 6px;
-  margin-top: 15px;
 }
-.title .dialog p {
+.signPlace .dialog h3 {
+  font-size: 20px;
+  color: #666666;
   text-align: center;
 }
-.title .dialog .close {
+.signPlace .dialog .msg {
+  display: none;
+  color: rgb(255, 46, 46);
+}
+.signPlace .dialog .close {
   position: absolute;
   top: 7px;
   right: 7px;
   cursor: pointer;
 }
-.title .dialog .close img {
+.signPlace .dialog .close img {
   width: 16px;
   height: 16px;
+  margin-top: 20px;
 }
-.title .dialog .loginPage .inputArea {
+.signPlace .dialog .sign-page {
+  display: flex;
+  text-align: center;
+}
+.signPlace .dialog .sign-page .type-place .inputArea {
+  font-size: 16px;
+  padding-left: 15px;
   border: 1px solid #cccccc;
   margin-top: 15px;
   width: 310px;
-  height: 47px;
+  height: 40px;
   border-radius: 5px;
 }
-.title .dialog .btn {
+.signPlace .dialog .sign-page .btn {
+  font-size: 16px;
+  color: #fff;
   margin-top: 15px;
+  margin-bottom: 5px;
   align-items: center;
   width: 310px;
   height: 47px;
@@ -108,12 +123,18 @@
   border: 1px solid #cccccc;
   background-color: #448899;
 }
-.title .dialog .notyetMessage {
-  margin-top: 15px;
+.signPlace .dialog .sign-page .btn:hover {
+  border: 2px #448899 solid;
+  background-color: #ffffff;
+  color: #448899;
+}
+.signPlace .dialog .sign-page .remindMessage {
+  color: #666666;
+  line-height: 2;
 }
 
 .lay {
-  z-index: 0;
+  z-index: 1;
   position: absolute;
   top: 0;
   width: 100vw;
@@ -211,6 +232,7 @@ header .text_center .descript-left .searchBtn .catPlace .catItem:hover {
 }
 
 .list {
+  z-index: 0;
   width: 1200px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);

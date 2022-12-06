@@ -6,34 +6,149 @@ let isLoad = false;
 let keyword;
 let url;
 let lens;
+// let isClick = true;
 
-let btn = document.querySelector(".btn");
-let close = document.querySelector(".close");
-let greenBar = document.querySelector(".greenBar");
-let dialog = document.querySelector("#dialog");
+const btn = document.querySelector(".btn");
+const close = document.querySelector(".close");
+const inPlace = document.querySelector("#signinPlace");
+const signupPlace = document.querySelector("#signupPlace");
 
-let deskOverlay = document.querySelector(".lay");
-let spotInput = document.querySelector("#spotInput");
-let catPlace = document.querySelector(".catPlace");
-let main = document.querySelector(".main");
+const lay = document.querySelector(".lay");
+const spotInput = document.querySelector("#spotInput");
+const catPlace = document.querySelector(".catPlace");
+const main = document.querySelector(".main");
 
-let spotList = document.querySelector(".list");
-let spot = document.querySelector(".spot");
-let noItem = document.createElement("div");
-let footer = document.querySelector(".footer");
+const spotList = document.querySelector(".list");
+const spot = document.querySelector(".spot");
+const noItem = document.createElement("div");
+const footer = document.querySelector(".footer");
+const signinBtn = document.querySelector("#signinBtn");
+const signupBtn = document.querySelector("#signupBtn");
+const signinText = document.querySelector(".signinText");
+const logoutText = document.querySelector(".logoutText");
+const msg = document.querySelector(".msg");
+const signinMsg = document.querySelector(".signinMsg");
+const signupMsg = document.querySelector(".signupMsg");
+const reservationText = document.querySelector(".reservationText");
+// sign up
+signupBtn.addEventListener("click", (e) => {
+  //   isClick = false;
+  e.preventDefault();
+  let signupName = document.querySelector("#signupName").value;
+  let signupEmail = document.querySelector("#signupEmail").value;
+  let signupPassword = document.querySelector("#signupPassword").value;
+  fetch(`${location.href}api/user`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: signupName,
+      email: signupEmail,
+      password: signupPassword,
+    }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      //   console.log(data.ok);
+      if (data.error) {
+        // isClick = false;
+        signupMsg.style.display = "block";
+        signupMsg.style.color = "red";
+        signupMsg.textContent = data.message;
+        window.setTimeout(hideMsg, 2000);
+        // isClick = true;
+      } else {
+        console.log(data);
+        signupMsg.style.display = "block";
+        signupMsg.textContent = data.message;
+        signupMsg.style.color = "green";
+      }
+    });
+});
 
-function showDialog() {
-  greenBar.style.display = "block";
-  dialog.style.display = "block";
-  deskOverlay.classList.remove("hide");
+// signin
+signinBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  let signinEmail = document.querySelector("#signinEmail").value;
+  let signinPassword = document.querySelector("#signinPassword").value;
+  fetch(`${location.href}/api/user/auth`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email: signinEmail, password: signinPassword }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.error) {
+        signinMsg.style.display = "block";
+        signinMsg.textContent = data.message;
+        window.setTimeout(hideMsg, 2000);
+      } else {
+        closeSignDialog();
+        console.log(data);
+        signinText.classList.add("hide");
+        logoutText.classList.remove("hide");
+        location.reload();
+      }
+    });
+});
+
+function hideMsg() {
+  signupMsg.style.display = "none";
+  signinMsg.style.display = "none";
 }
 
-function closeDialog() {
-  greenBar.style.display = "none";
-  dialog.style.display = "none";
-  deskOverlay.classList.add("hide");
+// get user
+function getUser() {
+  fetch(`${location.href}/api/user/auth`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      //未登入
+      if (!data.data) {
+        console.log(data);
+        reservationText.classList.remove("hide");
+        logoutText.classList.add("hide");
+        signinText.classList.remove("hide");
+      } else if (data.data) {
+        console.log(data);
+        reservationText.classList.remove("hide");
+        signinText.classList.add("hide");
+        logoutText.classList.remove("hide");
+      }
+    });
 }
 
+//點台北一日遊 回到首頁
+function backHomePage() {
+  window.location = "/";
+}
+//點擊登入 跳出視窗
+function showSigninDialog() {
+  signupPlace.style.display = "none";
+  signinPlace.style.display = "block";
+  lay.classList.remove("hide");
+}
+
+// 點擊 點此註冊 隱藏登入框 顯示註冊框
+function showSignupDialog() {
+  signinPlace.style.display = "none";
+  signupPlace.style.display = "block";
+}
+//關閉註冊登入
+function closeSignDialog() {
+  signinPlace.style.display = "none";
+  signupPlace.style.display = "none";
+  lay.classList.add("hide");
+}
+
+//搜尋景點分類框
 function spotSearch() {
   catPlace.style.display = "flex";
   let cat = catPlace.getElementsByTagName("span");
@@ -65,22 +180,40 @@ window.addEventListener("load", (e) => {
       }
     });
   getData();
+  getUser();
 });
+
+//點擊登出系統
+logoutText.addEventListener("click", (e) => {
+  fetch(`${location.href}/api/user/auth`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      if (data.ok) {
+        logoutText.classList.add("hide");
+        signinText.classList.remove("hide");
+        location.reload();
+      }
+    });
+});
+
+//取得首頁景點資訊
 function getData() {
   try {
     isLoad = true;
-    // console.log("before fetch", isLoad);
     if (keyword) {
       url = `${location.href}/api/attractions?page=${page}&keyword=${keyword} `;
     } else {
       url = `${location.href}/api/attractions?page=${page}`;
     }
-
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data.data);
-
         if (data.data.length === 0) {
           noItem.replaceChildren();
           noItem.classList.add("noItem");
@@ -126,15 +259,15 @@ function getData() {
             mrtCat.append(cat);
           }
           page = data.nextPage;
-
           isLoad = false;
-          // console.log("123", isLoad);
           lens = data.data.length;
         }
       });
-    // console.log(page);
   } catch (error) {
-    // console.log(`Error: ${error}`);
+    console.log(
+      "There has been a problem with your fetch operation: ",
+      error.message
+    );
   }
 }
 
@@ -142,25 +275,22 @@ function getData() {
 function search() {
   page = 0;
   keyword = spotInput.value;
-
   let spotList = document.querySelector(".list");
-
   spotList.replaceChildren();
   getData();
 }
 
+// 偵測滾動 載入更多
 let options = {
   root: null, // document viewport
   rootMargin: "0px",
   threshold: 0.3, // 進入畫面的比例
 };
-//創建一個observer
 let observer = new IntersectionObserver(callback, options);
 //觀察footer
 observer.observe(footer);
 // callback
 function callback(entires) {
-  //   observer.observe(footer);
   if (entires[0].isIntersecting) {
     ct++;
     if (ct > 1) {

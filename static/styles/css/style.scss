@@ -2,26 +2,21 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  //   font-family: "Noto Sans TC";
-  font-family: "Noto Sans TC", sans-serif !important;
+  font-family: "Noto Sans TC", sans-serif;
 }
 
 .title {
-  //   overflow: hidden;
   position: fixed;
   top: 0;
   width: 100%;
   justify-content: center;
   background-color: #fff;
   display: flex;
-  //   align-items: flex-end;
   z-index: 1;
-  //   width: 1200px;
   align-items: center;
   margin: 0 auto;
   padding: 0;
   justify-content: space-between;
-  //   padding: 5px 195px;
   .bg {
     width: 1200px;
     display: flex;
@@ -29,7 +24,8 @@
     justify-content: space-between;
     margin: auto;
     h3 {
-      font-weight: 700;
+      cursor: pointer;
+      //   font-weight: 700;
       font-size: 30px;
       color: #448899;
     }
@@ -43,7 +39,7 @@
       li {
         list-style: none;
         display: inline-block;
-        padding: 0px 10px;
+        // padding: 0px 10px;
         font-size: 20px;
         button {
           background: none;
@@ -54,38 +50,41 @@
           outline: inherit;
         }
       }
+      .signInBtn {
+        padding-left: 20px;
+      }
     }
   }
+}
 
-  //   background: linear-gradient(to right, blue, pink);
+.signPlace {
+  position: fixed;
+  top: 8%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  z-index: 3;
+  display: none;
   .greenBar {
-    display: none;
-    z-index: 2;
-    position: fixed;
     width: 340px;
     height: 10px;
-    left: 630px;
-    top: 80px;
-    padding: 10px;
     border-radius: 6px 6px 0px 0px;
     background: linear-gradient(270deg, #337788 0%, #66aabb 100%);
   }
   .dialog {
-    z-index: 2;
-    display: none;
-    position: fixed;
     width: 340px;
-    height: 275px;
-    // transform: translate(-100px, 0px);
-    left: 630px;
-    top: 80px;
+    height: auto;
     padding: 10px;
     background: #ffffff;
     box-shadow: 0px 4px 60px #aaaaaa;
     border-radius: 0px 0px 6px 6px;
-    margin-top: 15px;
-    p {
+    h3 {
+      font-size: 20px;
+      color: #666666;
       text-align: center;
+    }
+    .msg {
+      display: none;
+      color: rgb(255, 46, 46);
     }
 
     .close {
@@ -96,35 +95,52 @@
       img {
         width: 16px;
         height: 16px;
+        margin-top: 20px;
       }
     }
 
-    .loginPage {
+    .sign-page {
+      display: flex;
       //   margin: 5px;
-      .inputArea {
-        border: 1px solid #cccccc;
+      text-align: center;
+      .type-place {
+        .inputArea {
+          font-size: 16px;
+          padding-left: 15px;
+          border: 1px solid #cccccc;
+          margin-top: 15px;
+          width: 310px;
+          height: 40px;
+          border-radius: 5px;
+        }
+      }
+      .btn {
+        font-size: 16px;
+        color: #fff;
         margin-top: 15px;
+        margin-bottom: 5px;
+        align-items: center;
         width: 310px;
         height: 47px;
         border-radius: 5px;
+        border: 1px solid #cccccc;
+        background-color: #448899;
+        &:hover {
+          border: 2px #448899 solid;
+          background-color: #ffffff;
+          color: #448899;
+        }
       }
-    }
-    .btn {
-      margin-top: 15px;
-      align-items: center;
-      width: 310px;
-      height: 47px;
-      border-radius: 5px;
-      border: 1px solid #cccccc;
-      background-color: #448899;
-    }
-    .notyetMessage {
-      margin-top: 15px;
+      .remindMessage {
+        color: #666666;
+        line-height: 2;
+      }
     }
   }
 }
+
 .lay {
-  z-index: 0;
+  z-index: 1;
   position: absolute;
   top: 0;
   width: 100vw;
@@ -173,7 +189,7 @@ header {
           background-color: #448899;
           border-radius: 0 5px 5px 0;
           box-shadow: 0px 0px 20px #aabbcc;
-          //   opacity: 0.8;
+
           img {
             width: 30px;
             height: 30px;
@@ -181,7 +197,7 @@ header {
           }
           &:hover {
             background-color: #5dabbf;
-            // opacity: 0.8;
+
             cursor: pointer;
           }
         }
@@ -225,6 +241,7 @@ header {
 }
 
 .list {
+  z-index: 0;
   width: 1200px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -252,18 +269,17 @@ header {
         font-size: 16px;
         text-align: left;
         line-height: 40px;
-        // top: 66%;
+
         position: absolute;
         left: 0;
         bottom: 45px;
         height: 40px;
         width: 270px;
-        // left: 2%;
+
         background: #000000;
         color: #fff;
         opacity: 0.6;
         margin: 0;
-        // margin: auto;
       }
       .mrtItem {
         display: flex;
@@ -276,7 +292,6 @@ header {
         background: #fff;
         margin: auto;
         border: 1px solid #cccccc;
-        // opacity: 0.6;
         span {
           color: #757575;
           font-size: 16px;
@@ -311,12 +326,6 @@ header {
     text-decoration: none;
   }
 }
-
-// .noContent {
-//   color: #000 !important;
-//   background-color: transparent !important;
-//   pointer-events: none;
-// }
 
 .footer {
   background-color: #757575;
@@ -355,18 +364,12 @@ header {
     grid-template-columns: repeat(auto-fit, minmax(33%, 50%));
     .spot {
       .box {
-        //   position: relative;
         width: auto;
         img {
           width: 100%;
-          // height: ;
         }
         .nameItem {
-          // height: 50px;
           width: 100%;
-          //   left: 0;
-          //   // right: 5% !important;
-          //   top: 76%;
         }
         .mrtItem {
           width: 100%;
@@ -408,18 +411,9 @@ header {
     .list {
       grid-template-columns: repeat(auto-fit, minmax(auto, 100%));
       .spot {
-        // width: 450px;
-        // margin: auto;
         .box {
-          //   width: 90%;
-          //   img {
-          //     // width: 100%;
-          //   }
           .nameItem {
-            //   position: absolute;
             width: 100%;
-            // top: 63%;
-            // left: 0;
           }
           .mrtItem {
             width: 100%;
@@ -464,7 +458,6 @@ header {
         }
       }
     }
-
     .list {
       grid-template-columns: repeat(auto-fit, minmax(90%, auto));
     }

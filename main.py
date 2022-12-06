@@ -2,10 +2,11 @@ import os
 
 from flask import *
 
+from component.api import api
+from component.database import db
+
 # from flask_cors import CORS
-import setting
-from api import api
-from database import db
+
 
 app = Flask(__name__,
     template_folder='templates',
