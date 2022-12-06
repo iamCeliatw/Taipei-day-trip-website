@@ -133,11 +133,13 @@ def user():
         cursor = conn.cursor()
         cursor.execute(sql,val)
         user = cursor.fetchone()
-        # cursor.close()
+        cursor.close()
+        conn.close()
         if name == '' or email == '' or password == '':
             return {"error": True, "message": "欄位不得為空"}, 400
         elif user:
             return {"error": True, "message": "信箱已被註冊"}, 400
+        conn = db.connection.get_connection()
         sql = "INSERT INTO member (name, email, password) VALUES (%s, %s, %s)"
         val = [name, email, password]
         cursor.execute(sql, val)

@@ -23,7 +23,7 @@ const logoutText = document.querySelector(".logoutText");
 const signinMsg = document.querySelector(".signinMsg");
 const signupMsg = document.querySelector(".signupMsg");
 
-// sign up
+// 註冊按鈕
 signupBtn.addEventListener("click", (e) => {
   e.preventDefault();
   let signupName = document.querySelector("#signupName").value;
@@ -55,7 +55,12 @@ signupBtn.addEventListener("click", (e) => {
     });
 });
 
-// signin
+//點台北一日遊 回到首頁
+function backHomePage() {
+  window.location = "/";
+}
+
+// 登入按鈕
 signinBtn.addEventListener("click", (e) => {
   e.preventDefault();
   let signinEmail = document.querySelector("#signinEmail").value;
@@ -89,11 +94,11 @@ function hideMsg() {
 }
 
 window.addEventListener("load", (e) => {
-  getData();
   getUser();
+  getData();
 });
 
-//點擊登入 跳出視窗
+// 點擊登入 跳出視窗
 function showSigninDialog() {
   signupPlace.style.display = "none";
   signinPlace.style.display = "block";
@@ -105,30 +110,13 @@ function showSignupDialog() {
   signinPlace.style.display = "none";
   signupPlace.style.display = "block";
 }
-//關閉註冊登入
+// 關閉註冊登入
 function closeSignDialog() {
   signinPlace.style.display = "none";
   signupPlace.style.display = "none";
   lay.classList.add("hide");
 }
-
-//點擊登出系統
-logoutText.addEventListener("click", (e) => {
-  fetch(`${location.origin}/api/user/auth`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      if (data.ok) {
-        logoutText.classList.add("hide");
-        signinText.classList.remove("hide");
-        location.reload();
-      }
-    });
-});
+// 取得景點資訊
 function getData() {
   fetch(url + id)
     .then((response) => response.json())
@@ -259,15 +247,7 @@ function getData() {
     });
 }
 
-oneHalfDay.addEventListener("click", (e) => {
-  totalPrice.textContent = "新台幣2000元";
-});
-
-nextHalfDay.addEventListener("click", (e) => {
-  totalPrice.textContent = "新台幣2500元";
-});
-
-// get user
+// 載入頁面取得登入資訊
 function getUser() {
   fetch(`${location.origin}/api/user/auth`, {
     method: "GET",
@@ -288,3 +268,30 @@ function getUser() {
       }
     });
 }
+
+//點擊登出系統
+logoutText.addEventListener("click", (e) => {
+  fetch(`${location.origin}/api/user/auth`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.ok) {
+        logoutText.classList.add("hide");
+        signinText.classList.remove("hide");
+        location.reload();
+      }
+    });
+});
+
+//上半天顯示價錢
+oneHalfDay.addEventListener("click", (e) => {
+  totalPrice.textContent = "新台幣2000元";
+});
+// 下半天顯示價錢
+nextHalfDay.addEventListener("click", (e) => {
+  totalPrice.textContent = "新台幣2500元";
+});
