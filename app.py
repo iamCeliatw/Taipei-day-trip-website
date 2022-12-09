@@ -2,8 +2,9 @@ import os
 
 from flask import *
 
-from component.api import api
-from component.database import db
+from api.attraction import attract
+from api.member import member
+from api.database import db
 
 # from flask_cors import CORS
 
@@ -28,7 +29,8 @@ app.config['MYSQL_AUTOCOMMIT'] = True
 db.init_app(app)
 
 #Blueprint register
-app.register_blueprint(api)
+app.register_blueprint(attract)
+app.register_blueprint(member)
 # CORS(app, resources=r"/*")
 # cors = CORS(app, resources={r"/cities/*": {"origins": "*"}})
 
@@ -38,11 +40,8 @@ app.register_blueprint(api)
 def index():
 	return render_template("index.html")
 @app.route("/attraction/<id>")
-# @app.route("/attraction")
 def attraction(id):
-# def attraction():
     return render_template("attraction.html")
-
 @app.route("/booking")
 def booking():
 	return render_template("booking.html")

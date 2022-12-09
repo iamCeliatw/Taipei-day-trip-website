@@ -24,13 +24,19 @@ const signinMsg = document.querySelector(".signinMsg");
 const signupMsg = document.querySelector(".signupMsg");
 const reservationText = document.querySelector(".reservationText");
 
+var preloadLink = document.createElement("link");
+preloadLink.href = "/js/attraction.js";
+preloadLink.rel = "preload";
+preloadLink.as = "image";
+document.head.appendChild(preloadLink);
+
 // 註冊按鈕
 signupBtn.addEventListener("click", (e) => {
   e.preventDefault();
-  let signupName = document.querySelector("#signupName").value;
-  let signupEmail = document.querySelector("#signupEmail").value;
-  let signupPassword = document.querySelector("#signupPassword").value;
-  fetch(`${location.origin}/api/user`, {
+  const signupEmail = document.querySelector("#signupEmail").value;
+  const signupName = document.querySelector("#signupName").value;
+  const signupPassword = document.querySelector("#signupPassword").value;
+  fetch(`${location.origin}api/user`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -64,8 +70,8 @@ function backHomePage() {
 // 登入按鈕
 signinBtn.addEventListener("click", (e) => {
   e.preventDefault();
-  let signinEmail = document.querySelector("#signinEmail").value;
-  let signinPassword = document.querySelector("#signinPassword").value;
+  const signinEmail = document.querySelector("#signinEmail").value;
+  const signinPassword = document.querySelector("#signinPassword").value;
   fetch(`${location.origin}/api/user/auth`, {
     method: "PUT",
     headers: {
@@ -122,6 +128,8 @@ function getData() {
   fetch(url + id)
     .then((response) => response.json())
     .then((data) => {
+      //   console.log(document.title);
+      document.title = `Taipei day trip - ${data.data.name}`;
       for (let i = 0; i < data.data.image.length; i++) {
         track.insertAdjacentHTML(
           "beforeEnd",
@@ -168,12 +176,12 @@ function getData() {
 
       let slides = Array.prototype.slice.call(track.children);
 
-      let nextButton = document.querySelector(".carousel__button--right");
-      let prevButton = document.querySelector(".carousel__button--left");
-      let dotsNav = document.querySelector(".carousel__nav");
-      let dots = Array.from(dotsNav.children);
+      const nextButton = document.querySelector(".carousel__button--right");
+      const prevButton = document.querySelector(".carousel__button--left");
+      const dotsNav = document.querySelector(".carousel__nav");
+      const dots = Array.from(dotsNav.children);
       //取得圖片大小
-      let slideWidth = slides[0].getBoundingClientRect().width;
+      const slideWidth = slides[0].getBoundingClientRect().width;
 
       //給定每個slide left
       for (let i = 0; i < slides.length; i++) {
@@ -234,7 +242,7 @@ function getData() {
         hideShowArrows(slides, prevButton, nextButton, targetIndex);
       });
       let hideShowArrows = (slides, prevButton, nextButton, targetIndex) => {
-        if (targetIndex === 0) {
+        if (!targetIndex) {
           prevButton.classList.add("is-hidden");
           nextButton.classList.remove("is-hidden");
         } else if (targetIndex === slides.length - 1) {

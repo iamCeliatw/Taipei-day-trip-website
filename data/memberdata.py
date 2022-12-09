@@ -17,7 +17,7 @@ print("連線成功")
 
 cursor = conn.cursor()
 sql = """DROP TABLE IF EXISTS `member`;"""
-# sql = 'INSERT INTO accounts(id, name, email) VALUES (%s, %s, %s)'
+
 
 cursor.execute(sql)
 conn.commit()

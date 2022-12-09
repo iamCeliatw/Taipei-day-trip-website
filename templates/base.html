@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% block css %}{% endblock %}
+    <title>{% block title %}{% endblock %}</title>
+  </head>
+  <body>
+    <div class="title">
+      <div class="lay hide"></div>
+      <div class="bg">
+        <h3 onclick="backHomePage() ">台北一日遊</h3>
+        <nav class="navbar">
+          <ul>
+            <li><button class="reservationText hide">預定行程</button></li>
+            <li class="signInBtn">
+              <button class="signinText hide" onclick="showSigninDialog()">
+                登入/註冊
+              </button>
+            </li>
+            <li class="signupBtn">
+              <button class="logoutText hide">登出</button>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    <div id="signinPlace" class="signPlace">
+      <div class="greenBar"></div>
+      <div class="dialog">
+        <h3>登入會員帳號</h3>
+        <div class="close" onclick="closeSignDialog()">
+          <img src="image/icon_close.png" alt="" />
+        </div>
+        <form action="" method="">
+          <div class="sign-page">
+            <div class="type-place">
+              <input
+                id="signinEmail"
+                class="inputArea"
+                placeholder="輸入電子信箱"
+                type="text"
+                name="email"
+                required
+              />
+              <input
+                id="signinPassword"
+                class="inputArea"
+                placeholder="輸入密碼"
+                type="password"
+                name="password"
+                pattern="^(?=.*[a-zA-Z])(?=.*[0-9]).{6,}$"
+                required
+              />
+              <input
+                type="submit"
+                value="登入帳戶"
+                class="btn"
+                id="signinBtn"
+              />
+              <p class="signinMsg msg"></p>
+              <span class="remindMessage">還沒有帳戶？</span>
+              <a href="javascript: void(0)" onclick="showSignupDialog()"
+                ><span class="remindMessage">點此註冊</span></a
+              >
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="signupPlace" class="signPlace">
+      <div class="greenBar"></div>
+      <div class="dialog">
+        <h3>註冊會員帳號</h3>
+        <div class="close" onclick="closeSignDialog()">
+          <img src="image/icon_close.png" alt="" />
+        </div>
+        <form>
+          <div class="sign-page">
+            <div class="type-place">
+              <input
+                id="signupName"
+                class="inputArea"
+                placeholder="輸入姓名"
+                type="text"
+                name="name"
+                required
+              />
+              <input
+                id="signupEmail"
+                class="inputArea"
+                placeholder="輸入電子信箱"
+                type="text"
+                name="email"
+                required
+              />
+              <input
+                id="signupPassword"
+                class="inputArea"
+                placeholder="輸入密碼"
+                type="password"
+                name="password"
+                pattern="^(?=.*[a-zA-Z])(?=.*[0-9]).{6,}$"
+                required
+              />
+              <button class="btn" id="signupBtn">註冊帳戶</button>
+              <span class="signupMsg msg"></span>
+              <span class="remindMessage">已經有帳戶？</span
+              ><a href="javascript: void(0)" onclick="showSigninDialog()"
+                ><span class="remindMessage">點此登入</span></a
+              >
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <main>
+      <!-- 可供更改的部分 -->
+      {% block main %}{% endblock %}
+    </main>
+    <footer>
+      <div class="footer">
+        <p>COPYRIGHT © 2022 台北一日遊</p>
+      </div>
+    </footer>
+    {% block script %}{% endblock %}
+  </body>
+</html>

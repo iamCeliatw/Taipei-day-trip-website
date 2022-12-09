@@ -1,145 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    {% extends "base.html" %}
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% block css %}
     <link
       rel="stylesheet"
       type="text/css"
-      href="{{ url_for('static',filename='styles/css/attraction.css')}}"
+      href="{{ url_for('static',filename='css/attraction.css')}}"
     />
-    <title>Taipei Trip台北一日遊2.0</title>
+    {% endblock %}
+    <title></title>
   </head>
   <body>
-    <div class="title">
-      <div class="lay hide"></div>
-      <div class="bg">
-        <h3 onclick="backHomePage() ">台北一日遊</h3>
-        <nav class="navbar">
-          <ul>
-            <li><button class="reservationText hide">預定行程</button></li>
-            <li class="signInBtn">
-              <button class="signinText hide" onclick="showSigninDialog()">
-                登入/註冊
-              </button>
-            </li>
-            <li class="signupBtn">
-              <!-- 登出function還沒設定 -->
-              <button class="logoutText hide">登出</button>
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </div>
-
-    <div id="signinPlace" class="signPlace">
-      <div class="greenBar"></div>
-      <div class="dialog">
-        <h3>登入會員帳號</h3>
-        <div class="close" onclick="closeSignDialog()">
-          <img src="../image/icon_close.png" alt="" />
-        </div>
-
-        <form action="" method="">
-          <div class="sign-page">
-            <div class="type-place">
-              <input
-                id="signinEmail"
-                class="inputArea"
-                placeholder="輸入電子信箱"
-                type="text"
-                name="email"
-                required
-              />
-              <input
-                id="signinPassword"
-                class="inputArea"
-                placeholder="輸入密碼"
-                type="password"
-                name="password"
-                pattern="^(?=.*[a-zA-Z])(?=.*[0-9]).{6,}$"
-                required
-              />
-              <input
-                type="submit"
-                value="登入帳戶"
-                class="btn"
-                id="signinBtn"
-              />
-              <p class="signinMsg msg"></p>
-              <span class="remindMessage">還沒有帳戶？</span
-              ><a href="javascript: void(0)" onclick="showSignupDialog()"
-                ><span class="remindMessage">點此註冊</span></a
-              >
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div id="signupPlace" class="signPlace">
-      <div class="greenBar"></div>
-      <div class="dialog">
-        <h3>註冊會員帳號</h3>
-        <div class="close" onclick="closeSignDialog()">
-          <img src="../image/icon_close.png" alt="" />
-        </div>
-        <form>
-          <div class="sign-page">
-            <div class="type-place">
-              <input
-                id="signupName"
-                class="inputArea"
-                placeholder="輸入姓名"
-                type="text"
-                name="name"
-                required
-              />
-              <input
-                id="signupEmail"
-                class="inputArea"
-                placeholder="輸入電子信箱"
-                type="text"
-                name="email"
-                required
-              />
-              <input
-                id="signupPassword"
-                class="inputArea"
-                placeholder="輸入密碼"
-                type="password"
-                name="password"
-                pattern="^(?=.*[a-zA-Z])(?=.*[0-9]).{6,}$"
-                required
-              />
-              <input
-                type="submit"
-                class="btn"
-                id="signupBtn"
-                value="註冊帳戶"
-              />
-              <span class="signupMsg msg"></span>
-              <span class="remindMessage">已經有帳戶？</span
-              ><a href="javascript: void(0)" onclick="showSigninDialog()"
-                ><span class="remindMessage">點此登入</span></a
-              >
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-
+    {% block main %}
     <hr class="nav-hr" />
     <main>
-      <section class="attraction-space">
-        <div class="attraction-carousel">
-          <button class="carousel__button carousel__button--left">
-            <img src="../image/btn_leftArrow.png" alt="" />
-          </button>
+      <div>
+        <section class="attraction-space">
+          <div class="attraction-carousel">
+            <button class="carousel__button carousel__button--left">
+              <img src="../image/btn_leftArrow.png" alt="" />
+            </button>
 
-          <div class="carousel__track-container">
-            <ul class="carousel__track">
-              <!-- <li class="carousel__slide current-slide">
+            <div class="carousel__track-container">
+              <ul class="carousel__track">
+                <!-- <li class="carousel__slide current-slide">
             <img class="carousel__image" src="img.png" alt="" />
           </li>
 
@@ -150,64 +38,64 @@
           <li class="carousel__slide">
             <img class="carousel__image" src="456.jpg" alt="" />
           </li> -->
-            </ul>
-          </div>
+              </ul>
+            </div>
 
-          <button class="carousel__button carousel__button--right">
-            <img src="../image/btn_rightArrow.png" alt="" />
-          </button>
-          <div class="carousel__nav">
-            <!-- <button class="carousel__indicator current-slide"></button> -->
-            <!--
+            <button class="carousel__button carousel__button--right">
+              <img src="../image/btn_rightArrow.png" alt="" />
+            </button>
+            <div class="carousel__nav">
+              <!-- <button class="carousel__indicator current-slide"></button> -->
+              <!--
             <button class="carousel__indicator"></button>
             <button class="carousel__indicator"></button>
             <button class="carousel__indicator"></button>
             <button class="carousel__indicator"></button>-->
+            </div>
           </div>
-        </div>
 
-        <section class="attraction-message">
-          <!-- <div class="attraction-data">
+          <section class="attraction-message">
+            <!-- <div class="attraction-data">
                 <h3>新北投溫泉區</h3>
                 <p>養生溫泉 at 新北投</p>
             </div>` -->
 
-          <form action="">
-            <div class="attraction-detail">
-              <h3>訂購瀏覽行程</h3>
-              <p>以此景點為中心的一日行程，帶您探索城市角落故事</p>
-              <span>選擇日期：</span>
-              <span><input class="date" type="date" /></span>
+            <form action="">
+              <div class="attraction-detail">
+                <h3>訂購瀏覽行程</h3>
+                <p>以此景點為中心的一日行程，帶您探索城市角落故事</p>
+                <span>選擇日期：</span>
+                <span><input class="date" type="date" /></span>
 
-              <div class="chooseTime">
-                <span class="question">選擇行程：</span>
-                <span>
-                  <input type="radio" id="day1" name="radio-group" checked />
-                  <label class="oneHalfDay" for="day1">上半天</label>
-                </span>
-                <span>
-                  <input type="radio" id="day2" name="radio-group" />
-                  <label class="nextHalfDay" for="day2">下半天</label>
-                </span>
+                <div class="chooseTime">
+                  <span class="question">選擇行程：</span>
+                  <span>
+                    <input type="radio" id="day1" name="radio-group" checked />
+                    <label class="oneHalfDay" for="day1">上半天</label>
+                  </span>
+                  <span>
+                    <input type="radio" id="day2" name="radio-group" />
+                    <label class="nextHalfDay" for="day2">下半天</label>
+                  </span>
+                </div>
+                <span class="question">導覽費用：</span>
+                <span class="totalPrice">新台幣2000元</span>
+                <br />
+                <input
+                  class="reservation"
+                  value="開始預約行程"
+                  type="button"
+                  name="submit"
+                />
               </div>
-              <span class="question">導覽費用：</span>
-              <span class="totalPrice">新台幣2000元</span>
-              <br />
-              <input
-                class="reservation"
-                value="開始預約行程"
-                type="button"
-                name="submit"
-              />
-            </div>
-          </form>
+            </form>
+          </section>
         </section>
-      </section>
-    </main>
+      </div>
 
-    <hr class="middle-hr" />
-    <div class="description">
-      <!-- <p>
+      <hr class="middle-hr" />
+      <div class="description">
+        <!-- <p>
         平安鐘祈求大家的平安，這是為......
      </p>
       <h3>景點地址：</h3>
@@ -217,15 +105,19 @@
         捷運站名：忠孝復興站4號出口1.公車：204、212、212直、232、232副、262、262(區間)、278、299、521、605、605(副)、605(新台五線)、667、903、忠孝新幹線至頂好市場站
         2.車位：太平洋崇光百貨地下停車場或市民大道附近地下停車場
       </p> -->
-    </div>
+      </div>
+    </main>
+    {% endblock %}
     <footer>
       <div class="footer">
         <p>COPYRIGHT © 2022 台北一日遊</p>
       </div>
     </footer>
+    {% block script %}
     <script
       type="text/javascript"
-      src="{{url_for('static', filename='styles/js/attraction.js')}}"
+      src="{{url_for('static', filename='js/attraction.js')}}"
     ></script>
+    {% endblock %}
   </body>
 </html>

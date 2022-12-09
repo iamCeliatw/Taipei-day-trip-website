@@ -30,6 +30,13 @@ const msg = document.querySelector(".msg");
 const signinMsg = document.querySelector(".signinMsg");
 const signupMsg = document.querySelector(".signupMsg");
 const reservationText = document.querySelector(".reservationText");
+
+// const preloadLink = document.createElement("link");
+// preloadLink.href = "/js/index.js";
+// preloadLink.rel = "preload";
+// preloadLink.as = "image";
+// document.head.appendChild(preloadLink);
+
 // sign up
 signupBtn.addEventListener("click", (e) => {
   //   isClick = false;
@@ -50,7 +57,6 @@ signupBtn.addEventListener("click", (e) => {
   })
     .then((res) => res.json())
     .then((data) => {
-      //   console.log(data.ok);
       if (data.error) {
         // isClick = false;
         signupMsg.style.display = "block";
@@ -102,7 +108,7 @@ function hideMsg() {
 
 // get user
 function getUser() {
-  fetch(`${location.href}/api/user/auth`, {
+  fetch(`${location.href}api/user/auth`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -112,12 +118,12 @@ function getUser() {
     .then((data) => {
       //未登入
       if (!data.data) {
-        console.log(data);
+        // console.log(data);
         reservationText.classList.remove("hide");
         logoutText.classList.add("hide");
         signinText.classList.remove("hide");
       } else if (data.data) {
-        console.log(data);
+        // console.log(data.data);
         reservationText.classList.remove("hide");
         signinText.classList.add("hide");
         logoutText.classList.remove("hide");
@@ -168,7 +174,7 @@ function spotSearch() {
 
 window.addEventListener("load", (e) => {
   console.log("網頁已加載成功");
-  fetch(`${location.href}/api/categories`)
+  fetch(`${location.href}api/categories`)
     .then((res) => res.json())
     .then((data) => {
       let lens = data.data.length;
@@ -185,7 +191,7 @@ window.addEventListener("load", (e) => {
 
 //點擊登出系統
 logoutText.addEventListener("click", (e) => {
-  fetch(`${location.href}/api/user/auth`, {
+  fetch(`${location.href}api/user/auth`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -203,66 +209,69 @@ logoutText.addEventListener("click", (e) => {
 });
 
 //取得首頁景點資訊
-function getData() {
+async function getData() {
   try {
     isLoad = true;
     if (keyword) {
-      url = `${location.href}/api/attractions?page=${page}&keyword=${keyword} `;
+      url = `${location.href}api/attractions?page=${page}&keyword=${keyword} `;
     } else {
-      url = `${location.href}/api/attractions?page=${page}`;
+      url = `${location.href}api/attractions?page=${page}`;
     }
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.data.length === 0) {
-          noItem.replaceChildren();
-          noItem.classList.add("noItem");
-          noItem.textContent = "There is no result !!";
-          main.appendChild(noItem);
-        } else {
-          noItem.replaceChildren();
-          // nextPage = data.nextPage;
-          let result = data.data;
-          lens = data.data.length;
-          // console.log(lens);
-          for (let i = 0; i < lens; i++) {
-            let aItem = document.createElement("a");
-            let liItem = document.createElement("div");
-            let imgItem = document.createElement("img");
-            let nameItem = document.createElement("a");
-            let mrtCat = document.createElement("div");
-            aItem.setAttribute("href", `/attraction/${result[i].id}`);
-            nameItem.setAttribute("href", `/attraction/${result[i].id}`);
-            liItem.classList.add("spot");
-            spotList.appendChild(liItem);
-            let box = document.createElement("div");
-            box.classList.add("box");
-            liItem.appendChild(box);
-            imgItem.setAttribute("src", result[i].image[0]);
-            imgItem.classList.add("imgItem");
-            nameItem.classList.add("nameItem");
-            nameItem.setAttribute("id", result[i].id);
-            mrtCat.classList.add("mrtItem");
-            nameItem.textContent = result[i].name;
-            box.appendChild(aItem);
-            aItem.appendChild(imgItem);
-            box.appendChild(nameItem);
-            box.appendChild(mrtCat);
-            //   console.log(mrtCat);
-            let mrt = document.createElement("span");
-            let cat = document.createElement("span");
-            mrt.textContent = result[i].mrt;
-            mrt.classList.add("mrt");
-            cat.textContent = result[i].cat;
-            cat.classList.add("cat");
-            mrtCat.append(mrt);
-            mrtCat.append(cat);
-          }
-          page = data.nextPage;
-          isLoad = false;
-          lens = data.data.length;
-        }
-      });
+    const response = await fetch(url);
+    const data = await response.json();
+    if (data.data.length === 0) {
+      noItem.replaceChildren();
+      noItem.classList.add("noItem");
+      noItem.textContent = "There is no result !!";
+      main.appendChild(noItem);
+    } else {
+      noItem.replaceChildren();
+      // nextPage = data.nextPage;
+      let result = data.data;
+      lens = data.data.length;
+      // console.log(lens);
+      for (let i = 0; i < lens; i++) {
+        const preloadLink = document.createElement("link");
+        preloadLink.href = result[i].image[0];
+        preloadLink.rel = "preload";
+        preloadLink.as = "image";
+        document.head.appendChild(preloadLink);
+        let aItem = document.createElement("a");
+        let liItem = document.createElement("div");
+        let imgItem = document.createElement("img");
+        let nameItem = document.createElement("a");
+        let mrtCat = document.createElement("div");
+        aItem.setAttribute("href", `/attraction/${result[i].id}`);
+        nameItem.setAttribute("href", `/attraction/${result[i].id}`);
+        liItem.classList.add("spot");
+        spotList.appendChild(liItem);
+        let box = document.createElement("div");
+        box.classList.add("box");
+        liItem.appendChild(box);
+        imgItem.setAttribute("src", result[i].image[0]);
+        imgItem.classList.add("imgItem");
+        nameItem.classList.add("nameItem");
+        nameItem.setAttribute("id", result[i].id);
+        mrtCat.classList.add("mrtItem");
+        nameItem.textContent = result[i].name;
+        box.appendChild(aItem);
+        aItem.appendChild(imgItem);
+        box.appendChild(nameItem);
+        box.appendChild(mrtCat);
+        let mrt = document.createElement("span");
+        let cat = document.createElement("span");
+        mrt.textContent = result[i].mrt;
+        mrt.classList.add("mrt");
+        cat.textContent = result[i].cat;
+        cat.classList.add("cat");
+        mrtCat.append(mrt);
+        mrtCat.append(cat);
+      }
+      page = data.nextPage;
+      isLoad = false;
+      lens = data.data.length;
+    }
+    //   });
   } catch (error) {
     console.log(
       "There has been a problem with your fetch operation: ",
