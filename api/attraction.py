@@ -1,7 +1,7 @@
 from flask import *
 from flask_bcrypt import Bcrypt
 
-from api.database import db           
+# from api.database import db           
 from model.sql import *
 #blueprint setup
 # api = Blueprint('myApi',__name__, url_prefix='/api')

@@ -18,10 +18,12 @@ def check(email):
     return False
 
 class Validation:
-    def encode_jwt(id):
+    def encode_jwt(id,name,email):
         try:
             payload = {
                         "id":id,
+                        "name":name,
+                        "email":email,
                         "iat":now,
                         "exp":n_days,
                         }
@@ -36,8 +38,9 @@ class Validation:
     def decode_jwt(resp):
         try:
             resp = jwt.decode(resp, secret, algorithms=["HS256"])
+            # print(resp)
             if resp:
-                return True
+                return resp
             return False
         except Exception as e: 
             print(e)

@@ -1,5 +1,5 @@
 
-from api.database import db
+from data.database import db
 
 class Sql:
     def fetch_one(sql,val):

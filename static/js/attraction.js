@@ -23,12 +23,9 @@ const logoutText = document.querySelector(".logoutText");
 const signinMsg = document.querySelector(".signinMsg");
 const signupMsg = document.querySelector(".signupMsg");
 const reservationText = document.querySelector(".reservationText");
+const reservation = document.querySelector(".reservation");
 
-var preloadLink = document.createElement("link");
-preloadLink.href = "/js/attraction.js";
-preloadLink.rel = "preload";
-preloadLink.as = "image";
-document.head.appendChild(preloadLink);
+let timeValue;
 
 // 註冊按鈕
 signupBtn.addEventListener("click", (e) => {
@@ -272,7 +269,7 @@ function getUser() {
         logoutText.classList.add("hide");
         signinText.classList.remove("hide");
       } else if (data.data) {
-        console.log(data);
+        // console.log(data);
         reservationText.classList.remove("hide");
         signinText.classList.add("hide");
         logoutText.classList.remove("hide");
@@ -297,12 +294,67 @@ logoutText.addEventListener("click", (e) => {
       }
     });
 });
-
+let eachPrice;
 //上半天顯示價錢
 oneHalfDay.addEventListener("click", (e) => {
-  totalPrice.textContent = "新台幣2000元";
+  eachPrice = 2000;
+  totalPrice.textContent = `新台幣${eachPrice}元`;
 });
 // 下半天顯示價錢
 nextHalfDay.addEventListener("click", (e) => {
-  totalPrice.textContent = "新台幣2500元";
+  eachPrice = 2500;
+  totalPrice.textContent = `新台幣${eachPrice}元`;
 });
+
+reservation.addEventListener("click", () => {
+  postBookData();
+});
+
+//post景點資料 存資料庫
+function postBookData() {
+  let oneDayRadio = document.querySelector("#day1");
+  let dateValue = document.querySelector(".date").value;
+  let priceValue = document.querySelector(".totalPrice").textContent;
+  //把字串中的金額提取出來傳到後端
+  eachPrice = priceValue.replace(/[^\d]/g, " ");
+  if (oneDayRadio.checked) {
+    timeValue = oneHalfDay.textContent;
+  } else {
+    timeValue = nextHalfDay.textContent;
+  }
+  fetch(`${location.origin}/api/booking`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      attractionId: id,
+      date: dateValue,
+      time: timeValue,
+      price: eachPrice,
+    }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      // 這邊可能要作秀在畫面上之類的功能？
+      if (data.error) {
+        console.log(data.message);
+      }
+    });
+}
+
+function booking() {
+  window.location.href = `${location.origin}/booking`;
+}
+
+// get景點資訊
+function getBookData() {
+  fetch(`${location.origin}/api/booking`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => {});
+}

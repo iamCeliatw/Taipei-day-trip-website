@@ -2,17 +2,11 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
   font-family: "Noto Sans TC", sans-serif;
 }
 
-input[type=date]::-webkit-calendar-picker-indicator {
-  opacity: 0;
+.hide {
+  display: none;
 }
 
 .title {
@@ -51,21 +45,215 @@ input[type=date]::-webkit-calendar-picker-indicator {
 .title .bg .navbar li {
   list-style: none;
   display: inline-block;
-  padding: 0px 10px;
   font-size: 20px;
 }
 .title .bg .navbar li button {
   background: none;
   color: #666666;
   border: none;
-  padding: 0;
   font-size: 16px;
-  line-height: 13px;
   cursor: pointer;
   outline: inherit;
+}
+.title .bg .navbar .signInBtn {
+  padding-left: 20px;
+}
+
+.signPlace {
+  position: fixed;
+  top: 8%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  z-index: 3;
+  display: none;
+}
+.signPlace .greenBar {
+  width: 340px;
+  height: 10px;
+  border-radius: 6px 6px 0px 0px;
+  background: linear-gradient(270deg, #337788 0%, #66aabb 100%);
+}
+.signPlace .dialog {
+  width: 340px;
+  height: auto;
+  padding: 10px;
+  background: #ffffff;
+  box-shadow: 0px 4px 60px #aaaaaa;
+  border-radius: 0px 0px 6px 6px;
+}
+.signPlace .dialog h3 {
+  font-size: 20px;
+  color: #666666;
+  text-align: center;
+}
+.signPlace .dialog .msg {
+  display: none;
+  color: rgb(255, 46, 46);
+}
+.signPlace .dialog .close {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  cursor: pointer;
+}
+.signPlace .dialog .close img {
+  width: 16px;
+  height: 16px;
+  margin-top: 20px;
+}
+.signPlace .dialog .sign-page {
+  display: flex;
+  text-align: center;
+}
+.signPlace .dialog .sign-page .type-place .inputArea {
+  font-size: 16px;
+  padding-left: 15px;
+  border: 1px solid #cccccc;
+  margin-top: 15px;
+  width: 310px;
+  height: 40px;
+  border-radius: 5px;
+}
+.signPlace .dialog .sign-page .btn {
+  font-size: 16px;
+  color: #fff;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  align-items: center;
+  width: 310px;
+  height: 47px;
+  border-radius: 5px;
+  border: 1px solid #cccccc;
+  background-color: #448899;
+}
+.signPlace .dialog .sign-page .btn:hover {
+  border: 2px #448899 solid;
+  background-color: #ffffff;
+  color: #448899;
+}
+.signPlace .dialog .sign-page .remindMessage {
+  color: #666666;
+  line-height: 2;
+}
+
+.lay {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #000000;
+  opacity: 0.25;
 }
 
 .nav-hr {
   margin-top: 45px;
   border: 1px solid #e8e8e8;
+}
+
+.booking-top {
+  position: relative;
+  width: 1200px;
+  margin: 80px auto;
+}
+.booking-top h4 {
+  margin-bottom: 30px;
+  color: #666666;
+}
+.booking-top .booking-content {
+  color: #666666;
+  display: flex;
+}
+.booking-top .booking-content .form-question {
+  font-weight: 700;
+}
+.booking-top .booking-content .booking-img {
+  width: 266px;
+}
+.booking-top .booking-content .booking-text {
+  padding-left: 20px;
+}
+.booking-top .booking-content .booking-text h4 {
+  color: #448899;
+  margin-bottom: 20px;
+}
+.booking-top .booking-content .booking-text span {
+  line-height: 40px;
+}
+.booking-top .delete-img {
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  top: 35%;
+}
+
+.middle-hr {
+  margin: 25px auto;
+  border: 1px solid #e8e8e8;
+  width: 1200px;
+}
+
+.booking-middle {
+  color: #666666;
+  position: relative;
+  width: 1200px;
+  margin: 40px auto;
+}
+.booking-middle h3 {
+  font-size: 19px;
+  font-weight: 700;
+}
+.booking-middle h4 {
+  margin-top: 20px;
+}
+.booking-middle .booking-input {
+  padding-left: 15px;
+  border: 1px solid #e8e8e8;
+  margin-top: 15px;
+  width: 200px;
+  height: 38px;
+  border-radius: 5px;
+}
+.booking-middle .form-question {
+  line-height: 40px;
+}
+
+.booking-total {
+  font-weight: 700;
+  color: #666666;
+  padding-right: 100px;
+  text-align: right;
+  margin: 40px auto;
+  width: 1200px;
+}
+.booking-total .booking-button {
+  margin-top: 15px;
+  width: 154px;
+  height: 36px;
+  background: #448899;
+  color: #ffffff;
+  border-radius: 5px;
+  border-style: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+.booking-total .booking-button:hover {
+  border: 2px #448899 solid;
+  background-color: #ffffff;
+  color: #448899;
+}
+
+.footer {
+  background-color: #757575;
+  height: 104px;
+  display: flex;
+  align-items: center;
+}
+.footer p {
+  color: #ffffff;
+  margin: auto;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 13px;
 }/*# sourceMappingURL=booking.css.map */

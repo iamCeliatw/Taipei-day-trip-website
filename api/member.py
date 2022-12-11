@@ -1,16 +1,16 @@
-import jwt
+# import jwt
 from flask import *
 from flask_bcrypt import Bcrypt
 
-from api.database import db
+# from api.database import db
 from model.sql import *
-from model.user import *
+from model.validate import *
 
 member = Blueprint('user',__name__) 
 bcrypt = Bcrypt()
 
 #註冊
-@member.route('/api/user', methods=["POST"])
+@member.post('/api/user')
 def user():
     try:
         data = request.get_json()
@@ -45,8 +45,7 @@ def login_get():
         if resp is None:
             return {"data":None}
         result = Validation.decode_jwt(resp)
-        if result:
-            return {"data":result}
+        return {"data":result}
     except Exception as e: 
         print(e)
         return {"error": True, "message": "伺服器內部錯誤"}, 500
@@ -67,7 +66,7 @@ def login_put():
         sql = "SELECT id, name, email, password FROM member WHERE email = %s "
         val = [email]
         result = Sql.fetch_one(sql,val)
-        print(result)
+        # print(result)
         #hash後的密碼
         hashed_password = result['password']
         #和輸入的密碼做比對
@@ -77,7 +76,7 @@ def login_put():
             return {"error":True,"message":"Email不存在"},400
         elif not check_password:
             return {"error":True,"message":"密碼錯誤"},400
-        resp = Validation.encode_jwt(result['id'])
+        resp = Validation.encode_jwt(result['id'],result['name'],result['email'])
         return resp
     except Exception as e: 
         print(e)

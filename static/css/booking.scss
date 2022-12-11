@@ -2,18 +2,11 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
   font-family: "Noto Sans TC", sans-serif;
 }
-
-input[type="date"]::-webkit-calendar-picker-indicator {
-  opacity: 0;
+.hide {
+  display: none;
 }
-
 .title {
   position: fixed;
   top: 0;
@@ -34,6 +27,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     margin: auto;
     h3 {
       cursor: pointer;
+      //   font-weight: 700;
       font-size: 30px;
       color: #448899;
     }
@@ -47,23 +41,223 @@ input[type="date"]::-webkit-calendar-picker-indicator {
       li {
         list-style: none;
         display: inline-block;
-        padding: 0px 10px;
+        // padding: 0px 10px;
         font-size: 20px;
         button {
           background: none;
           color: #666666;
           border: none;
-          padding: 0;
           font-size: 16px;
-          line-height: 13px;
           cursor: pointer;
           outline: inherit;
         }
       }
+      .signInBtn {
+        padding-left: 20px;
+      }
     }
   }
 }
+
+.signPlace {
+  position: fixed;
+  top: 8%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  z-index: 3;
+  display: none;
+  .greenBar {
+    width: 340px;
+    height: 10px;
+    border-radius: 6px 6px 0px 0px;
+    background: linear-gradient(270deg, #337788 0%, #66aabb 100%);
+  }
+  .dialog {
+    width: 340px;
+    height: auto;
+    padding: 10px;
+    background: #ffffff;
+    box-shadow: 0px 4px 60px #aaaaaa;
+    border-radius: 0px 0px 6px 6px;
+    h3 {
+      font-size: 20px;
+      color: #666666;
+      text-align: center;
+    }
+    .msg {
+      display: none;
+      color: rgb(255, 46, 46);
+    }
+
+    .close {
+      position: absolute;
+      top: 7px;
+      right: 7px;
+      cursor: pointer;
+      img {
+        width: 16px;
+        height: 16px;
+        margin-top: 20px;
+      }
+    }
+
+    .sign-page {
+      display: flex;
+      //   margin: 5px;
+      text-align: center;
+      .type-place {
+        .inputArea {
+          font-size: 16px;
+          padding-left: 15px;
+          border: 1px solid #cccccc;
+          margin-top: 15px;
+          width: 310px;
+          height: 40px;
+          border-radius: 5px;
+        }
+      }
+      .btn {
+        font-size: 16px;
+        color: #fff;
+        margin-top: 15px;
+        margin-bottom: 5px;
+        align-items: center;
+        width: 310px;
+        height: 47px;
+        border-radius: 5px;
+        border: 1px solid #cccccc;
+        background-color: #448899;
+        &:hover {
+          border: 2px #448899 solid;
+          background-color: #ffffff;
+          color: #448899;
+        }
+      }
+      .remindMessage {
+        color: #666666;
+        line-height: 2;
+      }
+    }
+  }
+}
+
+.lay {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #000000;
+  opacity: 0.25;
+}
+
 .nav-hr {
   margin-top: 45px;
   border: 1px solid #e8e8e8;
+}
+
+.booking-top {
+  position: relative;
+  width: 1200px;
+  margin: 80px auto;
+  h4 {
+    margin-bottom: 30px;
+    color: #666666;
+  }
+  .booking-content {
+    color: #666666;
+    .form-question {
+      font-weight: 700;
+    }
+    display: flex;
+    .booking-img {
+      width: 266px;
+    }
+    .booking-text {
+      padding-left: 20px;
+      h4 {
+        color: #448899;
+        margin-bottom: 20px;
+      }
+      span {
+        line-height: 40px;
+      }
+    }
+  }
+  .delete-img {
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 35%;
+  }
+}
+.middle-hr {
+  margin: 25px auto;
+  border: 1px solid #e8e8e8;
+  width: 1200px;
+}
+
+.booking-middle {
+  color: #666666;
+  h3 {
+    font-size: 19px;
+    font-weight: 700;
+  }
+  h4 {
+    margin-top: 20px;
+  }
+  .booking-input {
+    padding-left: 15px;
+    border: 1px solid #e8e8e8;
+    margin-top: 15px;
+    width: 200px;
+    height: 38px;
+    border-radius: 5px;
+  }
+  position: relative;
+  width: 1200px;
+  margin: 40px auto;
+  .form-question {
+    line-height: 40px;
+  }
+}
+
+.booking-total {
+  font-weight: 700;
+  color: #666666;
+  padding-right: 100px;
+  text-align: right;
+  margin: 40px auto;
+  width: 1200px;
+  .booking-button {
+    margin-top: 15px;
+    width: 154px;
+    height: 36px;
+    background: #448899;
+    color: #ffffff;
+    border-radius: 5px;
+    border-style: none;
+    font-size: 16px;
+    cursor: pointer;
+    &:hover {
+      border: 2px #448899 solid;
+      background-color: #ffffff;
+      color: #448899;
+    }
+  }
+}
+
+.footer {
+  background-color: #757575;
+  height: 104px;
+  display: flex;
+  align-items: center;
+  p {
+    color: #ffffff;
+    margin: auto;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 13px;
+  }
 }

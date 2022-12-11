@@ -10,7 +10,7 @@ let lens;
 
 const btn = document.querySelector(".btn");
 const close = document.querySelector(".close");
-const inPlace = document.querySelector("#signinPlace");
+const signinPlace = document.querySelector("#signinPlace");
 const signupPlace = document.querySelector("#signupPlace");
 
 const lay = document.querySelector(".lay");
@@ -30,12 +30,6 @@ const msg = document.querySelector(".msg");
 const signinMsg = document.querySelector(".signinMsg");
 const signupMsg = document.querySelector(".signupMsg");
 const reservationText = document.querySelector(".reservationText");
-
-// const preloadLink = document.createElement("link");
-// preloadLink.href = "/js/index.js";
-// preloadLink.rel = "preload";
-// preloadLink.as = "image";
-// document.head.appendChild(preloadLink);
 
 // sign up
 signupBtn.addEventListener("click", (e) => {
@@ -58,12 +52,10 @@ signupBtn.addEventListener("click", (e) => {
     .then((res) => res.json())
     .then((data) => {
       if (data.error) {
-        // isClick = false;
         signupMsg.style.display = "block";
         signupMsg.style.color = "red";
         signupMsg.textContent = data.message;
         window.setTimeout(hideMsg, 2000);
-        // isClick = true;
       } else {
         console.log(data);
         signupMsg.style.display = "block";
@@ -118,12 +110,10 @@ function getUser() {
     .then((data) => {
       //未登入
       if (!data.data) {
-        // console.log(data);
         reservationText.classList.remove("hide");
         logoutText.classList.add("hide");
         signinText.classList.remove("hide");
       } else if (data.data) {
-        // console.log(data.data);
         reservationText.classList.remove("hide");
         signinText.classList.add("hide");
         logoutText.classList.remove("hide");

@@ -4,6 +4,12 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
     {% block css %}{% endblock %}
     <title>{% block title %}{% endblock %}</title>
   </head>
@@ -11,12 +17,16 @@
     <div class="title">
       <div class="lay hide"></div>
       <div class="bg">
-        <h3 onclick="backHomePage() ">台北一日遊</h3>
+        <h3 onclick="backHomePage()">台北一日遊</h3>
         <nav class="navbar">
           <ul>
-            <li><button class="reservationText hide">預定行程</button></li>
+            <li>
+              <button class="reservationText" onclick="booking()">
+                預定行程
+              </button>
+            </li>
             <li class="signInBtn">
-              <button class="signinText hide" onclick="showSigninDialog()">
+              <button class="signinText" onclick="showSigninDialog()">
                 登入/註冊
               </button>
             </li>
@@ -33,7 +43,7 @@
       <div class="dialog">
         <h3>登入會員帳號</h3>
         <div class="close" onclick="closeSignDialog()">
-          <img src="image/icon_close.png" alt="" />
+          <img src="../image/icon_close.png" alt="" />
         </div>
         <form action="" method="">
           <div class="sign-page">
@@ -77,7 +87,7 @@
       <div class="dialog">
         <h3>註冊會員帳號</h3>
         <div class="close" onclick="closeSignDialog()">
-          <img src="image/icon_close.png" alt="" />
+          <img src="../image/icon_close.png" alt="" />
         </div>
         <form>
           <div class="sign-page">

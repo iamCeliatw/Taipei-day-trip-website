@@ -1,28 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    {% extends "base.html" %}
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% block css %}
     <link
       rel="stylesheet"
       type="text/css"
-      href="{{ url_for('static',filename='styles/css/booking.css')}}"
+      href="{{ url_for('static',filename='css/booking.css')}}"
     />
-    <title>Document</title>
+    {% endblock %}
+    <title>{% block title %} Taipei day trip 台北一日遊 {% endblock %}</title>
   </head>
   <body>
-    <div class="title">
-      <div class="bg">
-        <h3 onclick="backHomePage()">台北一日遊</h3>
-        <nav class="navbar">
-          <ul>
-            <li><button>預定行程</button></li>
-            <li><button onclick="showDialog()">登入/註冊</button></li>
-          </ul>
-        </nav>
+    {% block main %}
+    <main>
+      <div class="booking-top">
+        <h4>您好，username，您的待預定行程如下：</h4>
+        <div class="booking-content">
+          <div class="booking-img">
+            <img src="image/image 10.png" alt="" />
+          </div>
+
+          <div class="booking-text">
+            <h4>台北一日遊：平安鐘</h4>
+            <span class="form-question">日期：</span>
+            <span>2021-04-20</span>
+            <br />
+            <span class="form-question">時間：</span>
+            <span>早上九點到晚上五點</span>
+            <br />
+            <span class="form-question">費用：</span>
+            <span>新台幣2000元</span>
+            <br />
+            <span class="form-question">地點：</span>
+            <span>台北市忠孝東路</span>
+          </div>
+        </div>
+        <img class="delete-img" src="image/icon_delete.png" alt="" />
       </div>
-    </div>
-    <hr class="nav-hr" />
+      <hr class="middle-hr" />
+
+      <div class="booking-middle">
+        <h3>您的聯絡資訊</h3>
+        <span class="form-question">聯絡姓名：</span>
+        <input class="booking-input" type="name" name="" id="" />
+        <br />
+        <span class="form-question">連絡信箱：</span>
+        <input class="booking-input" type="email" name="" id="" />
+        <br />
+        <span class="form-question">手機號碼：</span>
+        <input class="booking-input" type="" name="" id="" />
+        <h4>
+          請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。
+        </h4>
+      </div>
+      <hr class="middle-hr" />
+      <div class="booking-middle">
+        <h3>信用卡付款資訊</h3>
+        <span class="form-question">卡片號碼：</span>
+        <input class="booking-input" type="text" name="" id="" />
+        <br />
+        <span class="form-question">過期時間：</span>
+        <input class="booking-input" type="text" name="" id="" />
+        <br />
+        <span class="form-question">驗證密碼：</span>
+        <input class="booking-input" type="text" name="" id="" />
+      </div>
+      <hr class="middle-hr" />
+
+      <div class="booking-total">
+        <span>總價：</span><span>2000元</span>
+        <div><button class="booking-button">確認訂購並付款</button></div>
+      </div>
+    </main>
+    {% endblock %}
   </body>
 </html>
