@@ -2,9 +2,8 @@ from flask import *
 from flask_bcrypt import Bcrypt
 
 # from api.database import db           
-from model.sql import *
+from model.attraction import *
 #blueprint setup
-# api = Blueprint('myApi',__name__, url_prefix='/api')
 attract = Blueprint('attraction',__name__) 
 bcrypt = Bcrypt()
 
@@ -57,7 +56,10 @@ def attraction_spot():
                    FROM `spots` WHERE `cat` = %s or name LIKE %s LIMIT %s OFFSET %s"
             val = [keyword, "%"+f"{keyword}"+"%", perpage, offset]
             result = Sql.fetch_all(sql,val)
+            print(result)
             imgs = []
+            if result is None:
+                return jsonify({'nextPage': None,'data':result})
             for i in result:
                 img = i['image'].split('https://')
                 for j in range(len(img)):

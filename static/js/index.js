@@ -6,7 +6,6 @@ let isLoad = false;
 let keyword;
 let url;
 let lens;
-// let isClick = true;
 
 const btn = document.querySelector(".btn");
 const close = document.querySelector(".close");
@@ -20,20 +19,21 @@ const main = document.querySelector(".main");
 
 const spotList = document.querySelector(".list");
 const spot = document.querySelector(".spot");
-const noItem = document.createElement("div");
 const footer = document.querySelector(".footer");
 const signinBtn = document.querySelector("#signinBtn");
 const signupBtn = document.querySelector("#signupBtn");
+const signinPassword = document.querySelector("#signinPassword");
+const signupPassword = document.querySelector("#signupPassword");
 const signinText = document.querySelector(".signinText");
 const logoutText = document.querySelector(".logoutText");
 const msg = document.querySelector(".msg");
 const signinMsg = document.querySelector(".signinMsg");
 const signupMsg = document.querySelector(".signupMsg");
 const reservationText = document.querySelector(".reservationText");
-
+const noItem = document.createElement("div");
+const checkEye = document.querySelector("#checkEye");
 // sign up
 signupBtn.addEventListener("click", (e) => {
-  //   isClick = false;
   e.preventDefault();
   let signupName = document.querySelector("#signupName").value;
   let signupEmail = document.querySelector("#signupEmail").value;
@@ -85,10 +85,10 @@ signinBtn.addEventListener("click", (e) => {
         window.setTimeout(hideMsg, 2000);
       } else {
         closeSignDialog();
-        console.log(data);
+        // console.log(data);
+        location.reload();
         signinText.classList.add("hide");
         logoutText.classList.remove("hide");
-        location.reload();
       }
     });
 });
@@ -125,13 +125,30 @@ function getUser() {
 function backHomePage() {
   window.location = "/";
 }
+//點擊預定行程跳轉
+function booking() {
+  fetch(`${location.href}api/user/auth`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (!data.data) {
+        showSigninDialog();
+      } else {
+        window.location.href = `${location.origin}/booking`;
+      }
+    });
+}
+
 //點擊登入 跳出視窗
 function showSigninDialog() {
   signupPlace.style.display = "none";
   signinPlace.style.display = "block";
   lay.classList.remove("hide");
 }
-
 // 點擊 點此註冊 隱藏登入框 顯示註冊框
 function showSignupDialog() {
   signinPlace.style.display = "none";
@@ -162,7 +179,7 @@ function spotSearch() {
   });
 }
 
-window.addEventListener("load", (e) => {
+window.addEventListener("load", () => {
   console.log("網頁已加載成功");
   fetch(`${location.href}api/categories`)
     .then((res) => res.json())
@@ -180,7 +197,7 @@ window.addEventListener("load", (e) => {
 });
 
 //點擊登出系統
-logoutText.addEventListener("click", (e) => {
+logoutText.addEventListener("click", () => {
   fetch(`${location.href}api/user/auth`, {
     method: "DELETE",
     headers: {
@@ -191,9 +208,9 @@ logoutText.addEventListener("click", (e) => {
     .then((data) => {
       console.log(data);
       if (data.ok) {
+        location.reload();
         logoutText.classList.add("hide");
         signinText.classList.remove("hide");
-        location.reload();
       }
     });
 });
@@ -209,7 +226,7 @@ async function getData() {
     }
     const response = await fetch(url);
     const data = await response.json();
-    if (data.data.length === 0) {
+    if (data.data === null) {
       noItem.replaceChildren();
       noItem.classList.add("noItem");
       noItem.textContent = "There is no result !!";
@@ -219,7 +236,6 @@ async function getData() {
       // nextPage = data.nextPage;
       let result = data.data;
       lens = data.data.length;
-      // console.log(lens);
       for (let i = 0; i < lens; i++) {
         const preloadLink = document.createElement("link");
         preloadLink.href = result[i].image[0];
@@ -276,6 +292,7 @@ function search() {
   keyword = spotInput.value;
   let spotList = document.querySelector(".list");
   spotList.replaceChildren();
+  noItem.textContent = "";
   getData();
 }
 
@@ -300,3 +317,28 @@ function callback(entires) {
     }
   }
 }
+
+const showPasswordButton = document.getElementById("show-password-button");
+
+// showPasswordButton.addEventListener("click", () => {
+//   if (passwordInput.type === "password") {
+//     passwordInput.type = "text";
+//   } else {
+//     passwordInput.type = "password";
+//   }
+// });
+
+//查看密碼小眼睛
+checkEye.addEventListener("click", (e) => {
+  if (e.target.classList.contains("fa-eye-slash")) {
+    e.target.classList.remove("fa-eye-slash");
+    e.target.classList.add("fa-eye");
+    signinPassword.setAttribute("type", "text");
+    signupPassword.setAttribute("type", "text");
+  } else {
+    signinPassword.setAttribute("type", "password");
+    signupPassword.setAttribute("type", "password");
+    e.target.classList.remove("fa-eye");
+    e.target.classList.add("fa-eye-slash");
+  }
+});

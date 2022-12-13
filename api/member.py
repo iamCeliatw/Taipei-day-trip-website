@@ -1,10 +1,8 @@
 # import jwt
 from flask import *
 from flask_bcrypt import Bcrypt
-
-# from api.database import db
-from model.sql import *
-from model.validate import *
+from utils.validate import *
+from model.member import *
 
 member = Blueprint('user',__name__) 
 bcrypt = Bcrypt()
@@ -17,21 +15,17 @@ def user():
         name = data['name']
         email = data['email']
         password = data['password']
-        hashed_password = bcrypt.generate_password_hash(password=password)
-        sql = 'SELECT * FROM member WHERE email = %s'
-        val = [email]
-        user = Sql.fetch_one(sql,val)
+        result = Member.check_signup(data)
         if name == '' or email == '' or password == '':
             return {"error": True, "message": "欄位不得為空"}, 400
-        elif user:
+        elif not result:
             return {"error": True, "message": "信箱已被註冊"}, 400
         elif len(password) < 6:
             return {"error":True,"message":"密碼長度至少6字元"},400
         elif not check(email):
             return {"error":True,"message":"email格式不正確"},400
-        sql = "INSERT INTO member (name, email, password) VALUES (%s, %s, %s)"
-        val = [name, email, hashed_password]
-        Sql.execute(sql, val)
+        hashed_password = bcrypt.generate_password_hash(password=password)
+        Member.signup(data,hashed_password)
         return {"ok":True, "message": "您已註冊成功✅，請登入"}
     except Exception as e: 
         print(e)
@@ -63,18 +57,14 @@ def login_put():
             return {"error":True,"message":"密碼長度至少6字元"},400
         elif not check(email):
             return {"error":True,"message":"email格式不正確"},400
-        sql = "SELECT id, name, email, password FROM member WHERE email = %s "
-        val = [email]
-        result = Sql.fetch_one(sql,val)
-        # print(result)
+        result = Member.signin_put(data)
+        if not result:
+            return {"error":True,"message":"Email不存在"},400
         #hash後的密碼
         hashed_password = result['password']
         #和輸入的密碼做比對
         check_password = bcrypt.check_password_hash(hashed_password, password)
-        # print(f'check : {check_password}')
-        if result['email'] is None:
-            return {"error":True,"message":"Email不存在"},400
-        elif not check_password:
+        if not check_password:
             return {"error":True,"message":"密碼錯誤"},400
         resp = Validation.encode_jwt(result['id'],result['name'],result['email'])
         return resp

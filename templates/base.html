@@ -7,6 +7,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    />
+    <link
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
@@ -21,12 +25,12 @@
         <nav class="navbar">
           <ul>
             <li>
-              <button class="reservationText" onclick="booking()">
+              <button class="reservationText hide" onclick="booking()">
                 預定行程
               </button>
             </li>
             <li class="signInBtn">
-              <button class="signinText" onclick="showSigninDialog()">
+              <button class="signinText hide" onclick="showSigninDialog()">
                 登入/註冊
               </button>
             </li>
@@ -65,6 +69,7 @@
                 pattern="^(?=.*[a-zA-Z])(?=.*[0-9]).{6,}$"
                 required
               />
+              <i id="checkEye" class="fas fa-eye-slash"></i>
               <input
                 type="submit"
                 value="登入帳戶"
@@ -117,6 +122,7 @@
                 pattern="^(?=.*[a-zA-Z])(?=.*[0-9]).{6,}$"
                 required
               />
+              <i id="checkEye" class="fas fa-eye-slash"></i>
               <button class="btn" id="signupBtn">註冊帳戶</button>
               <span class="signupMsg msg"></span>
               <span class="remindMessage">已經有帳戶？</span
@@ -126,6 +132,17 @@
             </div>
           </div>
         </form>
+      </div>
+    </div>
+
+    <div class="signPlace" id="alertPlace">
+      <div class="greenBar"></div>
+      <div class="dialog">
+        <h3>溫馨提示</h3>
+        <div class="close" onclick="closeSignDialog()">
+          <img src="../image/icon_close.png" alt="" />
+        </div>
+        <p class="alertText">hello</p>
       </div>
     </div>
 

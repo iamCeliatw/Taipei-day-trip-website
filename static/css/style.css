@@ -102,6 +102,9 @@
   display: flex;
   text-align: center;
 }
+.signPlace .dialog .sign-page .type-place {
+  position: relative;
+}
 .signPlace .dialog .sign-page .type-place .inputArea {
   font-size: 16px;
   padding-left: 15px;
@@ -110,6 +113,11 @@
   width: 310px;
   height: 40px;
   border-radius: 5px;
+}
+.signPlace .dialog .sign-page .fas {
+  position: absolute;
+  right: 4%;
+  bottom: 52%;
 }
 .signPlace .dialog .sign-page .btn {
   font-size: 16px;
@@ -178,6 +186,7 @@ header .text_center .descript-left .searchBtn input {
   border-style: none;
   vertical-align: middle;
   box-shadow: 0px 0px 20px #aabbcc;
+  outline: none;
 }
 header .text_center .descript-left .searchBtn button {
   width: 60px;
@@ -205,7 +214,7 @@ header .text_center .descript-left .searchBtn .catPlace {
   width: 400px;
   height: 162px;
   left: 0px;
-  top: 51px;
+  top: 53px;
   background: #ffffff;
   box-shadow: 0px 0px 20px #aabbcc;
   border-radius: 5px;
@@ -236,8 +245,7 @@ header .text_center .descript-left .searchBtn .catPlace .catItem:hover {
   width: 1200px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  margin: auto;
-  margin-top: 45px;
+  margin: 45px auto;
 }
 .list .spot {
   margin: 10px;
@@ -380,7 +388,7 @@ header .text_center .descript-left .searchBtn .catPlace .catItem:hover {
     margin: auto;
   }
   .title header .text_center .descript-left .searchBtn input {
-    margin: 0 sauto;
+    margin: 0 auto;
     width: 200px;
   }
   .title header .text_center .descript-left .searchBtn .catPlace {

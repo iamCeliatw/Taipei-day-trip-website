@@ -27,7 +27,6 @@
     margin: auto;
     h3 {
       cursor: pointer;
-      //   font-weight: 700;
       font-size: 30px;
       color: #448899;
     }
@@ -41,7 +40,6 @@
       li {
         list-style: none;
         display: inline-block;
-        // padding: 0px 10px;
         font-size: 20px;
         button {
           background: none;
@@ -66,6 +64,11 @@
   transform: translate(-50%, 0%);
   z-index: 3;
   display: none;
+  .alertText {
+    padding: 10px 0;
+    text-align: center;
+    color: #666666;
+  }
   .greenBar {
     width: 340px;
     height: 10px;
@@ -103,7 +106,6 @@
 
     .sign-page {
       display: flex;
-      //   margin: 5px;
       text-align: center;
       .type-place {
         .inputArea {
@@ -161,19 +163,27 @@
   width: 1200px;
   margin: 80px auto;
   h4 {
+    font-size: 19px;
     margin-bottom: 30px;
     color: #666666;
   }
   .booking-content {
     color: #666666;
+    .booking-img {
+      img {
+        border-radius: 5px;
+        max-height: 207px;
+        aspect-ratio: 16/12;
+      }
+    }
     .form-question {
       font-weight: 700;
     }
     display: flex;
-    .booking-img {
-      width: 266px;
-    }
+    flex-wrap: wrap;
     .booking-text {
+      font-size: 16px;
+      //   flex: 1;
       padding-left: 20px;
       h4 {
         color: #448899;
@@ -185,6 +195,8 @@
     }
   }
   .delete-img {
+    border: 0;
+    background: none;
     cursor: pointer;
     position: absolute;
     right: 0;
@@ -199,6 +211,9 @@
 
 .booking-middle {
   color: #666666;
+  position: relative;
+  width: 1200px;
+  margin: 80px auto;
   h3 {
     font-size: 19px;
     font-weight: 700;
@@ -207,6 +222,7 @@
     margin-top: 20px;
   }
   .booking-input {
+    font-size: 16px;
     padding-left: 15px;
     border: 1px solid #e8e8e8;
     margin-top: 15px;
@@ -214,9 +230,7 @@
     height: 38px;
     border-radius: 5px;
   }
-  position: relative;
-  width: 1200px;
-  margin: 40px auto;
+
   .form-question {
     line-height: 40px;
   }
@@ -252,6 +266,8 @@
   height: 104px;
   display: flex;
   align-items: center;
+  max-height: 100vh;
+
   p {
     color: #ffffff;
     margin: auto;
@@ -259,5 +275,65 @@
     font-weight: 700;
     font-size: 16px;
     line-height: 13px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  main {
+    .booking-top {
+      width: 90%;
+      .booking-content {
+        .booking-img {
+          margin-bottom: 45px;
+        }
+        .booking-text {
+          flex-basis: 51%;
+        }
+      }
+      .delete-img {
+        right: 3%;
+        top: 100%;
+      }
+    }
+
+    .middle-hr {
+      width: 90%;
+    }
+    .booking-middle {
+      width: 90%;
+    }
+    .booking-total {
+      width: 90%;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  main {
+    .booking-top {
+      width: 100%;
+      .booking-content {
+        .booking-img {
+          width: 100%;
+          margin-bottom: 0;
+          img {
+            max-height: fit-content;
+            width: 100%;
+          }
+        }
+        .booking-text {
+          margin-top: 45px;
+          flex-basis: 50%;
+        }
+      }
+      .delete-img {
+        right: 3%;
+        top: 100%;
+      }
+    }
+    .booking-total {
+      width: 100%;
+      padding-right: 20px;
+    }
   }
 }
