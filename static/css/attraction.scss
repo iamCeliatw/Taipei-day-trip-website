@@ -132,10 +132,15 @@ input[type="date"]::-webkit-calendar-picker-indicator {
           border-radius: 5px;
         }
       }
-      .fas {
+      #checkEye1 {
         position: absolute;
         right: 4%;
         bottom: 52%;
+      }
+      #checkEye2 {
+        position: absolute;
+        right: 4%;
+        bottom: 40%;
       }
       .btn {
         font-size: 16px;

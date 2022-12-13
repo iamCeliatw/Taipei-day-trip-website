@@ -133,10 +133,15 @@ input[type=date]::-webkit-calendar-picker-indicator {
   height: 40px;
   border-radius: 5px;
 }
-.signPlace .dialog .sign-page .fas {
+.signPlace .dialog .sign-page #checkEye1 {
   position: absolute;
   right: 4%;
   bottom: 52%;
+}
+.signPlace .dialog .sign-page #checkEye2 {
+  position: absolute;
+  right: 4%;
+  bottom: 40%;
 }
 .signPlace .dialog .sign-page .btn {
   font-size: 16px;

@@ -140,7 +140,6 @@ function deleteBooking() {
   for (let button of deleteButtons) {
     button.addEventListener("click", function () {
       deleteId = this.id;
-      console.log(deleteId);
       fetch(`${location.origin}/api/booking`, {
         method: "DELETE",
         headers: {

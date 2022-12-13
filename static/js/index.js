@@ -31,7 +31,8 @@ const signinMsg = document.querySelector(".signinMsg");
 const signupMsg = document.querySelector(".signupMsg");
 const reservationText = document.querySelector(".reservationText");
 const noItem = document.createElement("div");
-const checkEye = document.querySelector("#checkEye");
+const fas = document.querySelectorAll(".fas");
+
 // sign up
 signupBtn.addEventListener("click", (e) => {
   e.preventDefault();
@@ -318,27 +319,19 @@ function callback(entires) {
   }
 }
 
-const showPasswordButton = document.getElementById("show-password-button");
-
-// showPasswordButton.addEventListener("click", () => {
-//   if (passwordInput.type === "password") {
-//     passwordInput.type = "text";
-//   } else {
-//     passwordInput.type = "password";
-//   }
-// });
-
 //查看密碼小眼睛
-checkEye.addEventListener("click", (e) => {
-  if (e.target.classList.contains("fa-eye-slash")) {
-    e.target.classList.remove("fa-eye-slash");
-    e.target.classList.add("fa-eye");
-    signinPassword.setAttribute("type", "text");
-    signupPassword.setAttribute("type", "text");
-  } else {
-    signinPassword.setAttribute("type", "password");
-    signupPassword.setAttribute("type", "password");
-    e.target.classList.remove("fa-eye");
-    e.target.classList.add("fa-eye-slash");
-  }
-});
+for (let eye of fas) {
+  eye.addEventListener("click", (e) => {
+    if (e.target.classList.contains("fa-eye-slash")) {
+      e.target.classList.remove("fa-eye-slash");
+      e.target.classList.add("fa-eye");
+      signinPassword.setAttribute("type", "text");
+      signupPassword.setAttribute("type", "text");
+    } else {
+      signinPassword.setAttribute("type", "password");
+      signupPassword.setAttribute("type", "password");
+      e.target.classList.remove("fa-eye");
+      e.target.classList.add("fa-eye-slash");
+    }
+  });
+}
