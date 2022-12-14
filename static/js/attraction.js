@@ -286,7 +286,6 @@ function getUser() {
         logoutText.classList.add("hide");
         signinText.classList.remove("hide");
       } else if (data.data) {
-        // console.log(data);
         reservationText.classList.remove("hide");
         signinText.classList.add("hide");
         logoutText.classList.remove("hide");

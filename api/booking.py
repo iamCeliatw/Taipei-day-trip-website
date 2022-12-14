@@ -17,11 +17,10 @@ def book_get():
         #array 
         if not data:
             return {"data": None}
-        return {"data": data}
+        return {"data": data[0],"multiple_date":data[1]}
     except Exception as e:
             print(e)
             return {"error": True,"message":"伺服器內部錯誤"},500
-
 
 @booking.post('/api/booking')
 def book_post():

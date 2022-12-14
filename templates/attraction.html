@@ -60,12 +60,14 @@
                 <p>養生溫泉 at 新北投</p>
             </div>` -->
 
-            <form action="">
+            <form onsubmit="return false">
               <div class="attraction-detail">
                 <h3>訂購瀏覽行程</h3>
                 <p>以此景點為中心的一日行程，帶您探索城市角落故事</p>
                 <span>選擇日期：</span>
-                <span><input class="date" type="date" id="myDateInput" /></span>
+                <span
+                  ><input class="date" type="date" id="myDateInput" required
+                /></span>
                 <div class="chooseTime">
                   <span class="question">選擇行程：</span>
                   <span>
@@ -106,13 +108,7 @@
       </p> -->
       </div>
     </main>
-    {% endblock %}
-    <!-- <footer>
-      <div class="footer">
-        <p>COPYRIGHT © 2022 台北一日遊</p>
-      </div>
-    </footer> -->
-    {% block script %}
+    {% endblock %} {% block script %}
     <script
       type="text/javascript"
       src="{{url_for('static', filename='js/attraction.js')}}"

@@ -1,5 +1,5 @@
 from data.database import db
-
+from collections import Counter
 class Booking:
     def post(data,result):
         try:
@@ -26,10 +26,17 @@ class Booking:
             cursor = conn.cursor(buffered=True, dictionary=True)
             cursor.execute(sql,val)
             result = cursor.fetchall() 
-            print(result)
+            dates = [i['date'] for i in result]
+            counts = Counter(dates)
+            # print(result)
+            arr = []
             if not result:
                 return None
-            return result
+            for date in counts:
+                if counts[date] > 1:
+                    arr.append(date)
+                print(arr)
+            return result,arr
         except Exception as e:
             print(e)
             return False
