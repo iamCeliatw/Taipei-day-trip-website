@@ -47,11 +47,6 @@ function getBookData() {
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
-      if (data.multiple_date.length > 0) {
-        showAlertDialog(
-          `您目前有重複預定日期為：${data.multiple_date}，請留意訂單資訊是否正確`
-        );
-      }
       if (!data.data) {
         const noReservation = document.createElement("div");
         const noReserText = document.createElement("h4");
@@ -60,6 +55,11 @@ function getBookData() {
         noReservation.append(noReserText);
         noReserText.textContent = "暫無預定行程喔！";
       } else {
+        if (data.multiple_date.length > 0) {
+          showAlertDialog(
+            `您目前有重複預定日期為：${data.multiple_date}，請留意訂單資訊是否正確`
+          );
+        }
         for (let i = 0; i < data.data.length; i++) {
           console.log(data.data[i].time);
 
