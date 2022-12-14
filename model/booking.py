@@ -35,7 +35,6 @@ class Booking:
             for date in counts:
                 if counts[date] > 1:
                     arr.append(date)
-                print(arr)
             return result,arr
         except Exception as e:
             print(e)

@@ -31,8 +31,10 @@ def book_post():
         if not resp:
             return {"error":True,"message":"請先點擊右上角，登入會員"},403
         result = Validation.decode_jwt(resp)
+        print("r",result)
         data = request.get_json()
         today = datetime.now().strftime("%Y-%m-%d")
+        print(datetime.day)
         if data['date'] <= today or data['date'] == '':
             return {"error":True,"message":"⛔️請選擇未來的日期"},400
         res = Booking.post(data,result)

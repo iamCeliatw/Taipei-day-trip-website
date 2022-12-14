@@ -198,20 +198,9 @@ function getData() {
       const slideWidth = slides[0].getBoundingClientRect().width;
 
       //給定每個slide left
-      for (let i = 0; i < slides.length; i++) {
-        slides[i].style.left = slideWidth * i + "px";
-      }
-
-      function moveToslide(track, currentSlide, targetSlide) {
-        track.style.transform = "translateX(-" + targetSlide.style.left + ")";
-        currentSlide.classList.remove("current-slide");
-        targetSlide.classList.add("current-slide");
-      }
-
-      function updateDots(currentDot, targetDot) {
-        currentDot.classList.remove("current-slide");
-        targetDot.classList.add("current-slide");
-      }
+      slides.forEach(function (slide, index) {
+        slide.style.left = slideWidth * index + "px";
+      });
 
       // 點擊左邊的按鈕往左滑
       prevButton.addEventListener("click", (e) => {
@@ -229,7 +218,7 @@ function getData() {
       });
 
       // 點擊右邊按鈕往右滑
-      nextButton.addEventListener("click", (e) => {
+      nextButton.addEventListener("click", () => {
         let currentSlide = track.querySelector(".current-slide");
         let nextSlide = currentSlide.nextElementSibling;
         let currentDot = dotsNav.querySelector(".current-slide");
@@ -256,6 +245,8 @@ function getData() {
         hideShowArrows(slides, prevButton, nextButton, targetIndex);
       });
       let hideShowArrows = (slides, prevButton, nextButton, targetIndex) => {
+        console.log(targetIndex);
+
         if (!targetIndex) {
           prevButton.classList.add("is-hidden");
           nextButton.classList.remove("is-hidden");
@@ -408,4 +399,14 @@ for (let eye of fas) {
       e.target.classList.add("fa-eye-slash");
     }
   });
+}
+function moveToslide(track, currentSlide, targetSlide) {
+  track.style.transform = "translateX(-" + targetSlide.style.left + ")";
+  currentSlide.classList.remove("current-slide");
+  targetSlide.classList.add("current-slide");
+}
+
+function updateDots(currentDot, targetDot) {
+  currentDot.classList.remove("current-slide");
+  targetDot.classList.add("current-slide");
 }

@@ -64,6 +64,11 @@
   transform: translate(-50%, 0%);
   z-index: 3;
   display: none;
+  .alertText {
+    padding: 10px 0;
+    text-align: center;
+    color: #666666;
+  }
   .greenBar {
     width: 340px;
     height: 10px;

@@ -64,6 +64,11 @@
   z-index: 3;
   display: none;
 }
+.signPlace .alertText {
+  padding: 10px 0;
+  text-align: center;
+  color: #666666;
+}
 .signPlace .greenBar {
   width: 340px;
   height: 10px;

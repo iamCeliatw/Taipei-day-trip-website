@@ -19,7 +19,7 @@ window.addEventListener("load", () => {
 });
 
 //點擊登出系統
-logoutText.addEventListener("click", (e) => {
+logoutText.addEventListener("click", () => {
   fetch(`${location.origin}/api/user/auth`, {
     method: "DELETE",
     headers: {
@@ -31,7 +31,6 @@ logoutText.addEventListener("click", (e) => {
       if (data.ok) {
         logoutText.classList.add("hide");
         signinText.classList.remove("hide");
-        // location.reload();
         getUser();
       }
     });
@@ -46,7 +45,6 @@ function getBookData() {
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
       if (!data.data) {
         const noReservation = document.createElement("div");
         const noReserText = document.createElement("h4");
@@ -61,8 +59,6 @@ function getBookData() {
           );
         }
         for (let i = 0; i < data.data.length; i++) {
-          console.log(data.data[i].time);
-
           totalPrice = totalPrice + data.data[i].price;
           main.insertAdjacentHTML(
             "beforeBegin",
