@@ -47,7 +47,7 @@ function getBookData() {
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
-      if (data.multiple_date) {
+      if (data.multiple_date.length > 0) {
         showAlertDialog(
           `您目前有重複預定日期為：${data.multiple_date}，請留意訂單資訊是否正確`
         );
