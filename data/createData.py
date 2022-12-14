@@ -41,7 +41,7 @@ sql = '''CREATE TABLE IF NOT EXISTS booking(
                             `attraction_name` VARCHAR(64) NOT NULL,
                             `address`  VARCHAR(100) NOT NULL,
                             `image` VARCHAR(200) NOT NULL,
-                            `date` VARCHAR(64) NOT NULL,
+                            `date` DATE NOT NULL,
                             `time` VARCHAR(64) NOT NULL,
                             `price` INT NOT NULL,
                             `order_number` VARCHAR(64),

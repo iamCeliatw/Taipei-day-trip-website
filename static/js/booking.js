@@ -13,41 +13,11 @@ const totalPriceValue = document.querySelector(".totalPrice");
 let deleteButtons;
 let deleteId;
 let totalPrice = 0;
-
 window.addEventListener("load", () => {
   getUser();
   getBookData();
 });
 
-//回首頁
-function backHomePage() {
-  window.location = "/";
-}
-// 點擊登入 跳出視窗
-function showSigninDialog() {
-  signupPlace.style.display = "none";
-  signinPlace.style.display = "block";
-  lay.classList.remove("hide");
-}
-
-// 點擊 點此註冊 隱藏登入框 顯示註冊框
-function showSignupDialog() {
-  signinPlace.style.display = "none";
-  signupPlace.style.display = "block";
-}
-// 關閉註冊登入
-function closeSignDialog() {
-  signinPlace.style.display = "none";
-  signupPlace.style.display = "none";
-  alertPlace.style.display = "none";
-  lay.classList.add("hide");
-}
-//顯示提示框框
-function showAlertDialog(text) {
-  alertPlace.style.display = "block";
-  alertText.textContent = text;
-  lay.classList.remove("hide");
-}
 //點擊登出系統
 logoutText.addEventListener("click", (e) => {
   fetch(`${location.origin}/api/user/auth`, {
@@ -61,7 +31,8 @@ logoutText.addEventListener("click", (e) => {
       if (data.ok) {
         logoutText.classList.add("hide");
         signinText.classList.remove("hide");
-        location.reload();
+        // location.reload();
+        getUser();
       }
     });
 });
@@ -84,6 +55,8 @@ function getBookData() {
         noReserText.textContent = "暫無預定行程喔！";
       } else {
         for (let i = 0; i < data.data.length; i++) {
+          console.log(data.data[i].time);
+
           totalPrice = totalPrice + data.data[i].price;
           main.insertAdjacentHTML(
             "beforeBegin",
@@ -134,30 +107,6 @@ function getBookData() {
       }
     });
 }
-//刪除景點
-function deleteBooking() {
-  deleteButtons = document.querySelectorAll(".delete-img");
-  for (let button of deleteButtons) {
-    button.addEventListener("click", function () {
-      deleteId = this.id;
-      fetch(`${location.origin}/api/booking`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          id: deleteId,
-        }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.ok) {
-            location.reload();
-          }
-        });
-    });
-  }
-}
 
 //跳登入顯示框顯示三秒跳轉首頁
 let countdownDuration = 3;
@@ -195,4 +144,59 @@ function getUser() {
         logoutText.classList.remove("hide");
       }
     });
+}
+
+//回首頁
+function backHomePage() {
+  window.location = "/";
+}
+// 點擊登入 跳出視窗
+function showSigninDialog() {
+  signupPlace.style.display = "none";
+  signinPlace.style.display = "block";
+  lay.classList.remove("hide");
+}
+
+// 點擊 點此註冊 隱藏登入框 顯示註冊框
+function showSignupDialog() {
+  signinPlace.style.display = "none";
+  signupPlace.style.display = "block";
+}
+// 關閉註冊登入
+function closeSignDialog() {
+  signinPlace.style.display = "none";
+  signupPlace.style.display = "none";
+  alertPlace.style.display = "none";
+  lay.classList.add("hide");
+}
+//顯示提示框框
+function showAlertDialog(text) {
+  alertPlace.style.display = "block";
+  alertText.textContent = text;
+  lay.classList.remove("hide");
+}
+
+//刪除景點
+function deleteBooking() {
+  deleteButtons = document.querySelectorAll(".delete-img");
+  for (let button of deleteButtons) {
+    button.addEventListener("click", function () {
+      deleteId = this.id;
+      fetch(`${location.origin}/api/booking`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: deleteId,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.ok) {
+            location.reload();
+          }
+        });
+    });
+  }
 }

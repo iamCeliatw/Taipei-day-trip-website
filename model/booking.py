@@ -19,13 +19,14 @@ class Booking:
 
     def get(result):
         try:
-            sql = 'SELECT booking.id, attraction_id, attraction_name, address, image, date, time, price, name, email FROM booking INNER JOIN member ON %s = member.email;'
-            val = [result['email']]
+            sql = 'SELECT booking.id, attraction_id, attraction_name, address, image, DATE_FORMAT(date, %s) AS date, time, price, name, email FROM booking INNER JOIN member ON %s = member.email'
+            val = ['%Y-%m-%d',result['email']]
             #array 
             conn = db.connection.get_connection()
             cursor = conn.cursor(buffered=True, dictionary=True)
             cursor.execute(sql,val)
             result = cursor.fetchall() 
+            print(result)
             if not result:
                 return None
             return result

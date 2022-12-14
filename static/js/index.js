@@ -32,7 +32,8 @@ const signupMsg = document.querySelector(".signupMsg");
 const reservationText = document.querySelector(".reservationText");
 const noItem = document.createElement("div");
 const fas = document.querySelectorAll(".fas");
-
+const alertPlace = document.querySelector("#alertPlace");
+const alertText = document.querySelector(".alertText");
 // sign up
 signupBtn.addEventListener("click", (e) => {
   e.preventDefault();
@@ -86,10 +87,12 @@ signinBtn.addEventListener("click", (e) => {
         window.setTimeout(hideMsg, 2000);
       } else {
         closeSignDialog();
-        // console.log(data);
-        location.reload();
         signinText.classList.add("hide");
         logoutText.classList.remove("hide");
+        showAlertDialog("登入成功");
+        close.addEventListener("click", () => {
+          console.log(123213);
+        });
       }
     });
 });
@@ -159,7 +162,9 @@ function showSignupDialog() {
 function closeSignDialog() {
   signinPlace.style.display = "none";
   signupPlace.style.display = "none";
+  alertPlace.style.display = "none";
   lay.classList.add("hide");
+  location.reload;
 }
 
 //搜尋景點分類框
@@ -196,6 +201,13 @@ window.addEventListener("load", () => {
   getData();
   getUser();
 });
+
+//顯示提示框框
+function showAlertDialog(text) {
+  alertPlace.style.display = "block";
+  alertText.textContent = text;
+  lay.classList.remove("hide");
+}
 
 //點擊登出系統
 logoutText.addEventListener("click", () => {
@@ -278,7 +290,6 @@ async function getData() {
       isLoad = false;
       lens = data.data.length;
     }
-    //   });
   } catch (error) {
     console.log(
       "There has been a problem with your fetch operation: ",
