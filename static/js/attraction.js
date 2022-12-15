@@ -23,13 +23,21 @@ const logoutText = document.querySelector(".logoutText");
 const signinMsg = document.querySelector(".signinMsg");
 const signupMsg = document.querySelector(".signupMsg");
 const reservationText = document.querySelector(".reservationText");
+const reservation = document.querySelector(".reservation");
+const alertPlace = document.querySelector("#alertPlace");
+const alertText = document.querySelector(".alertText");
+const fas = document.querySelectorAll(".fas");
 
+let timeValue;
+let spotName;
+let spotAddress;
+let bookImg;
 // 註冊按鈕
 signupBtn.addEventListener("click", (e) => {
   e.preventDefault();
-  let signupName = document.querySelector("#signupName").value;
-  let signupEmail = document.querySelector("#signupEmail").value;
-  let signupPassword = document.querySelector("#signupPassword").value;
+  const signupEmail = document.querySelector("#signupEmail").value;
+  const signupName = document.querySelector("#signupName").value;
+  const signupPassword = document.querySelector("#signupPassword").value;
   fetch(`${location.origin}/api/user`, {
     method: "POST",
     headers: {
@@ -45,6 +53,7 @@ signupBtn.addEventListener("click", (e) => {
     .then((data) => {
       if (data.error) {
         signupMsg.style.display = "block";
+        signupMsg.style.color = "red";
         signupMsg.textContent = data.message;
         window.setTimeout(hideMsg, 2000);
       } else {
@@ -64,8 +73,8 @@ function backHomePage() {
 // 登入按鈕
 signinBtn.addEventListener("click", (e) => {
   e.preventDefault();
-  let signinEmail = document.querySelector("#signinEmail").value;
-  let signinPassword = document.querySelector("#signinPassword").value;
+  const signinEmail = document.querySelector("#signinEmail").value;
+  const signinPassword = document.querySelector("#signinPassword").value;
   fetch(`${location.origin}/api/user/auth`, {
     method: "PUT",
     headers: {
@@ -115,13 +124,22 @@ function showSignupDialog() {
 function closeSignDialog() {
   signinPlace.style.display = "none";
   signupPlace.style.display = "none";
+  alertPlace.style.display = "none";
   lay.classList.add("hide");
 }
+//顯示提示框框
+function showAlertDialog(text) {
+  alertPlace.style.display = "block";
+  alertText.textContent = text;
+  lay.classList.remove("hide");
+}
+
 // 取得景點資訊
 function getData() {
   fetch(url + id)
     .then((response) => response.json())
     .then((data) => {
+      document.title = `Taipei day trip - ${data.data.name}`;
       for (let i = 0; i < data.data.image.length; i++) {
         track.insertAdjacentHTML(
           "beforeEnd",
@@ -142,11 +160,12 @@ function getData() {
       )[0];
       firstSlide.classList.add("current-slide");
       carousel__indicator.classList.add("current-slide");
+      bookImg = document.getElementsByClassName("carousel__image")[1].src;
 
       attractionMessage.insertAdjacentHTML(
         "afterBegin",
         ` <div class="attraction-data">
-            <h3>${data.data.name}</h3>
+            <h3 class="name">${data.data.name}</h3>
             <p>${data.data.cat} at ${data.data.mrt}</p>
         </div>`
       );
@@ -156,40 +175,32 @@ function getData() {
         ${data.data.description}
         </p>
         <h3>景點地址：</h3>
-        <p>${data.data.address}</p>
+        <p  class="address">${data.data.address}</p>
         <h3>交通方式：</h3>
         <p>
         ${data.data.direction}
         </p>
-        <iframe width="900" height="600" frameborder="0" scrolling="no" marginheight="20px" marginwidth="10" src=https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=${data.data.latitude},${data.data.longitude}(${data.data.name})&z=16&output=embed&t=></iframe>
+        <iframe width="900" height="600" frameborder="0" scrolling="no" marginheight="20px" marginwidth="10"
+        src=https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=${data.data.latitude},${data.data.longitude}(${data.data.name})&z=16&output=embed&t=></iframe>
         
         `
       );
+      spotName = document.querySelector(".name").textContent;
+      spotAddress = document.querySelector(".address").textContent;
 
       let slides = Array.prototype.slice.call(track.children);
 
-      let nextButton = document.querySelector(".carousel__button--right");
-      let prevButton = document.querySelector(".carousel__button--left");
-      let dotsNav = document.querySelector(".carousel__nav");
-      let dots = Array.from(dotsNav.children);
+      const nextButton = document.querySelector(".carousel__button--right");
+      const prevButton = document.querySelector(".carousel__button--left");
+      const dotsNav = document.querySelector(".carousel__nav");
+      const dots = Array.from(dotsNav.children);
       //取得圖片大小
-      let slideWidth = slides[0].getBoundingClientRect().width;
+      const slideWidth = slides[0].getBoundingClientRect().width;
 
       //給定每個slide left
-      for (let i = 0; i < slides.length; i++) {
-        slides[i].style.left = slideWidth * i + "px";
-      }
-
-      function moveToslide(track, currentSlide, targetSlide) {
-        track.style.transform = "translateX(-" + targetSlide.style.left + ")";
-        currentSlide.classList.remove("current-slide");
-        targetSlide.classList.add("current-slide");
-      }
-
-      function updateDots(currentDot, targetDot) {
-        currentDot.classList.remove("current-slide");
-        targetDot.classList.add("current-slide");
-      }
+      slides.forEach(function (slide, index) {
+        slide.style.left = slideWidth * index + "px";
+      });
 
       // 點擊左邊的按鈕往左滑
       prevButton.addEventListener("click", (e) => {
@@ -207,7 +218,7 @@ function getData() {
       });
 
       // 點擊右邊按鈕往右滑
-      nextButton.addEventListener("click", (e) => {
+      nextButton.addEventListener("click", () => {
         let currentSlide = track.querySelector(".current-slide");
         let nextSlide = currentSlide.nextElementSibling;
         let currentDot = dotsNav.querySelector(".current-slide");
@@ -234,7 +245,9 @@ function getData() {
         hideShowArrows(slides, prevButton, nextButton, targetIndex);
       });
       let hideShowArrows = (slides, prevButton, nextButton, targetIndex) => {
-        if (targetIndex === 0) {
+        console.log(targetIndex);
+
+        if (!targetIndex) {
           prevButton.classList.add("is-hidden");
           nextButton.classList.remove("is-hidden");
         } else if (targetIndex === slides.length - 1) {
@@ -264,7 +277,6 @@ function getUser() {
         logoutText.classList.add("hide");
         signinText.classList.remove("hide");
       } else if (data.data) {
-        console.log(data);
         reservationText.classList.remove("hide");
         signinText.classList.add("hide");
         logoutText.classList.remove("hide");
@@ -289,12 +301,112 @@ logoutText.addEventListener("click", (e) => {
       }
     });
 });
-
+let eachPrice;
 //上半天顯示價錢
 oneHalfDay.addEventListener("click", (e) => {
-  totalPrice.textContent = "新台幣2000元";
+  eachPrice = 2000;
+  totalPrice.textContent = `新台幣${eachPrice}元`;
 });
 // 下半天顯示價錢
 nextHalfDay.addEventListener("click", (e) => {
-  totalPrice.textContent = "新台幣2500元";
+  eachPrice = 2500;
+  totalPrice.textContent = `新台幣${eachPrice}元`;
 });
+
+// Get the current date
+const currentDate = new Date();
+
+document.getElementById("myDateInput").min = currentDate
+  .toISOString()
+  .split("T")[0];
+
+//post景點資料 存資料庫
+function postBookData() {
+  let oneDayRadio = document.querySelector("#day1");
+  let dateValue = document.querySelector(".date").value;
+  let priceValue = document.querySelector(".totalPrice").textContent;
+  //把字串中的金額提取出來傳到後端
+  eachPrice = priceValue.replace(/[^\d]/g, " ");
+  if (oneDayRadio.checked) {
+    timeValue = oneHalfDay.textContent;
+  } else {
+    timeValue = nextHalfDay.textContent;
+  }
+  fetch(`${location.origin}/api/booking`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      attractionId: id,
+      name: spotName,
+      address: spotAddress,
+      image: bookImg,
+      date: dateValue,
+      time: timeValue,
+      price: eachPrice,
+    }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      // 這邊可能要作秀在畫面上之類的功能？
+      console.log(id, dateValue, timeValue, eachPrice);
+      console.log(spotName, spotAddress, bookImg);
+      //   showAlertDialog(data.message);
+      if (data.ok) {
+        window.location.href = `${location.origin}/booking`;
+      } else {
+        showAlertDialog(data.message);
+      }
+    });
+}
+
+function booking() {
+  fetch(`${location.origin}/api/user/auth`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (!data.data) {
+        showSigninDialog();
+      } else {
+        window.location.href = `${location.origin}/booking`;
+      }
+      //未登入
+    });
+}
+
+//開始預定行程
+reservation.addEventListener("click", () => {
+  postBookData();
+});
+
+//查看密碼小眼睛
+for (let eye of fas) {
+  eye.addEventListener("click", (e) => {
+    if (e.target.classList.contains("fa-eye-slash")) {
+      e.target.classList.remove("fa-eye-slash");
+      e.target.classList.add("fa-eye");
+      signinPassword.setAttribute("type", "text");
+      signupPassword.setAttribute("type", "text");
+    } else {
+      signinPassword.setAttribute("type", "password");
+      signupPassword.setAttribute("type", "password");
+      e.target.classList.remove("fa-eye");
+      e.target.classList.add("fa-eye-slash");
+    }
+  });
+}
+function moveToslide(track, currentSlide, targetSlide) {
+  track.style.transform = "translateX(-" + targetSlide.style.left + ")";
+  currentSlide.classList.remove("current-slide");
+  targetSlide.classList.add("current-slide");
+}
+
+function updateDots(currentDot, targetDot) {
+  currentDot.classList.remove("current-slide");
+  targetDot.classList.add("current-slide");
+}

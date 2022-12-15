@@ -64,6 +64,11 @@
   transform: translate(-50%, 0%);
   z-index: 3;
   display: none;
+  .alertText {
+    padding: 10px 0;
+    text-align: center;
+    color: #666666;
+  }
   .greenBar {
     width: 340px;
     height: 10px;
@@ -104,6 +109,7 @@
       //   margin: 5px;
       text-align: center;
       .type-place {
+        position: relative;
         .inputArea {
           font-size: 16px;
           padding-left: 15px;
@@ -113,6 +119,16 @@
           height: 40px;
           border-radius: 5px;
         }
+      }
+      #checkEye1 {
+        position: absolute;
+        right: 4%;
+        bottom: 52%;
+      }
+      #checkEye2 {
+        position: absolute;
+        right: 4%;
+        bottom: 40%;
       }
       .btn {
         font-size: 16px;
@@ -180,6 +196,7 @@ header {
           border-style: none;
           vertical-align: middle;
           box-shadow: 0px 0px 20px #aabbcc;
+          outline: none;
         }
         button {
           width: 60px;
@@ -209,7 +226,7 @@ header {
           width: 400px;
           height: 162px;
           left: 0px;
-          top: 51px;
+          top: 53px;
           background: #ffffff;
           box-shadow: 0px 0px 20px #aabbcc;
           border-radius: 5px;
@@ -245,8 +262,7 @@ header {
   width: 1200px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  margin: auto;
-  margin-top: 45px;
+  margin: 45px auto;
 
   .spot {
     margin: 10px;
@@ -301,10 +317,6 @@ header {
     }
   }
 }
-.hid {
-  display: none;
-}
-
 .hide {
   display: none;
 }
@@ -396,7 +408,7 @@ header {
             .searchBtn {
               margin: auto;
               input {
-                margin: 0 sauto;
+                margin: 0 auto;
                 width: 200px;
               }
               .catPlace {
