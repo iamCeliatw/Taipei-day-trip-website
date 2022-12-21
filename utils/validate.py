@@ -6,8 +6,8 @@ from flask import *
 
 regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
 secret = "wdfm3lmlask3"  
-dt1 = datetime.utcnow().replace(tzinfo=timezone.utc)
-now = dt1.astimezone(timezone(timedelta(hours=8))) 
+date1 = datetime.utcnow().replace(tzinfo=timezone.utc)
+now = date1.astimezone(timezone(timedelta(hours=8))) 
 delta = timedelta(days=7)
 n_days = now + delta
 

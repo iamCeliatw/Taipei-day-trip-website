@@ -72,6 +72,18 @@ def login_put():
         print(e)
         return {"error": True, "message": "伺服器內部錯誤"}, 500
 
+@member.patch("/api/user/auth")
+def user_patch():
+    try:
+        jwt_data = request.cookies.get("token") 
+        result = Validation.decode_jwt(jwt_data)
+        data = request.get_json()
+        Member.update_name(jwt_data,result,data)
+        return {"data":True}
+    except Exception as e: 
+        print(e)
+        return {"error": True, "message": "伺服器內部錯誤"}, 500
+
 
 @member.delete('/api/user/auth')
 def user_delete():

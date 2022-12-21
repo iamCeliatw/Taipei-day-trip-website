@@ -17,17 +17,16 @@
   <body>
     {% block main %}
     <hr class="nav-hr" />
-    <main>
-      <div>
-        <section class="attraction-space">
-          <div class="attraction-carousel">
-            <button class="carousel__button carousel__button--left">
-              <img src="../image/btn_leftArrow.png" alt="" />
-            </button>
+    <div>
+      <section class="attraction-space">
+        <div class="attraction-carousel">
+          <button class="carousel__button carousel__button--left">
+            <img src="../image/btn_leftArrow.png" alt="" />
+          </button>
 
-            <div class="carousel__track-container">
-              <ul class="carousel__track">
-                <!-- <li class="carousel__slide current-slide">
+          <div class="carousel__track-container">
+            <ul class="carousel__track">
+              <!-- <li class="carousel__slide current-slide">
             <img class="carousel__image" src="img.png" alt="" />
           </li>
 
@@ -38,65 +37,65 @@
           <li class="carousel__slide">
             <img class="carousel__image" src="456.jpg" alt="" />
           </li> -->
-              </ul>
-            </div>
+            </ul>
+          </div>
 
-            <button class="carousel__button carousel__button--right">
-              <img src="../image/btn_rightArrow.png" alt="" />
-            </button>
-            <div class="carousel__nav">
-              <!-- <button class="carousel__indicator current-slide"></button> -->
-              <!--
+          <button class="carousel__button carousel__button--right">
+            <img src="../image/btn_rightArrow.png" alt="" />
+          </button>
+          <div class="carousel__nav">
+            <!-- <button class="carousel__indicator current-slide"></button> -->
+            <!--
             <button class="carousel__indicator"></button>
             <button class="carousel__indicator"></button>
             <button class="carousel__indicator"></button>
             <button class="carousel__indicator"></button>-->
-            </div>
           </div>
+        </div>
 
-          <section class="attraction-message">
-            <!-- <div class="attraction-data">
+        <section class="attraction-message">
+          <!-- <div class="attraction-data">
                 <h3>新北投溫泉區</h3>
                 <p>養生溫泉 at 新北投</p>
             </div>` -->
 
-            <form onsubmit="return false">
-              <div class="attraction-detail">
-                <h3>訂購瀏覽行程</h3>
-                <p>以此景點為中心的一日行程，帶您探索城市角落故事</p>
-                <span>選擇日期：</span>
-                <span
-                  ><input class="date" type="date" id="myDateInput" required
-                /></span>
-                <div class="chooseTime">
-                  <span class="question">選擇行程：</span>
-                  <span>
-                    <input type="radio" id="day1" name="radio-group" checked />
-                    <label class="oneHalfDay" for="day1">上半天</label>
-                  </span>
-                  <span>
-                    <input type="radio" id="day2" name="radio-group" />
-                    <label class="nextHalfDay" for="day2">下半天</label>
-                  </span>
-                </div>
-                <span class="question">導覽費用：</span>
-                <span class="totalPrice">新台幣2000元</span>
-                <br />
-                <input
-                  class="reservation"
-                  value="開始預約行程"
-                  type="button"
-                  name="submit"
-                />
+          <form onsubmit="return false">
+            <div class="attraction-detail">
+              <h3>訂購瀏覽行程</h3>
+              <p>以此景點為中心的一日行程，帶您探索城市角落故事</p>
+              <span>選擇日期：</span>
+              <span
+                ><input class="date" type="date" id="myDateInput" required
+              /></span>
+              <div class="chooseTime">
+                <span class="question">選擇行程：</span>
+                <span>
+                  <input type="radio" id="day1" name="radio-group" checked />
+                  <label class="oneHalfDay" for="day1">上半天</label>
+                </span>
+                <span>
+                  <input type="radio" id="day2" name="radio-group" />
+                  <label class="nextHalfDay" for="day2">下半天</label>
+                </span>
               </div>
-            </form>
-          </section>
+              <span class="question">導覽費用：</span>
+              <span class="totalPrice">新台幣2000元</span>
+              <br />
+              <input
+                class="reservation"
+                value="開始預約行程"
+                type="button"
+                name="submit"
+              />
+            </div>
+          </form>
         </section>
-      </div>
+      </section>
+    </div>
 
-      <hr class="middle-hr" />
-      <div class="description">
-        <!-- <p>
+    <hr class="middle-hr" />
+    <div class="description">
+      <!-- <p>
         平安鐘祈求大家的平安，這是為......
      </p>
       <h3>景點地址：</h3>
@@ -106,8 +105,8 @@
         捷運站名：忠孝復興站4號出口1.公車：204、212、212直、232、232副、262、262(區間)、278、299、521、605、605(副)、605(新台五線)、667、903、忠孝新幹線至頂好市場站
         2.車位：太平洋崇光百貨地下停車場或市民大道附近地下停車場
       </p> -->
-      </div>
-    </main>
+    </div>
+
     {% endblock %} {% block script %}
     <script
       type="text/javascript"

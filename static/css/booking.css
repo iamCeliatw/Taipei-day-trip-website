@@ -47,6 +47,9 @@
   display: inline-block;
   font-size: 20px;
 }
+.title .bg .navbar li .reservationText {
+  margin-right: 8px;
+}
 .title .bg .navbar li button {
   background: none;
   color: #666666;
@@ -54,9 +57,6 @@
   font-size: 16px;
   cursor: pointer;
   outline: inherit;
-}
-.title .bg .navbar .signInBtn {
-  padding-left: 20px;
 }
 
 .signPlace {
@@ -86,12 +86,42 @@
   box-shadow: 0px 4px 60px #aaaaaa;
   border-radius: 0px 0px 6px 6px;
 }
+.signPlace .dialog .inputArea {
+  font-size: 16px;
+  padding-left: 15px;
+  border: 1px solid #cccccc;
+  margin-top: 15px;
+  width: 310px;
+  height: 40px;
+  border-radius: 5px;
+}
+.signPlace .dialog .btn {
+  font-size: 16px;
+  color: #fff;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  align-items: center;
+  width: 310px;
+  height: 47px;
+  border-radius: 5px;
+  border: 1px solid #cccccc;
+  background-color: #448899;
+}
+.signPlace .dialog .btn:hover {
+  border: 2px #448899 solid;
+  background-color: #ffffff;
+  color: #448899;
+}
+.signPlace .dialog .updateText {
+  text-align: center;
+}
 .signPlace .dialog h3 {
   font-size: 20px;
   color: #666666;
   text-align: center;
 }
 .signPlace .dialog .msg {
+  text-align: center;
   display: none;
   color: rgb(255, 46, 46);
 }
@@ -109,32 +139,6 @@
 .signPlace .dialog .sign-page {
   display: flex;
   text-align: center;
-}
-.signPlace .dialog .sign-page .type-place .inputArea {
-  font-size: 16px;
-  padding-left: 15px;
-  border: 1px solid #cccccc;
-  margin-top: 15px;
-  width: 310px;
-  height: 40px;
-  border-radius: 5px;
-}
-.signPlace .dialog .sign-page .btn {
-  font-size: 16px;
-  color: #fff;
-  margin-top: 15px;
-  margin-bottom: 5px;
-  align-items: center;
-  width: 310px;
-  height: 47px;
-  border-radius: 5px;
-  border: 1px solid #cccccc;
-  background-color: #448899;
-}
-.signPlace .dialog .sign-page .btn:hover {
-  border: 2px #448899 solid;
-  background-color: #ffffff;
-  color: #448899;
 }
 .signPlace .dialog .sign-page .remindMessage {
   color: #666666;
@@ -211,6 +215,10 @@
   width: 1200px;
   margin: 80px auto;
 }
+.booking-middle .cardview-container {
+  display: inline-block;
+  text-align: center;
+}
 .booking-middle h3 {
   font-size: 19px;
   font-weight: 700;
@@ -218,7 +226,7 @@
 .booking-middle h4 {
   margin-top: 20px;
 }
-.booking-middle .booking-input {
+.booking-middle input {
   font-size: 16px;
   padding-left: 15px;
   border: 1px solid #e8e8e8;
@@ -227,8 +235,27 @@
   height: 38px;
   border-radius: 5px;
 }
-.booking-middle .form-question {
+.booking-middle .user-question {
   line-height: 40px;
+  display: inline-block;
+  vertical-align: bottom;
+}
+.booking-middle .pay-question {
+  line-height: 37px;
+  display: inline-block;
+  vertical-align: bottom;
+  margin-bottom: 5px;
+}
+
+.tpfield {
+  font-size: 16px;
+  padding-left: 15px;
+  border: 1px solid #e8e8e8;
+  margin-top: 15px;
+  width: 200px;
+  height: 38px;
+  border-radius: 5px;
+  display: inline-block;
 }
 
 .booking-total {
@@ -254,6 +281,11 @@
   border: 2px #448899 solid;
   background-color: #ffffff;
   color: #448899;
+}
+.booking-total .booking-button:disabled {
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
 }
 
 .footer {
@@ -284,7 +316,7 @@
   }
   main .booking-top .delete-img {
     right: 3%;
-    top: 100%;
+    top: 80%;
   }
   main .middle-hr {
     width: 90%;
@@ -315,8 +347,8 @@
     flex-basis: 50%;
   }
   main .booking-top .delete-img {
-    right: 3%;
-    top: 100%;
+    right: 5%;
+    top: 90%;
   }
   main .booking-total {
     width: 100%;

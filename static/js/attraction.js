@@ -12,7 +12,6 @@ const track = document.querySelector(".carousel__track");
 const oneHalfDay = document.querySelector(".oneHalfDay");
 const nextHalfDay = document.querySelector(".nextHalfDay");
 const totalPrice = document.querySelector(".totalPrice");
-
 const lay = document.querySelector(".lay");
 const signinPlace = document.querySelector("#signinPlace");
 const signupPlace = document.querySelector("#signupPlace");
@@ -27,7 +26,11 @@ const reservation = document.querySelector(".reservation");
 const alertPlace = document.querySelector("#alertPlace");
 const alertText = document.querySelector(".alertText");
 const fas = document.querySelectorAll(".fas");
-
+const changeNameText = document.querySelector(".changeNameText");
+const changeNameBtn = document.querySelector("#changeNameBtn");
+const updateText = document.querySelector(".updateText");
+const updatePlace = document.querySelector("#updatePlace");
+let eachPrice;
 let timeValue;
 let spotName;
 let spotAddress;
@@ -57,12 +60,42 @@ signupBtn.addEventListener("click", (e) => {
         signupMsg.textContent = data.message;
         window.setTimeout(hideMsg, 2000);
       } else {
-        console.log(data);
         signupMsg.style.display = "block";
         signupMsg.textContent = data.message;
         signupMsg.style.color = "green";
       }
     });
+});
+
+//更改按鍵
+changeNameBtn.addEventListener("click", (e) => {
+  //   e.preventDefault();
+  let updateNameValue = document.getElementById("updateNameValue").value;
+  fetch(`${location.origin}/api/user/auth`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ name: updateNameValue }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      updatePlace.style.display = "block";
+      if (!data.data) {
+        updateText.textContent = "更新失敗，請重試一次";
+        updateText.style.color = "red";
+        window.setTimeout(hideMsg, 2000);
+      }
+      updateText.textContent = "更新成功";
+      updateText.style.color = "green";
+      window.setTimeout(hideMsg, 2000);
+    });
+});
+
+//按下更改
+changeNameText.addEventListener("click", (e) => {
+  e.preventDefault();
+  updatePlace.style.display = "block";
 });
 
 //點台北一日遊 回到首頁
@@ -103,7 +136,7 @@ function hideMsg() {
   signinMsg.style.display = "none";
 }
 
-window.addEventListener("load", (e) => {
+window.addEventListener("load", () => {
   getUser();
   getData();
 });
@@ -125,6 +158,7 @@ function closeSignDialog() {
   signinPlace.style.display = "none";
   signupPlace.style.display = "none";
   alertPlace.style.display = "none";
+  updatePlace.style.display = "none";
   lay.classList.add("hide");
 }
 //顯示提示框框
@@ -280,6 +314,7 @@ function getUser() {
         reservationText.classList.remove("hide");
         signinText.classList.add("hide");
         logoutText.classList.remove("hide");
+        changeNameText.classList.remove("hide");
       }
     });
 }
@@ -297,11 +332,12 @@ logoutText.addEventListener("click", (e) => {
       if (data.ok) {
         logoutText.classList.add("hide");
         signinText.classList.remove("hide");
+        changeNameText.classList.add("hide");
         location.reload();
       }
     });
 });
-let eachPrice;
+
 //上半天顯示價錢
 oneHalfDay.addEventListener("click", (e) => {
   eachPrice = 2000;
@@ -349,10 +385,6 @@ function postBookData() {
   })
     .then((res) => res.json())
     .then((data) => {
-      // 這邊可能要作秀在畫面上之類的功能？
-      console.log(id, dateValue, timeValue, eachPrice);
-      console.log(spotName, spotAddress, bookImg);
-      //   showAlertDialog(data.message);
       if (data.ok) {
         window.location.href = `${location.origin}/booking`;
       } else {
@@ -375,7 +407,6 @@ function booking() {
       } else {
         window.location.href = `${location.origin}/booking`;
       }
-      //未登入
     });
 }
 
@@ -400,6 +431,7 @@ for (let eye of fas) {
     }
   });
 }
+
 function moveToslide(track, currentSlide, targetSlide) {
   track.style.transform = "translateX(-" + targetSlide.style.left + ")";
   currentSlide.classList.remove("current-slide");

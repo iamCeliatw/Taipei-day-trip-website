@@ -9,13 +9,6 @@ input[type=date]::-webkit-calendar-picker-indicator {
   opacity: 0;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Noto Sans TC", sans-serif;
-}
-
 .hide {
   display: none;
 }
@@ -58,6 +51,9 @@ input[type=date]::-webkit-calendar-picker-indicator {
   display: inline-block;
   font-size: 20px;
 }
+.title .bg .navbar li .reservationText {
+  margin-right: 8px;
+}
 .title .bg .navbar li button {
   background: none;
   color: #666666;
@@ -65,9 +61,6 @@ input[type=date]::-webkit-calendar-picker-indicator {
   font-size: 16px;
   cursor: pointer;
   outline: inherit;
-}
-.title .bg .navbar .signInBtn {
-  padding-left: 20px;
 }
 
 .signPlace {
@@ -97,12 +90,47 @@ input[type=date]::-webkit-calendar-picker-indicator {
   box-shadow: 0px 4px 60px #aaaaaa;
   border-radius: 0px 0px 6px 6px;
 }
+.signPlace .dialog .btn {
+  font-size: 16px;
+  color: #fff;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  align-items: center;
+  width: 310px;
+  height: 47px;
+  border-radius: 5px;
+  border: 1px solid #cccccc;
+  background-color: #448899;
+}
+.signPlace .dialog .btn:hover {
+  border: 2px #448899 solid;
+  background-color: #ffffff;
+  color: #448899;
+}
+.signPlace .dialog .btn:disabled {
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+.signPlace .dialog .updateText {
+  text-align: center;
+}
+.signPlace .dialog .inputArea {
+  font-size: 16px;
+  padding-left: 15px;
+  border: 1px solid #cccccc;
+  margin-top: 15px;
+  width: 310px;
+  height: 40px;
+  border-radius: 5px;
+}
 .signPlace .dialog h3 {
   font-size: 20px;
   color: #666666;
   text-align: center;
 }
 .signPlace .dialog .msg {
+  text-align: center;
   display: none;
   color: rgb(255, 46, 46);
 }
@@ -124,15 +152,6 @@ input[type=date]::-webkit-calendar-picker-indicator {
 .signPlace .dialog .sign-page .type-place {
   position: relative;
 }
-.signPlace .dialog .sign-page .type-place .inputArea {
-  font-size: 16px;
-  padding-left: 15px;
-  border: 1px solid #cccccc;
-  margin-top: 15px;
-  width: 310px;
-  height: 40px;
-  border-radius: 5px;
-}
 .signPlace .dialog .sign-page #checkEye1 {
   position: absolute;
   right: 4%;
@@ -142,23 +161,6 @@ input[type=date]::-webkit-calendar-picker-indicator {
   position: absolute;
   right: 4%;
   bottom: 40%;
-}
-.signPlace .dialog .sign-page .btn {
-  font-size: 16px;
-  color: #fff;
-  margin-top: 15px;
-  margin-bottom: 5px;
-  align-items: center;
-  width: 310px;
-  height: 47px;
-  border-radius: 5px;
-  border: 1px solid #cccccc;
-  background-color: #448899;
-}
-.signPlace .dialog .sign-page .btn:hover {
-  border: 2px #448899 solid;
-  background-color: #ffffff;
-  color: #448899;
 }
 .signPlace .dialog .sign-page .remindMessage {
   color: #666666;
@@ -322,13 +324,14 @@ main .attraction-message .attraction-detail [type=radio]:checked + label:after {
   transform: scale(1);
 }
 main .attraction-message .attraction-detail input[type=date] {
+  cursor: pointer;
   font-weight: 500;
   font-size: 16px;
   color: #000;
   margin-bottom: 15px;
   width: 193px;
   height: 35px;
-  background: url(icon_calendar.png);
+  background: url("/image/icon_calendar.png");
   background-size: 24px;
   background-color: #ffffff;
   background-repeat: no-repeat;

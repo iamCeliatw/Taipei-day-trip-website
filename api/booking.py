@@ -1,7 +1,6 @@
 from flask import *
 from utils.validate import *
 from datetime import datetime
-from data.database import db
 from model.booking import Booking
 
 booking = Blueprint('reservation',__name__)
@@ -31,10 +30,8 @@ def book_post():
         if not resp:
             return {"error":True,"message":"請先點擊右上角，登入會員"},403
         result = Validation.decode_jwt(resp)
-        print("r",result)
         data = request.get_json()
         today = datetime.now().strftime("%Y-%m-%d")
-        print(datetime.day)
         if data['date'] <= today or data['date'] == '':
             return {"error":True,"message":"⛔️請選擇未來的日期"},400
         res = Booking.post(data,result)
@@ -47,9 +44,16 @@ def book_post():
 @booking.delete('/api/booking')
 def book_delete():
     try:
+        resp = request.cookies.get("token")
+        print(resp)
+        result = Validation.decode_jwt(resp)
+        print(result)
         data = request.get_json()
-        Booking.delete(data)
-        return {'ok':True}
+        delete_res = Booking.delete(data,result)
+        if delete_res:
+            return {'ok':True}
+        if not delete_res:
+            return {'error':True}
     except Exception as e:
-        print(e)
+        print('e',e)
         return {"error": True, "message": "伺服器內部錯誤"}, 500

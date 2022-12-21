@@ -31,6 +31,7 @@
     }
     .navbar {
       display: flex;
+      //   padding-left: 20px;
       ul {
         display: flex;
         text-align: center;
@@ -39,8 +40,10 @@
       li {
         list-style: none;
         display: inline-block;
-        // padding: 0px 10px;
         font-size: 20px;
+        .reservationText {
+          margin-right: 8px;
+        }
         button {
           background: none;
           color: #666666;
@@ -49,9 +52,6 @@
           cursor: pointer;
           outline: inherit;
         }
-      }
-      .signInBtn {
-        padding-left: 20px;
       }
     }
   }
@@ -82,12 +82,42 @@
     background: #ffffff;
     box-shadow: 0px 4px 60px #aaaaaa;
     border-radius: 0px 0px 6px 6px;
+    .btn {
+      font-size: 16px;
+      color: #fff;
+      margin-top: 15px;
+      margin-bottom: 5px;
+      align-items: center;
+      width: 310px;
+      height: 47px;
+      border-radius: 5px;
+      border: 1px solid #cccccc;
+      background-color: #448899;
+      &:hover {
+        border: 2px #448899 solid;
+        background-color: #ffffff;
+        color: #448899;
+      }
+    }
+    .updateText {
+      text-align: center;
+    }
     h3 {
       font-size: 20px;
       color: #666666;
       text-align: center;
     }
+    .inputArea {
+      font-size: 16px;
+      padding-left: 15px;
+      border: 1px solid #cccccc;
+      margin-top: 15px;
+      width: 310px;
+      height: 40px;
+      border-radius: 5px;
+    }
     .msg {
+      text-align: center;
       display: none;
       color: rgb(255, 46, 46);
     }
@@ -106,19 +136,9 @@
 
     .sign-page {
       display: flex;
-      //   margin: 5px;
       text-align: center;
       .type-place {
         position: relative;
-        .inputArea {
-          font-size: 16px;
-          padding-left: 15px;
-          border: 1px solid #cccccc;
-          margin-top: 15px;
-          width: 310px;
-          height: 40px;
-          border-radius: 5px;
-        }
       }
       #checkEye1 {
         position: absolute;
@@ -129,23 +149,6 @@
         position: absolute;
         right: 4%;
         bottom: 40%;
-      }
-      .btn {
-        font-size: 16px;
-        color: #fff;
-        margin-top: 15px;
-        margin-bottom: 5px;
-        align-items: center;
-        width: 310px;
-        height: 47px;
-        border-radius: 5px;
-        border: 1px solid #cccccc;
-        background-color: #448899;
-        &:hover {
-          border: 2px #448899 solid;
-          background-color: #ffffff;
-          color: #448899;
-        }
       }
       .remindMessage {
         color: #666666;
@@ -169,7 +172,7 @@ header {
   margin-top: 45px;
   display: flex;
   height: 300px;
-  background-image: url("welcome.png");
+  background-image: url("/image/welcome.png");
   background-size: cover;
   align-items: center;
   .text_center {
@@ -206,7 +209,6 @@ header {
           background-color: #448899;
           border-radius: 0 5px 5px 0;
           box-shadow: 0px 0px 20px #aabbcc;
-
           img {
             width: 30px;
             height: 30px;
@@ -214,7 +216,6 @@ header {
           }
           &:hover {
             background-color: #5dabbf;
-
             cursor: pointer;
           }
         }
@@ -253,8 +254,9 @@ header {
 }
 
 .noItem {
-  margin: 0px auto 45px auto;
+  margin-bottom: 45px;
   text-align: center;
+  height: 100vh;
 }
 
 .list {
@@ -273,6 +275,7 @@ header {
     .box {
       position: relative;
       width: 270px;
+      margin: auto;
       img {
         border-radius: 5px 5px 0px 0px;
         width: 100%;
@@ -285,16 +288,13 @@ header {
         font-size: 16px;
         text-align: left;
         line-height: 40px;
-
         position: absolute;
         left: 0;
         bottom: 45px;
         height: 40px;
         width: 270px;
-
-        background: #000000;
+        background: rgba(0, 0, 0, 0.6);
         color: #fff;
-        opacity: 0.6;
         margin: 0;
       }
       .mrtItem {

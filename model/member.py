@@ -60,6 +60,23 @@ class Member:
             cursor.close()
             conn.close()
 
+    def update_name(jwt_data,result,data):
+        try:
+            sql = 'UPDATE member SET name = %s WHERE email = %s'
+            val = [data['name'],result['email']]
+            conn = db.connection.get_connection()
+            cursor = conn.cursor(buffered=True, dictionary=True)
+            cursor.execute(sql,val)
+            conn.commit()
+            return True
+        except Exception as e: 
+            print(e)
+            return False
+        finally:
+            cursor.close()
+            conn.close()
+
+       
     
 
 

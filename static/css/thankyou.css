@@ -1,0 +1,244 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.title {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  justify-content: center;
+  background-color: #fff;
+  display: flex;
+  z-index: 1;
+  align-items: center;
+  margin: 0 auto;
+  padding: 0;
+  justify-content: space-between;
+}
+.title .bg {
+  width: 1200px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: auto;
+}
+.title .bg h3 {
+  cursor: pointer;
+  font-size: 30px;
+  color: #448899;
+}
+.title .bg .navbar {
+  display: flex;
+}
+.title .bg .navbar ul {
+  display: flex;
+  text-align: center;
+  color: #666666;
+}
+.title .bg .navbar li {
+  list-style: none;
+  display: inline-block;
+  font-size: 20px;
+}
+.title .bg .navbar li .reservationText {
+  margin-right: 8px;
+}
+.title .bg .navbar li button {
+  background: none;
+  color: #666666;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  outline: inherit;
+}
+
+.signPlace {
+  position: fixed;
+  top: 8%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  z-index: 3;
+  display: none;
+}
+.signPlace .alertText {
+  padding: 10px 0;
+  text-align: center;
+  color: #666666;
+}
+.signPlace .greenBar {
+  width: 340px;
+  height: 10px;
+  border-radius: 6px 6px 0px 0px;
+  background: linear-gradient(270deg, #337788 0%, #66aabb 100%);
+}
+.signPlace .dialog {
+  width: 340px;
+  height: auto;
+  padding: 10px;
+  background: #ffffff;
+  box-shadow: 0px 4px 60px #aaaaaa;
+  border-radius: 0px 0px 6px 6px;
+}
+.signPlace .dialog .btn {
+  font-size: 16px;
+  color: #fff;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  align-items: center;
+  width: 310px;
+  height: 47px;
+  border-radius: 5px;
+  border: 1px solid #cccccc;
+  background-color: #448899;
+}
+.signPlace .dialog .btn:hover {
+  border: 2px #448899 solid;
+  background-color: #ffffff;
+  color: #448899;
+}
+.signPlace .dialog .updateText {
+  text-align: center;
+}
+.signPlace .dialog h3 {
+  font-size: 20px;
+  color: #666666;
+  text-align: center;
+}
+.signPlace .dialog .inputArea {
+  font-size: 16px;
+  padding-left: 15px;
+  border: 1px solid #cccccc;
+  margin-top: 15px;
+  width: 310px;
+  height: 40px;
+  border-radius: 5px;
+}
+.signPlace .dialog .msg {
+  text-align: center;
+  display: none;
+  color: rgb(255, 46, 46);
+}
+.signPlace .dialog .close {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  cursor: pointer;
+}
+.signPlace .dialog .close img {
+  width: 16px;
+  height: 16px;
+  margin-top: 20px;
+}
+.signPlace .dialog .sign-page {
+  display: flex;
+  text-align: center;
+}
+.signPlace .dialog .sign-page .type-place {
+  position: relative;
+}
+.signPlace .dialog .sign-page #checkEye1 {
+  position: absolute;
+  right: 4%;
+  bottom: 52%;
+}
+.signPlace .dialog .sign-page #checkEye2 {
+  position: absolute;
+  right: 4%;
+  bottom: 40%;
+}
+.signPlace .dialog .sign-page .remindMessage {
+  color: #666666;
+  line-height: 2;
+}
+
+main {
+  width: 1200px;
+  margin: auto;
+}
+main .thank-page {
+  text-align: center;
+  margin: 80px auto;
+}
+main .thank-page .thank-img {
+  margin-bottom: 10px;
+}
+main .thank-page .thank-img img {
+  width: 100px;
+}
+main .thank-page .thank-message {
+  color: #666666;
+  text-align: center;
+}
+main .thank-page .thank-message h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+main .thank-page .thank-message span,
+main .thank-page .thank-message p {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+main .thank-page .copy-button {
+  font-size: 13px;
+  color: #fff;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  align-items: center;
+  width: 100px;
+  height: 32px;
+  border-radius: 5px;
+  border: 1px solid #cccccc;
+  background-color: #448899;
+  cursor: pointer;
+}
+main .thank-page .copy-button:hover {
+  border: 2px #448899 solid;
+  background-color: #ffffff;
+  color: #448899;
+}
+main .thank-page .copied-button {
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+
+.lay {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #000000;
+  opacity: 0.25;
+}
+
+.hide {
+  display: none;
+}
+
+.footer {
+  background-color: #757575;
+  height: 104px;
+  display: flex;
+  align-items: center;
+}
+.footer p {
+  color: #ffffff;
+  margin: auto;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 13px;
+}
+
+@media screen and (max-width: 1200px) {
+  main {
+    width: 90%;
+    margin: auto;
+  }
+  main .thank-page {
+    width: 90%;
+  }
+}/*# sourceMappingURL=thankyou.css.map */

@@ -36,6 +36,7 @@
             </li>
             <li class="signupBtn">
               <button class="logoutText hide">登出</button>
+              <button class="changeNameText hide">更改姓名</button>
             </li>
           </ul>
         </nav>
@@ -76,13 +77,13 @@
                 class="btn"
                 id="signinBtn"
               />
-              <p class="signinMsg msg"></p>
               <span class="remindMessage">還沒有帳戶？</span>
               <a href="javascript: void(0)" onclick="showSignupDialog()"
                 ><span class="remindMessage">點此註冊</span></a
               >
             </div>
           </div>
+          <span class="signinMsg msg"></span>
         </form>
       </div>
     </div>
@@ -124,13 +125,13 @@
               />
               <i id="checkEye2" class="fas fa-eye-slash"></i>
               <button class="btn" id="signupBtn">註冊帳戶</button>
-              <span class="signupMsg msg"></span>
               <span class="remindMessage">已經有帳戶？</span
               ><a href="javascript: void(0)" onclick="showSigninDialog()"
                 ><span class="remindMessage">點此登入</span></a
               >
             </div>
           </div>
+          <span class="signupMsg msg"></span>
         </form>
       </div>
     </div>
@@ -143,6 +144,25 @@
           <img src="../image/icon_close.png" alt="" />
         </div>
         <p class="alertText"></p>
+      </div>
+    </div>
+
+    <div class="signPlace" id="updatePlace">
+      <div class="greenBar"></div>
+      <div class="dialog">
+        <h3>更改姓名</h3>
+        <input
+          id="updateNameValue"
+          class="inputArea"
+          placeholder="輸入新姓名"
+          type="text"
+          required
+        />
+        <div class="close" onclick="closeSignDialog()">
+          <img src="../image/icon_close.png" alt="" />
+        </div>
+        <p class="updateText"></p>
+        <button class="btn" id="changeNameBtn">更新</button>
       </div>
     </div>
 
