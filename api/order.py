@@ -7,18 +7,18 @@ from datetime import datetime, timezone,timedelta
 order = Blueprint('order',__name__)
 
 @order.post("/api/orders")
-def get_order():
+def post_order():
     conn = db.connection.get_connection()
     cursor = conn.cursor(buffered=True, dictionary=True)
     order_number = ''
     pay_status = 1
     try:
         resp = request.cookies.get("token") 
+        data = request.get_json()
         if not resp:
             return {
                 "error":True,"message":"請先登入會員"
             },403
-        data = request.get_json()
         if not data['name'] or not data['mail'] or not data['phone']:
             return {
                 "error":True,"message":"請填寫所有資訊"
@@ -27,8 +27,7 @@ def get_order():
         t_zone = timezone(timedelta(hours=+8))
         now = datetime.now(t_zone)
         order_number = now.strftime("%Y%m%d%H%M%S")
-        # print(order_number)
-        # print(data['id'])
+
         #查詢booking是否已存在訂單編號 
         for id in data['id']:
             sql = "SELECT order_number FROM booking WHERE id = %s"
@@ -38,11 +37,6 @@ def get_order():
         if result['order_number']:
             print(pay_status)
             return {"error": True,"message": '請確認是否重複付款'}
-        # cursor.close()
-        # conn.close()
-        # print("or",order_number)
-        # print(data)
-        # print(result)
         prime = data['prime']
         price = data['price']
         name = data['name']
@@ -55,7 +49,7 @@ def get_order():
 
         #串接付款金流 api網址
         api_url = 'https://sandbox.tappaysdk.com/tpc/payment/pay-by-prime'
-        # 設定 HTTP 請求的 header
+        # HTTP request header
         headers = {
         'Content-Type': 'application/json',
         'x-api-key':os.getenv("partner_key")
@@ -101,7 +95,8 @@ def get_order():
         else:
             return{
                 "data": {
-                    "number": order_number,
+                    "error":True,
+                    # "number": order_number,
                     "payment": {
                         "status": pay_status,
                         "message": "付款失敗"

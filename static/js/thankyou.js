@@ -18,37 +18,35 @@ const updateText = document.querySelector(".updateText");
 const updatePlace = document.querySelector("#updatePlace");
 const reservationText = document.querySelector(".reservationText");
 const thankMessage = document.querySelector(".thank-message");
-
 const currentUrl = new URL(window.location.href);
 const orderNumber = currentUrl.searchParams.get("number");
-
+const copyableText = document.querySelector(".number");
+const copyButton = document.querySelector(".copy-button");
 thankMessage.insertAdjacentHTML(
   "beforeEnd",
   `<span>您的訂單編號是</span> <span class="number">${orderNumber}</span>
     <p>請記下此訂單編號，以利追蹤查詢</p>`
 );
-const copyableText = document.querySelector(".number");
-const copyButton = document.querySelector(".copy-button");
 
 window.addEventListener("load", () => {
   getUser();
 });
 
-copyButton.addEventListener("click", () => {
-  navigator.clipboard
-    .writeText(copyableText.textContent)
-    .then(() => {
-      //   showAlertDialog("複製成功！");
-      copyButton.textContent = "✔️已複製";
-      copyButton.classList.add("copied-button");
-      window.setTimeout(() => {
-        copyButton.textContent = "點此複製編號";
-        copyButton.classList.remove("copied-button");
-      }, 2000);
-    })
-    .catch((error) => {
-      showAlertDialog("複製失敗：", error);
-    });
+//navigator.clipboard.writeText(copyableText.textContent) ubuntu不支援
+const select = (DOM) => document.querySelector(DOM);
+const range = document.createRange();
+const texts = select(".number");
+const selection = window.getSelection();
+select(".copy-button").addEventListener("click", () => {
+  range.selectNode(texts);
+  selection.addRange(range);
+  document.execCommand("copy");
+  copyButton.textContent = "✔️已複製";
+  copyButton.classList.add("copied-button");
+  window.setTimeout(() => {
+    copyButton.textContent = "點此複製編號";
+    copyButton.classList.remove("copied-button");
+  }, 2000);
 });
 
 function remindMsg() {
