@@ -2,11 +2,11 @@ from data.database import db
 from collections import Counter
 class Booking:
     def post(data,result):
+        conn = db.connection.get_connection()
+        cursor = conn.cursor(buffered=True, dictionary=True)
         try:
             sql = 'INSERT INTO booking (attraction_id, attraction_name, address, image, date, time, price, user_email) VALUES (%s,%s ,%s ,%s, %s, %s, %s, %s)'
             val = [data['attractionId'],data['name'],data['address'],data['image'],data['date'],data['time'],data['price'],result['email']]
-            conn = db.connection.get_connection()
-            cursor = conn.cursor(buffered=True, dictionary=True)
             cursor.execute(sql, val)
             conn.commit()
             return True

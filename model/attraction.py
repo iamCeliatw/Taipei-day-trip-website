@@ -3,9 +3,9 @@ from data.database import db
 
 class Attraction:
     def get_cat():
+        conn = db.connection.get_connection()
+        cursor = conn.cursor(buffered=True, dictionary=True)
         try:
-            conn = db.connection.get_connection()
-            cursor = conn.cursor(buffered=True, dictionary=True)
             sql = "SELECT DISTINCT `cat` FROM `spots` "
             cursor.execute(sql)
             result = cursor.fetchall()
@@ -18,12 +18,12 @@ class Attraction:
             conn.close()
 
     def get_allSpot(perpage,offset):
+        conn = db.connection.get_connection()
+        cursor = conn.cursor(buffered=True, dictionary=True)
         try:
             sql = "SELECT sid,id,name,cat,description,direction,mrt,address,latitude,longitude, image \
             FROM `spots` LIMIT %s OFFSET %s"
             val = [perpage, offset]
-            conn = db.connection.get_connection()
-            cursor = conn.cursor(buffered=True, dictionary=True)
             cursor.execute(sql,val)
             result = cursor.fetchall()
             imgs = []
@@ -45,14 +45,14 @@ class Attraction:
 
 
     def get_keywordSpot(page,keyword,perpage):
+        conn = db.connection.get_connection()
+        cursor = conn.cursor(buffered=True, dictionary=True)
         try:
             # perpage = 13
             offset = page * (perpage-1)
             sql = "SELECT sid,id,name,cat,description,direction,mrt,address,latitude,longitude, image \
                    FROM `spots` WHERE `cat` = %s or name LIKE %s LIMIT %s OFFSET %s"
             val = [keyword, "%"+f"{keyword}"+"%", perpage, offset]
-            conn = db.connection.get_connection()
-            cursor = conn.cursor(buffered=True, dictionary=True)
             cursor.execute(sql,val)
             result = cursor.fetchall()
             print(result)
@@ -77,15 +77,12 @@ class Attraction:
             cursor.close()
             conn.close()
 
-
-
-
     def get_spot(id):
+        conn = db.connection.get_connection()
+        cursor = conn.cursor(buffered=True, dictionary=True)
         try:
             sql = 'SELECT image FROM `spots` WHERE `id` = %s'
             val = [id]
-            conn = db.connection.get_connection()
-            cursor = conn.cursor(buffered=True, dictionary=True)
             cursor.execute(sql,val)
             result = cursor.fetchone()
             if result:

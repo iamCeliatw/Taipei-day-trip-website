@@ -50,9 +50,7 @@ input[type=date]::-webkit-calendar-picker-indicator {
   list-style: none;
   display: inline-block;
   font-size: 20px;
-}
-.title .bg .navbar li .reservationText {
-  margin-right: 8px;
+  margin-right: 3px;
 }
 .title .bg .navbar li button {
   background: none;
@@ -61,6 +59,10 @@ input[type=date]::-webkit-calendar-picker-indicator {
   font-size: 16px;
   cursor: pointer;
   outline: inherit;
+}
+.title .bg .navbar li button .shopcart-img {
+  width: 35px;
+  vertical-align: middle;
 }
 
 .signPlace {
