@@ -17,77 +17,71 @@
   <body>
     {% block main %}
     <main class="main">
-      <!-- <div class="booking-top"> -->
-      <!-- <h4>您好，username，您的待預定行程如下：</h4>
-        <div class="booking-content">
-          <div class="booking-img">
-            <img src="image/image 10.png" alt="" />
+      <form onsubmit="return false">
+        <div class="booking-middle">
+          <h3>您的聯絡資訊</h3>
+          <span class="user-question">聯絡姓名：</span>
+          <input
+            id="contact-name"
+            class="booking-input"
+            type="name"
+            name=""
+            required
+          />
+          <br />
+          <span class="user-question">連絡信箱：</span>
+          <input
+            id="contact-mail"
+            class="booking-input"
+            type="email"
+            name=""
+            required
+          />
+          <br />
+          <span class="user-question">手機號碼：</span>
+          <input
+            id="contact-phone"
+            class="booking-input"
+            type="text"
+            name=""
+            required
+          />
+          <h4>
+            請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。
+          </h4>
+        </div>
+        <hr class="middle-hr" />
+        <div class="booking-middle">
+          <!-- <form onsubmit="return false"> -->
+          <h3>信用卡付款資訊</h3>
+          <div class="cardview-container">
+            <span class="pay-question">卡片號碼：</span>
+            <div class="tpfield" id="card-number"></div>
+            <br />
+            <span class="pay-question">過期時間：</span>
+            <div class="tpfield" id="card-expiration-date"></div>
+            <br />
+            <span class="pay-question">驗證密碼：</span>
+            <div class="tpfield" id="card-ccv"></div>
           </div>
-
-          <div class="booking-text">
-            <h4>台北一日遊：平安鐘</h4>
-            <span class="form-question">日期：</span>
-            <span>2021-04-20</span>
-            <br />
-            <span class="form-question">時間：</span>
-            <span>早上九點到晚上五點</span>
-            <br />
-            <span class="form-question">費用：</span>
-            <span>新台幣2000元</span>
-            <br />
-            <span class="form-question">地點：</span>
-            <span>台北市忠孝東路</span>
-          </div> -->
-      <!-- </div>
-        <img class="delete-img" src="image/icon_delete.png" alt="" />
-      </div> -->
-      <!-- </div>
-      <hr class="middle-hr" /> -->
-
-      <div class="booking-middle">
-        <h3>您的聯絡資訊</h3>
-        <span class="form-question">聯絡姓名：</span>
-        <input class="booking-input" type="name" name="" />
-        <br />
-        <span class="form-question">連絡信箱：</span>
-        <input class="booking-input" type="email" name="" />
-        <br />
-        <span class="form-question">手機號碼：</span>
-        <input class="booking-input" type="number" name="" />
-        <h4>
-          請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。
-        </h4>
-      </div>
-      <hr class="middle-hr" />
-      <div class="booking-middle">
-        <h3>信用卡付款資訊</h3>
-        <span class="form-question">卡片號碼：</span>
-        <input
-          class="booking-input"
-          type="number"
-          name=""
-          placeholder="**** **** **** ****"
-        />
-        <br />
-        <span class="form-question">過期時間：</span>
-        <input
-          class="booking-input"
-          type="text"
-          name=""
-          placeholder="MM / YY"
-        />
-        <br />
-        <span class="form-question">驗證密碼：</span>
-        <input class="booking-input" type="text" name="" placeholder="CVV" />
-      </div>
-      <hr class="middle-hr" />
-
-      <div class="booking-total">
-        <span class="totalPrice"></span>
-        <div><button class="booking-button">確認訂購並付款</button></div>
-      </div>
+        </div>
+        <hr class="middle-hr" />
+        <div class="booking-total">
+          <span class="totalPrice"></span>
+          <div>
+            <button
+              class="booking-button"
+              onclick="onSubmit(event)"
+              disabled="disabled"
+            >
+              確認訂購並付款
+            </button>
+          </div>
+        </div>
+      </form>
     </main>
     {% endblock %}{% block script %}
+    <script src="https://js.tappaysdk.com/sdk/tpdirect/v5.14.0"></script>
     <script
       type="text/javascript"
       src="{{url_for('static', filename='js/booking.js')}}"

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% extends "base.html" %}
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% block css %}
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static',filename='css/thankyou.css')}}"
+    />
+    {% endblock %}
+
+    <title>Document</title>
+  </head>
+  <body>
+    {% block main %}
+    <div class="thank-page">
+      <div class="thank-img">
+        <img src="../image/thank-you.png" alt="" />
+      </div>
+      <div class="thank-message">
+        <h3>行程訂購成功</h3>
+        <!-- <span>您的訂單編號是</span>
+        <p>請記下此訂單編號，以利追蹤查詢</p> -->
+      </div>
+      <button class="copy-button">點此複製編號</button>
+    </div>
+
+    {% endblock %} {% block script %}
+    <script
+      type="text/javascript"
+      src="{{url_for('static', filename='js/thankyou.js')}}"
+    ></script>
+    {% endblock %}
+  </body>
+</html>

@@ -5,6 +5,7 @@ from flask import *
 from api.attraction import attract
 from api.member import member
 from api.booking import booking
+from api.order import order
 from data.database import db
 
 # from flask_cors import CORS
@@ -33,6 +34,7 @@ db.init_app(app)
 app.register_blueprint(attract)
 app.register_blueprint(member)
 app.register_blueprint(booking)
+app.register_blueprint(order)
 # CORS(app, resources=r"/*")
 # cors = CORS(app, resources={r"/cities/*": {"origins": "*"}})
 

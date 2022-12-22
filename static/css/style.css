@@ -43,6 +43,7 @@
   list-style: none;
   display: inline-block;
   font-size: 20px;
+  margin-right: 3px;
 }
 .title .bg .navbar li button {
   background: none;
@@ -52,8 +53,9 @@
   cursor: pointer;
   outline: inherit;
 }
-.title .bg .navbar .signInBtn {
-  padding-left: 20px;
+.title .bg .navbar li button .shopcart-img {
+  width: 35px;
+  vertical-align: middle;
 }
 
 .signPlace {
@@ -83,12 +85,42 @@
   box-shadow: 0px 4px 60px #aaaaaa;
   border-radius: 0px 0px 6px 6px;
 }
+.signPlace .dialog .btn {
+  font-size: 16px;
+  color: #fff;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  align-items: center;
+  width: 310px;
+  height: 47px;
+  border-radius: 5px;
+  border: 1px solid #cccccc;
+  background-color: #448899;
+}
+.signPlace .dialog .btn:hover {
+  border: 2px #448899 solid;
+  background-color: #ffffff;
+  color: #448899;
+}
+.signPlace .dialog .updateText {
+  text-align: center;
+}
 .signPlace .dialog h3 {
   font-size: 20px;
   color: #666666;
   text-align: center;
 }
+.signPlace .dialog .inputArea {
+  font-size: 16px;
+  padding-left: 15px;
+  border: 1px solid #cccccc;
+  margin-top: 15px;
+  width: 310px;
+  height: 40px;
+  border-radius: 5px;
+}
 .signPlace .dialog .msg {
+  text-align: center;
   display: none;
   color: rgb(255, 46, 46);
 }
@@ -110,15 +142,6 @@
 .signPlace .dialog .sign-page .type-place {
   position: relative;
 }
-.signPlace .dialog .sign-page .type-place .inputArea {
-  font-size: 16px;
-  padding-left: 15px;
-  border: 1px solid #cccccc;
-  margin-top: 15px;
-  width: 310px;
-  height: 40px;
-  border-radius: 5px;
-}
 .signPlace .dialog .sign-page #checkEye1 {
   position: absolute;
   right: 4%;
@@ -128,23 +151,6 @@
   position: absolute;
   right: 4%;
   bottom: 40%;
-}
-.signPlace .dialog .sign-page .btn {
-  font-size: 16px;
-  color: #fff;
-  margin-top: 15px;
-  margin-bottom: 5px;
-  align-items: center;
-  width: 310px;
-  height: 47px;
-  border-radius: 5px;
-  border: 1px solid #cccccc;
-  background-color: #448899;
-}
-.signPlace .dialog .sign-page .btn:hover {
-  border: 2px #448899 solid;
-  background-color: #ffffff;
-  color: #448899;
 }
 .signPlace .dialog .sign-page .remindMessage {
   color: #666666;
@@ -165,7 +171,7 @@ header {
   margin-top: 45px;
   display: flex;
   height: 300px;
-  background-image: url("welcome.png");
+  background-image: url("/image/welcome.png");
   background-size: cover;
   align-items: center;
 }
@@ -246,8 +252,9 @@ header .text_center .descript-left .searchBtn .catPlace .catItem:hover {
 }
 
 .noItem {
-  margin: 0px auto 45px auto;
+  margin-bottom: 45px;
   text-align: center;
+  height: 100vh;
 }
 
 .list {
@@ -266,6 +273,7 @@ header .text_center .descript-left .searchBtn .catPlace .catItem:hover {
 .list .spot .box {
   position: relative;
   width: 270px;
+  margin: auto;
 }
 .list .spot .box img {
   border-radius: 5px 5px 0px 0px;
@@ -284,9 +292,8 @@ header .text_center .descript-left .searchBtn .catPlace .catItem:hover {
   bottom: 45px;
   height: 40px;
   width: 270px;
-  background: #000000;
+  background: rgba(0, 0, 0, 0.6);
   color: #fff;
-  opacity: 0.6;
   margin: 0;
 }
 .list .spot .box .mrtItem {

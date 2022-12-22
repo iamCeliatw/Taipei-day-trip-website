@@ -10,8 +10,21 @@ const signinText = document.querySelector(".signinText");
 const logoutText = document.querySelector(".logoutText");
 const main = document.querySelector(".main");
 const totalPriceValue = document.querySelector(".totalPrice");
+const noReservation = document.createElement("div");
+const noReserText = document.createElement("h4");
+const changeNameText = document.querySelector(".changeNameText");
+const changeNameBtn = document.querySelector("#changeNameBtn");
+const updateText = document.querySelector(".updateText");
+const updatePlace = document.querySelector("#updatePlace");
+const bookingButton = document.querySelector(".booking-button");
+
+const contactName = document.querySelector("#contact-name");
+const contactMail = document.querySelector("#contact-mail");
+const contactPhone = document.querySelector("#contact-phone");
+// let attractionIdResult;
 let deleteButtons;
 let deleteId;
+let allOrderId;
 let totalPrice = 0;
 window.addEventListener("load", () => {
   getUser();
@@ -31,10 +44,54 @@ logoutText.addEventListener("click", () => {
       if (data.ok) {
         logoutText.classList.add("hide");
         signinText.classList.remove("hide");
+        changeNameText.classList.add("hide");
         getUser();
       }
     });
 });
+
+//更改按鍵
+changeNameBtn.addEventListener("click", (e) => {
+  //   e.preventDefault();
+  let updateNameValue = document.getElementById("updateNameValue").value;
+  fetch(`${location.origin}/api/user/auth`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ name: updateNameValue }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      updatePlace.style.display = "block";
+      if (!data.data) {
+        updateText.textContent = "更新失敗，請重試一次";
+        updateText.style.color = "red";
+        window.setTimeout(hideMsg, 2000);
+      }
+      updateText.textContent = "更新成功";
+      updateText.style.color = "green";
+      window.setTimeout(hideMsg, 2000);
+    });
+});
+function hideMsg() {
+  signupMsg.style.display = "none";
+  signinMsg.style.display = "none";
+  updateText.style.display = "none";
+}
+
+//按下更改
+changeNameText.addEventListener("click", (e) => {
+  e.preventDefault();
+  updatePlace.style.display = "block";
+});
+
+function showNoData() {
+  noReservation.classList.add("booking-top");
+  main.replaceChildren(noReservation);
+  noReservation.append(noReserText);
+  noReserText.textContent = "暫無預定行程喔！";
+}
 //載入頁面取得訂單資訊
 function getBookData() {
   fetch(`${location.origin}/api/booking`, {
@@ -46,13 +103,10 @@ function getBookData() {
     .then((res) => res.json())
     .then((data) => {
       if (!data.data) {
-        const noReservation = document.createElement("div");
-        const noReserText = document.createElement("h4");
-        noReservation.classList.add("booking-top");
-        main.replaceChildren(noReservation);
-        noReservation.append(noReserText);
-        noReserText.textContent = "暫無預定行程喔！";
+        showNoData();
       } else {
+        allOrderId = data.data.map((element) => element.id);
+
         if (data.multiple_date.length > 0) {
           showAlertDialog(
             `您目前有重複預定日期為：${data.multiple_date}，請留意訂單資訊是否正確`
@@ -86,9 +140,8 @@ function getBookData() {
           <button class="delete-img" id="${data.data[i].id}">
             <img src="image/icon_delete.png" alt="" />
           </button>
-        
+          <hr class="middle-hr" />
         </div>
-        <hr class="middle-hr" />
       `
           );
         }
@@ -144,6 +197,7 @@ function getUser() {
         reservationText.classList.remove("hide");
         signinText.classList.add("hide");
         logoutText.classList.remove("hide");
+        changeNameText.classList.remove("hide");
       }
     });
 }
@@ -169,6 +223,7 @@ function closeSignDialog() {
   signinPlace.style.display = "none";
   signupPlace.style.display = "none";
   alertPlace.style.display = "none";
+  updatePlace.style.display = "none";
   lay.classList.add("hide");
 }
 //顯示提示框框
@@ -177,7 +232,6 @@ function showAlertDialog(text) {
   alertText.textContent = text;
   lay.classList.remove("hide");
 }
-
 //刪除景點
 function deleteBooking() {
   deleteButtons = document.querySelectorAll(".delete-img");
@@ -201,4 +255,107 @@ function deleteBooking() {
         });
     });
   }
+}
+
+TPDirect.setupSDK(
+  126881,
+  "app_bYUbbLGSN9M4WgPtco41lGWlLIhwuZmjCO4ErwnR457fmatY8TX9KQxkANp8",
+  "sandbox"
+);
+
+var fields = {
+  number: {
+    // css selector
+    element: "#card-number",
+    placeholder: "**** **** **** ****",
+  },
+  expirationDate: {
+    // DOM object
+    element: "#card-expiration-date",
+    placeholder: "MM / YY",
+  },
+  ccv: {
+    element: "#card-ccv",
+    placeholder: "後三碼",
+  },
+};
+TPDirect.card.setup({
+  fields: fields,
+  styles: {
+    input: {
+      color: "gray",
+    },
+    ".valid": {
+      color: "green",
+    },
+    ".invalid": {
+      color: "red",
+    },
+    "@media screen and (max-width: 400px)": {
+      input: {
+        color: "orange",
+      },
+    },
+  },
+  // 此設定會顯示卡號輸入正確後，會顯示前六後四碼信用卡卡號
+  isMaskCreditCardNumber: true,
+  maskCreditCardNumberRange: {
+    beginIndex: 6,
+    endIndex: 11,
+  },
+});
+//打字的時候就會跑這個函式
+TPDirect.card.onUpdate(function (update) {
+  if (update.canGetPrime) {
+    bookingButton.removeAttribute("disabled");
+  } else {
+    if (update.status.number === 2) {
+      showAlertDialog("卡號輸入有誤");
+    } else if (update.status.expiry === 2) {
+      showAlertDialog("過期時間輸入有誤");
+    } else if (update.status.ccv === 2) {
+      showAlertDialog("驗證碼輸入有誤");
+    }
+  }
+});
+
+function onSubmit(event) {
+  event.preventDefault();
+  TPDirect.card.getPrime((result) => {
+    if (
+      contactName.value === "" ||
+      contactPhone.value === "" ||
+      contactMail.value === ""
+    ) {
+      showAlertDialog("請填寫完整資訊");
+      return;
+    }
+    console.log("get prime 成功，prime: " + result.card.prime);
+    postOrders(result.card.prime);
+  });
+}
+
+function postOrders(prime) {
+  fetch("/api/orders", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      id: allOrderId,
+      price: totalPrice,
+      prime: prime,
+      name: contactName.value,
+      mail: contactMail.value,
+      phone: contactPhone.value,
+    }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.error) {
+        console.log(data.message);
+      } else if (data.data.number) {
+        window.location.href = `/thankyou?number=${data.data.number}`;
+      }
+    });
 }

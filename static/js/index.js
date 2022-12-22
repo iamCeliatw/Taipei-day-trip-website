@@ -11,6 +11,7 @@ const btn = document.querySelector(".btn");
 const close = document.querySelector(".close");
 const signinPlace = document.querySelector("#signinPlace");
 const signupPlace = document.querySelector("#signupPlace");
+const changeNameText = document.querySelector(".changeNameText");
 
 const lay = document.querySelector(".lay");
 const spotInput = document.querySelector("#spotInput");
@@ -30,10 +31,30 @@ const msg = document.querySelector(".msg");
 const signinMsg = document.querySelector(".signinMsg");
 const signupMsg = document.querySelector(".signupMsg");
 const reservationText = document.querySelector(".reservationText");
-const noItem = document.createElement("div");
+const noItem = document.createElement("img");
 const fas = document.querySelectorAll(".fas");
 const alertPlace = document.querySelector("#alertPlace");
 const alertText = document.querySelector(".alertText");
+const updateText = document.querySelector(".updateText");
+const updatePlace = document.querySelector("#updatePlace");
+const changeNameBtn = document.querySelector("#changeNameBtn");
+window.addEventListener("load", () => {
+  console.log("網頁已加載成功");
+  fetch(`${location.href}api/categories`)
+    .then((res) => res.json())
+    .then((data) => {
+      let lens = data.data.length;
+      for (let i = 0; i < lens; i++) {
+        let spanItem = document.createElement("span");
+        spanItem.classList.add("catItem");
+        spanItem.textContent = data.data[i];
+        catPlace.appendChild(spanItem);
+      }
+    });
+  getData();
+  getUser();
+});
+
 // sign up
 signupBtn.addEventListener("click", (e) => {
   e.preventDefault();
@@ -89,17 +110,46 @@ signinBtn.addEventListener("click", (e) => {
         closeSignDialog();
         signinText.classList.add("hide");
         logoutText.classList.remove("hide");
+        changeNameText.classList.remove("hide");
         showAlertDialog("登入成功");
-        close.addEventListener("click", () => {
-          console.log(123213);
-        });
       }
     });
+});
+//更改按鍵
+changeNameBtn.addEventListener("click", (e) => {
+  //   e.preventDefault();
+  let updateNameValue = document.querySelector("#updateNameValue").value;
+  fetch(`${location.origin}/api/user/auth`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ name: updateNameValue }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      updatePlace.style.display = "block";
+      if (!data.data) {
+        updateText.textContent = "更新失敗，請重試一次";
+        updateText.style.color = "red";
+        window.setTimeout(hideMsg, 2000);
+      }
+      updateText.textContent = "更新成功";
+      updateText.style.color = "green";
+      window.setTimeout(hideMsg, 2000);
+    });
+});
+
+//按下更改
+changeNameText.addEventListener("click", (e) => {
+  e.preventDefault();
+  updatePlace.style.display = "block";
 });
 
 function hideMsg() {
   signupMsg.style.display = "none";
   signinMsg.style.display = "none";
+  updateText.style.display = "none";
 }
 
 // get user
@@ -121,6 +171,7 @@ function getUser() {
         reservationText.classList.remove("hide");
         signinText.classList.add("hide");
         logoutText.classList.remove("hide");
+        changeNameText.classList.remove("hide");
       }
     });
 }
@@ -151,6 +202,7 @@ function booking() {
 function showSigninDialog() {
   signupPlace.style.display = "none";
   signinPlace.style.display = "block";
+
   lay.classList.remove("hide");
 }
 // 點擊 點此註冊 隱藏登入框 顯示註冊框
@@ -163,6 +215,7 @@ function closeSignDialog() {
   signinPlace.style.display = "none";
   signupPlace.style.display = "none";
   alertPlace.style.display = "none";
+  updatePlace.style.display = "none";
   lay.classList.add("hide");
   location.reload;
 }
@@ -185,22 +238,10 @@ function spotSearch() {
   });
 }
 
-window.addEventListener("load", () => {
-  console.log("網頁已加載成功");
-  fetch(`${location.href}api/categories`)
-    .then((res) => res.json())
-    .then((data) => {
-      let lens = data.data.length;
-      for (let i = 0; i < lens; i++) {
-        let spanItem = document.createElement("span");
-        spanItem.classList.add("catItem");
-        spanItem.textContent = data.data[i];
-        catPlace.appendChild(spanItem);
-      }
-    });
-  getData();
-  getUser();
-});
+function updateNameDialog() {
+  updatePlace.style.display = "block";
+  lay.classList.remove("hide");
+}
 
 //顯示提示框框
 function showAlertDialog(text) {
@@ -223,6 +264,7 @@ logoutText.addEventListener("click", () => {
       if (data.ok) {
         location.reload();
         logoutText.classList.add("hide");
+        changeNameText.classList.add("hide");
         signinText.classList.remove("hide");
       }
     });
@@ -232,63 +274,72 @@ logoutText.addEventListener("click", () => {
 async function getData() {
   try {
     isLoad = true;
-    if (keyword) {
-      url = `${location.href}api/attractions?page=${page}&keyword=${keyword} `;
-    } else {
-      url = `${location.href}api/attractions?page=${page}`;
-    }
+    const url = keyword
+      ? `${location.href}api/attractions?page=${page}&keyword=${keyword}`
+      : `${location.href}api/attractions?page=${page}`;
     const response = await fetch(url);
     const data = await response.json();
     if (data.data === null) {
       noItem.replaceChildren();
       noItem.classList.add("noItem");
-      noItem.textContent = "There is no result !!";
+      noItem.src = "image/Error404-3-01.jpg";
       main.appendChild(noItem);
     } else {
       noItem.replaceChildren();
-      // nextPage = data.nextPage;
       let result = data.data;
-      lens = data.data.length;
-      for (let i = 0; i < lens; i++) {
+      lens = result.length;
+      //虛擬對象
+      const fragment = document.createDocumentFragment();
+      result.forEach((item) => {
         const preloadLink = document.createElement("link");
-        preloadLink.href = result[i].image[0];
+        preloadLink.href = item.image[0];
         preloadLink.rel = "preload";
         preloadLink.as = "image";
-        document.head.appendChild(preloadLink);
-        let aItem = document.createElement("a");
-        let liItem = document.createElement("div");
-        let imgItem = document.createElement("img");
-        let nameItem = document.createElement("a");
-        let mrtCat = document.createElement("div");
-        aItem.setAttribute("href", `/attraction/${result[i].id}`);
-        nameItem.setAttribute("href", `/attraction/${result[i].id}`);
+        fragment.appendChild(preloadLink);
+
+        const aItem = document.createElement("a");
+        aItem.href = `/attraction/${item.id}`;
+
+        const liItem = document.createElement("div");
         liItem.classList.add("spot");
-        spotList.appendChild(liItem);
-        let box = document.createElement("div");
-        box.classList.add("box");
-        liItem.appendChild(box);
-        imgItem.setAttribute("src", result[i].image[0]);
+
+        const imgItem = document.createElement("img");
+        imgItem.src = item.image[0];
         imgItem.classList.add("imgItem");
-        nameItem.classList.add("nameItem");
-        nameItem.setAttribute("id", result[i].id);
-        mrtCat.classList.add("mrtItem");
-        nameItem.textContent = result[i].name;
-        box.appendChild(aItem);
         aItem.appendChild(imgItem);
+
+        const nameItem = document.createElement("a");
+        nameItem.href = `/attraction/${item.id}`;
+        nameItem.classList.add("nameItem");
+        nameItem.id = item.id;
+        nameItem.textContent = item.name;
+
+        const mrtCat = document.createElement("div");
+        mrtCat.classList.add("mrtItem");
+
+        const mrt = document.createElement("span");
+        mrt.textContent = item.mrt;
+        mrt.classList.add("mrt");
+        mrtCat.append(mrt);
+
+        const cat = document.createElement("span");
+        cat.textContent = item.cat;
+        cat.classList.add("cat");
+        mrtCat.append(cat);
+
+        const box = document.createElement("div");
+        box.classList.add("box");
+        box.appendChild(aItem);
         box.appendChild(nameItem);
         box.appendChild(mrtCat);
-        let mrt = document.createElement("span");
-        let cat = document.createElement("span");
-        mrt.textContent = result[i].mrt;
-        mrt.classList.add("mrt");
-        cat.textContent = result[i].cat;
-        cat.classList.add("cat");
-        mrtCat.append(mrt);
-        mrtCat.append(cat);
-      }
+
+        liItem.appendChild(box);
+        fragment.appendChild(liItem);
+      });
+
+      spotList.appendChild(fragment);
       page = data.nextPage;
       isLoad = false;
-      lens = data.data.length;
     }
   } catch (error) {
     console.log(
