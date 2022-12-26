@@ -52,6 +52,9 @@ def booking():
 @app.route("/thankyou")
 def thankyou():
 	return render_template("thankyou.html")
+@app.route("/account")
+def account():
+	return render_template("account.html")
 
 
 if __name__ == "__main__":

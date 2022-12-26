@@ -41,7 +41,7 @@
         list-style: none;
         display: inline-block;
         font-size: 20px;
-        margin-right: 3px;
+        margin-right: 5px;
 
         button {
           background: none;
@@ -279,6 +279,10 @@ header {
       position: relative;
       width: 270px;
       margin: auto;
+      overflow: hidden;
+      &:hover {
+        opacity: 0.8;
+      }
       img {
         border-radius: 5px 5px 0px 0px;
         width: 100%;

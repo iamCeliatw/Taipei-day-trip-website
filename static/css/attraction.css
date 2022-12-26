@@ -50,7 +50,7 @@ input[type=date]::-webkit-calendar-picker-indicator {
   list-style: none;
   display: inline-block;
   font-size: 20px;
-  margin-right: 3px;
+  margin-right: 5px;
 }
 .title .bg .navbar li button {
   background: none;

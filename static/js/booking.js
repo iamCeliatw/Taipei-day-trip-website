@@ -106,7 +106,6 @@ function getBookData() {
         showNoData();
       } else {
         allOrderId = data.data.map((element) => element.id);
-
         if (data.multiple_date.length > 0) {
           showAlertDialog(
             `您目前有重複預定日期為：${data.multiple_date}，請留意訂單資訊是否正確`
@@ -304,32 +303,25 @@ TPDirect.card.setup({
     endIndex: 11,
   },
 });
-//打字的時候就會跑這個函式
+
 TPDirect.card.onUpdate(function (update) {
   if (update.canGetPrime) {
     bookingButton.removeAttribute("disabled");
   } else {
-    if (update.status.number === 2) {
-      showAlertDialog("卡號輸入有誤");
-    } else if (update.status.expiry === 2) {
-      showAlertDialog("過期時間輸入有誤");
-    } else if (update.status.ccv === 2) {
-      showAlertDialog("驗證碼輸入有誤");
-    }
+    bookingButton.setAttribute("disabled", true);
   }
 });
 
 function onSubmit(event) {
   event.preventDefault();
+  // 取得 TapPay Fields 的 status
+  const tappayStatus = TPDirect.card.getTappayFieldsStatus();
+  // 確認是否可以 getPrime
+  if (tappayStatus.canGetPrime === false) {
+    showAlertDialog("無法處理請求，請再試一次");
+    return;
+  }
   TPDirect.card.getPrime((result) => {
-    if (
-      contactName.value === "" ||
-      contactPhone.value === "" ||
-      contactMail.value === ""
-    ) {
-      showAlertDialog("請填寫完整資訊");
-      return;
-    }
     console.log("get prime 成功，prime: " + result.card.prime);
     postOrders(result.card.prime);
   });
@@ -352,9 +344,10 @@ function postOrders(prime) {
   })
     .then((res) => res.json())
     .then((data) => {
-      if (data.error) {
-        console.log(data.message);
+      if (data.data.error) {
+        showAlertDialog(data.data.payment.message);
       } else if (data.data.number) {
+        bookingButton.setAttribute("disabled", true);
         window.location.href = `/thankyou?number=${data.data.number}`;
       }
     });
