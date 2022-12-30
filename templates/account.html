@@ -16,174 +16,64 @@
       <div class="all-info">
         <section class="member-info">
           <h2 class="page-title">會員資訊</h2>
+          <button class="logout-button">登出</button>
           <hr />
           <br />
-          <form action="/upload" method="post" enctype="multipart/form-data">
-            <div class="self-image-container">
-              <img
-                class="self-image"
-                src="../image/pngtree-cartoon-character-icon-free-button-illustration-image_1373716.jpeg"
-                alt="self-image"
-              />
+          <form
+            class="myForm"
+            action="/api/user/image"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            <div>
+              <div class="self-image-container">
+                <!-- <img class="self-image" src="" alt="self-image" /> -->
+              </div>
             </div>
 
             <div class="file-box">
               <input type="textfield" name="" id="textfield" class="filename" />
               <input type="button" name="" value="選取" class="file-button" />
-              <input type="file" name="file" class="file" />
-            </div>
-            <div class="info__field">
-              <div class="info__title">姓名</div>
-              <div class="form__group field">
-                <input
-                  type="input"
-                  class="form__field"
-                  placeholder="Name"
-                  name="name"
-                  id="name"
-                />
-                <label for="name" class="form__label">Name</label>
-              </div>
-            </div>
-            <div class="info__field">
-              <div class="info__title">信箱</div>
-              <div class="form__group field">
-                <input
-                  type="input"
-                  class="form__field"
-                  placeholder="Email"
-                  name="email"
-                  id="email"
-                />
-                <label for="email" class="form__label">Email</label>
-              </div>
-            </div>
-
-            <div class="info__field">
-              <div class="info__title">聯絡電話</div>
-              <div class="form__group field">
-                <input
-                  type="input"
-                  class="form__field"
-                  placeholder="Phone"
-                  name="phone"
-                  id="phone"
-                />
-                <label for="phone" class="form__label">Phone</label>
-              </div>
+              <input
+                type="file"
+                name="file"
+                class="file"
+                id="file-uploader"
+                data-target="file-uploader"
+                accept="image/*"
+                multiple="multiple"
+              />
             </div>
           </form>
+
+          <div class="info__field">
+            <div class="info__title">姓名</div>
+            <div class="form__group field">
+              <input
+                type="input"
+                class="form__field"
+                placeholder="Name"
+                name="name"
+                id="name"
+                required
+              />
+              <label for="name" class="form__label">Name</label>
+              <button class="update-button">更改</button>
+            </div>
+          </div>
         </section>
         <section class="order-history">
           <h2 class="page-title">歷史訂單</h2>
           <hr />
           <br />
-          <div class="order-place">
+          <!-- <div class="order-place">
             <div class="order-item">
               <button id="accordion-button-1" aria-expanded="false">
                 <span class="order-title"
                   >Why is the moon sometimes out during the day?</span
                 ><span class="icon" aria-hidden="true"></span>
               </button>
-
-              <div class="order-detail">
-                <div class="order-img">
-                  <img src="../image/image 10.png" alt="" />
-                </div>
-                <div class="order-text">
-                  <div>
-                    <span class="text-question">景點名稱</span>
-                    12345
-                  </div>
-                  <div>
-                    <span class="text-question">日期</span>
-                    12345
-                  </div>
-                  <div>
-                    <span class="text-question">時間</span>
-                    12345
-                  </div>
-                  <div>
-                    <span class="text-question">費用</span>
-                    12345
-                  </div>
-                  <div>
-                    <span class="text-question">地點</span>
-                    12345
-                  </div>
-                  <div>
-                    <span class="text-question">訂單編號</span>
-                    12345
-                  </div>
-                  <div>
-                    <span class="text-question">預定聯絡人</span>
-                    12345
-                  </div>
-                  <div>
-                    <span class="text-question">預定信箱</span>
-                    12345
-                  </div>
-                  <div>
-                    <span class="text-question">預定電話</span>
-                    12345
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="order-place">
-            <div class="order-item">
-              <button id="accordion-button-1" aria-expanded="false">
-                <span class="order-title"
-                  >Why is the moon sometimes out during the day?</span
-                ><span class="icon" aria-hidden="true"></span>
-              </button>
-
-              <div class="order-detail">
-                <div class="order-img">
-                  <img src="../image/image 10.png" alt="" />
-                </div>
-                <div class="order-text">
-                  <div>
-                    <span class="text-question">景點名稱</span>
-                    12345
-                  </div>
-                  <div>
-                    <span class="text-question">日期</span>
-                    12345
-                  </div>
-                  <div>
-                    <span class="text-question">時間</span>
-                    12345
-                  </div>
-                  <div>
-                    <span class="text-question">費用</span>
-                    12345
-                  </div>
-                  <div>
-                    <span class="text-question">地點</span>
-                    12345
-                  </div>
-                  <div>
-                    <span class="text-question">訂單編號</span>
-                    12345
-                  </div>
-                  <div>
-                    <span class="text-question">預定聯絡人</span>
-                    12345
-                  </div>
-                  <div>
-                    <span class="text-question">預定信箱</span>
-                    12345
-                  </div>
-                  <div>
-                    <span class="text-question">預定電話</span>
-                    12345
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          </div> -->
         </section>
       </div>
     </main>

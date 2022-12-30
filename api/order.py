@@ -108,30 +108,44 @@ def get_history():
     try:
         if not resp:
             return {"error": True, "message": "請先登入會員"}, 403
-        arr = []
+        sql = """
+        SELECT booking.order_number,orders.id, orders.name, orders.email, orders.phone, orders.price,
+        GROUP_CONCAT( "id:" ,orders.id,",",
+                    "attraction_id:" ,attraction_id,",",
+                    "attraction_name:" ,attraction_name, ",",
+                    "address:",address, ",",
+                    "image:",image, ",",
+                    "date:",DATE_FORMAT(date, '%Y-%m-%d'), ",",
+                    "time:",`time`, ",",
+                    "price:",booking.price,",",
+                    "order_number:",booking.order_number, ",",
+                    "user_email:",user_email
+                    SEPARATOR ';' ) AS `grouping`
+        FROM booking INNER JOIN orders ON orders.order_number = booking.order_number 
+        WHERE user_email = %s GROUP BY orders.order_number,orders.id, orders.name,orders.email,orders.phone, orders.price
+        ORDER BY orders.id DESC
+        """
+        val = [result["email"]]
 
-        sql = "SELECT booking.id, attraction_id, attraction_name, address, image, DATE_FORMAT(date, %s) AS date, time, booking.price, name,\
-        email, booking.order_number,orders.phone FROM booking INNER JOIN orders ON orders.order_number = booking.order_number WHERE user_email = %s"
-
-        # sql = """
-        # SELECT booking.order_number, orders.name, orders.email, orders.phone, orders.price,
-        # GROUP_CONCAT( "attraction_id:" ,attraction_id,",",
-        #             "attraction_name:" ,attraction_name, ",",
-        #             "address:",address, ",",
-        #             "image:",image, ",",
-        #             "date:",DATE_FORMAT(date, '%Y-%m-%d'), ",",
-        #             "time:",`time`, ",",
-        #             "order_number:",booking.order_number, ",",
-        #             "user_email:",user_email
-        #             SEPARATOR ';' ) AS `grouping`
-        # FROM booking INNER JOIN orders ON orders.order_number = booking.order_number WHERE user_email = %s GROUP BY orders.order_number, orders.name,orders.email,orders.phone, orders.price
-        # """
-        # val = [result['email']]
-
-        val = ["%Y-%m-%d", result["email"]]
         cursor.execute(sql, val)
         order_result = cursor.fetchall()
-        pass
+        for i in range(len(order_result)):
+            grouping_list = order_result[i]["grouping"].split(";")
+            nested_dicts = []
+            for grouping in grouping_list:
+                key_value_pairs = grouping.split(",")
+                # print(key_value_pairs)
+                nested_dict = {}
+                for kv in key_value_pairs:
+                    key, value = kv.rsplit(":", 1)
+                    nested_dict[key] = value
+                nested_dicts.append(nested_dict)
+
+            # 經處理資料放回grouping
+            order_result[i]["grouping"] = nested_dicts
+        json_data = json.dumps(order_result)
+        # Return the JSON object to the frontend
+        return json_data
 
     except Exception as e:
         print(e)

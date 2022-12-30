@@ -52,7 +52,11 @@
           outline: inherit;
           .shopcart-img {
             width: 35px;
-            vertical-align: middle;
+            vertical-align: bottom;
+          }
+          .user-img {
+            width: 35px;
+            vertical-align: bottom;
           }
         }
       }

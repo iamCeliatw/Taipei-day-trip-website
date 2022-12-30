@@ -24,6 +24,15 @@
   padding: 0;
   justify-content: space-between;
 }
+.title .lay {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #000000;
+  opacity: 0.25;
+}
 .title .bg {
   width: 1200px;
   display: flex;
@@ -60,7 +69,11 @@
 }
 .title .bg .navbar li button .shopcart-img {
   width: 35px;
-  vertical-align: middle;
+  vertical-align: bottom;
+}
+.title .bg .navbar li button .user-img {
+  width: 35px;
+  vertical-align: bottom;
 }
 
 .signPlace {
@@ -171,11 +184,30 @@ main .all-info {
   margin: 80px auto;
   width: 1200px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
 }
 main .all-info .page-title {
+  display: inline-block;
   margin-bottom: 10px;
   color: rgba(102, 102, 102, 0.841);
+}
+main .all-info .logout-button {
+  margin-left: 10px;
+  width: 50px;
+  height: 25px;
+  cursor: pointer;
+  background-color: #ffffff;
+  color: #22a8ca;
+  border: #22a8ca 1px solid;
+  border-radius: 5px;
+  font-size: 14px;
+  vertical-align: text-bottom;
+}
+main .all-info .logout-button:hover {
+  background-color: #22a8ca;
+  color: #ffffff;
+  border: #448899 1px solid;
 }
 main .all-info .member-info {
   flex: 1;
@@ -199,12 +231,10 @@ main .all-info .member-info .file-box {
 }
 main .all-info .member-info .file-box .filename {
   display: none;
-  position: absolute;
   width: 50px;
   height: 30px;
   margin-left: 5px;
-  bottom: 23px;
-  right: 30px;
+  margin: 10px 0px 0px 10px;
   border-radius: 5px;
   border: #cccccc 1px solid;
   background-color: #ffffff;
@@ -213,28 +243,27 @@ main .all-info .member-info .file-box .filename {
 main .all-info .member-info .file-box .file-button {
   width: 50px;
   height: 30px;
-  background-color: #ffffff;
+  margin: 10px 0px 0px 10px;
+  font-size: 14px;
   border: #448899 1px solid;
   border-radius: 5px;
-  position: absolute;
-  margin-left: 5px;
-  bottom: 23px;
-  right: 30px;
-  color: #448899;
-  font-size: 14px;
-}
-main .all-info .member-info .file-box .file-button:hover {
   background-color: #ffffff;
   color: #22a8ca;
-  border: #22a8ca;
+  border: #22a8ca 1px solid;
+}
+main .all-info .member-info .file-box .file-button:hover {
+  background-color: #22a8ca;
+  color: #ffffff;
+  border: #448899 1px solid;
 }
 main .all-info .member-info .file-box .file {
   width: 50px;
   height: 30px;
   position: absolute;
   opacity: 0;
+  bottom: 0px;
+  left: 0px;
   margin-left: 5px;
-  bottom: 23px;
   right: 30px;
   font-size: 20px;
   cursor: pointer;
@@ -264,7 +293,7 @@ main .all-info .info__field .form__group .form__field {
   border-bottom: 2px solid #9b9b9b;
   outline: 0;
   font-size: 1rem;
-  color: #fff;
+  color: #9b9b9b;
   padding: 7px 0;
   background: transparent;
   transition: border-color 0.2s;
@@ -320,6 +349,24 @@ main .all-info .info__field .form__group .form__field:focus ~ .form__label {
 }
 main .all-info .info__field .form__group .form__field:required, main .all-info .info__field .form__group .form__field:invalid {
   box-shadow: none;
+}
+main .all-info .info__field .form__group .update-button {
+  border: #448899 1px solid;
+  border-radius: 5px;
+  background-color: #ffffff;
+  color: #22a8ca;
+  border: #22a8ca 1px solid;
+  position: absolute;
+  bottom: 0%;
+  right: -18%;
+  width: 50px;
+  height: 25px;
+  cursor: pointer;
+}
+main .all-info .info__field .form__group .update-button:hover {
+  background-color: #22a8ca;
+  color: #ffffff;
+  border: #448899 1px solid;
 }
 main .order-history {
   padding: 40px 50px;
@@ -397,33 +444,51 @@ main .order-history .order-place button[aria-expanded=true] .icon::after {
 }
 main .order-history .order-place button[aria-expanded=true] + .order-detail {
   opacity: 1;
-  max-height: 600px;
+  max-height: -webkit-fit-content;
+  max-height: -moz-fit-content;
+  max-height: fit-content;
   transition: all 200ms linear;
   will-change: opacity, max-height;
 }
+main .order-history .order-place button[aria-expanded=true] + .order-detail .totalprice {
+  margin: 15px 0 15px 0;
+  margin-left: auto;
+  color: rgb(84, 82, 82);
+  font-weight: 700;
+}
+main .order-history .order-place button[aria-expanded=true] + .order-detail .totalprice .totalprice-question {
+  color: rgb(84, 82, 82);
+}
 main .order-history .order-place .order-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   opacity: 0;
   max-height: 0;
   overflow: hidden;
   transition: opacity 200ms linear, max-height 200ms linear;
   will-change: opacity, max-height;
 }
-main .order-history .order-place .order-detail .order-img {
-  margin: 15px;
+main .order-history .order-place .order-img {
+  margin: 30px 0px 8px 0px;
 }
-main .order-history .order-place .order-detail .order-img img {
-  max-width: 180px;
+main .order-history .order-place .order-img img {
+  border-radius: 5px;
+  max-width: 280px;
+  aspect-ratio: 16/12;
 }
-main .order-history .order-place .order-detail .order-text {
-  margin: 15px;
+main .order-history .order-place .order-text {
+  text-align: left;
+  width: 280px;
   flex: 2;
 }
-main .order-history .order-place .order-detail .order-text .text-question {
-  font-weight: 700;
+main .order-history .order-place .order-text div {
+  text-align: left;
   color: #9b9b9b;
 }
-main .order-history .order-place .order-detail .order-text .text-answer {
-  display: inline;
+main .order-history .order-place .order-text div .text-question {
+  font-weight: 700;
+  color: #448899;
 }
 
 .footer {
@@ -440,4 +505,46 @@ main .order-history .order-place .order-detail .order-text .text-answer {
   font-weight: 700;
   font-size: 16px;
   line-height: 13px;
+}
+
+@media screen and (max-width: 1200px) {
+  main .all-info {
+    width: 90%;
+  }
+  main .all-info .member-info {
+    flex-basis: 40%;
+  }
+  main .all-info .order-history {
+    flex-basis: 40%;
+  }
+}
+@media screen and (max-width: 500px) {
+  main .all-info {
+    width: 100%;
+  }
+  main .all-info .member-info {
+    width: 100%;
+    flex-basis: 40%;
+  }
+  main .all-info .member-info .file-box .filename {
+    bottom: -20px;
+    left: 0px;
+  }
+  main .all-info .member-info .file-box .file-button {
+    bottom: -20px;
+    left: 0px;
+  }
+  main .all-info .member-info .file-box .file {
+    bottom: -20px;
+    left: 0px;
+  }
+  main .all-info .order-history {
+    width: 100%;
+  }
+  main .all-info .order-history .order-place .order-item .order-detail .order-img img {
+    width: 100%;
+  }
+  main .all-info .order-history .order-place .order-text div {
+    text-align: center;
+  }
 }/*# sourceMappingURL=account.css.map */
