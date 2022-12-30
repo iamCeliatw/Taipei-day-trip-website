@@ -33,7 +33,6 @@ def post_order():
             cursor.execute(sql, val)
         result = cursor.fetchone()
         if result["order_number"]:
-            print(pay_status)
             return {"error": True, "message": "請確認是否重複付款"}
         prime = data["prime"]
         price = data["price"]
@@ -64,9 +63,7 @@ def post_order():
         # 發送請求
         response = requests.post(api_url, json=post_data, headers=headers).json()
         pay_status = response["status"]
-        print("response", response)
         if pay_status == 0:
-            print(pay_status)
             for id in data["id"]:
                 sql = "UPDATE booking SET order_number = %s WHERE id = %s"
                 val = [order_number, id]

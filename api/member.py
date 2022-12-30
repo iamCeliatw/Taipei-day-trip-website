@@ -4,11 +4,8 @@ from flask import *
 from flask_bcrypt import Bcrypt
 from utils.validate import *
 from model.member import *
-from PIL import Image
 import os
-
 import base64
-from io import BytesIO
 
 # from PIL import Image
 
@@ -96,7 +93,7 @@ def user_patch():
         jwt_data = request.cookies.get("token")
         result = Validation.decode_jwt(jwt_data)
         data = request.get_json()
-        print(data)
+        # print(data)
         if data["name"] == "":
             return {"error": True, "message": "欄位不得為空"}, 400
         Member.update_name(jwt_data, result, data)
