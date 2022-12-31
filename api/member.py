@@ -6,6 +6,7 @@ from utils.validate import *
 from model.member import *
 import os
 import base64
+import botocore
 
 # from PIL import Image
 
@@ -131,13 +132,19 @@ def user_image():
 
 @member.get("/api/user/image")
 def get_image():
-    resp = request.cookies.get("token")
-    if resp is None:
-        return {"data": None}
-    result = Validation.decode_jwt(resp)
-    filename = str(result["id"]) + ".jpg"
-    s3_object = client.get_object(Bucket="tpdaytripbucket", Key=filename)
-    data = s3_object["Body"].read()
-    base64_data = base64.b64encode(data).decode()
-    base64_data = "data:image/jpeg;base64," + base64_data
-    return {"ok": True, "data": base64_data}
+    try:
+        resp = request.cookies.get("token")
+        if resp is None:
+            return {"data": None}
+        result = Validation.decode_jwt(resp)
+        filename = str(result["id"]) + ".jpg"
+        s3_object = client.get_object(Bucket="tpdaytripbucket", Key=filename)
+        data = s3_object["Body"].read()
+        base64_data = base64.b64encode(data).decode()
+        base64_data = "data:image/jpeg;base64," + base64_data
+        return {"ok": True, "data": base64_data}
+    except botocore.exceptions.ClientError as e:
+        return {"error": True, "message": "尚無照片"}, 400
+    except Exception as e:
+        print(e)
+        return {"error": True, "message": "伺服器內部錯誤"}, 500

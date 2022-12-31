@@ -23,7 +23,7 @@ const orderHistory = document.querySelector(".order-history");
 const logoutButton = document.querySelector(".logout-button");
 const updateName = document.querySelector("#name");
 const fileUploader = document.querySelector("#file-uploader");
-let updateImg;
+
 fileUploader.addEventListener("change", (e) => {
   const file = e.target.files[0];
   console.log(file); // get file object
@@ -59,12 +59,18 @@ function getImg() {
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data.data);
-      updateImg = document.createElement("img");
-      updateImg.classList.add("self-image");
-      const imageURL = data.data;
-      updateImg.src = imageURL;
-      imageContainer.appendChild(updateImg);
+      if (data.error) {
+        console.log(data.message);
+        selfImage.classList.remove("hide");
+      } else {
+        const imageURL = data.data;
+        selfImage.src = imageURL;
+        selfImage.classList.remove("hide");
+        imageContainer.style.border = "0px";
+      }
+    })
+    .catch((error) => {
+      console.log(error);
     });
 }
 
@@ -75,7 +81,8 @@ fileInput.addEventListener("change", () => {
   // 建立圖像 URL
   const imageUrl = URL.createObjectURL(file);
   // 設定圖像元素的 src 屬性
-  updateImg.src = imageUrl;
+  selfImage.src = imageUrl;
+  //   imageContainer.classList.add("hide");
   showAlertDialog("更新成功！");
 });
 
@@ -110,7 +117,7 @@ function getHistory() {
       console.log(data);
       for (let i = 0; i < data.length; i++) {
         console.log(data[i].grouping.length);
-        // console.log("https:" + data[i].grouping[0]["image:https"]);
+
         if (data[i].grouping.length > 1) {
         }
         orderHistory.insertAdjacentHTML(

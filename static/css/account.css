@@ -217,8 +217,10 @@ main .all-info .member-info {
 }
 main .all-info .member-info .self-image-container {
   border-radius: 5px;
-  height: auto;
-  max-width: 206px;
+  border: 1px dashed cadetblue;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
 }
 main .all-info .member-info .self-image-container img {
   max-width: 206px;
@@ -243,6 +245,7 @@ main .all-info .member-info .file-box .filename {
 main .all-info .member-info .file-box .file-button {
   width: 50px;
   height: 30px;
+  cursor: pointer;
   margin: 10px 0px 0px 10px;
   font-size: 14px;
   border: #448899 1px solid;

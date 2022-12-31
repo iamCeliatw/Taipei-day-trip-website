@@ -228,9 +228,8 @@ main {
       padding: 40px 50px;
       .self-image-container {
         border-radius: 5px;
-        height: auto;
-        max-width: 206px;
-
+        border: 1px dashed cadetblue;
+        width: fit-content;
         img {
           max-width: 206px;
           border-radius: 5px;
@@ -258,7 +257,7 @@ main {
         .file-button {
           width: 50px;
           height: 30px;
-
+          cursor: pointer;
           margin: 10px 0px 0px 10px;
           font-size: 14px;
           border: $primary 1px solid;
