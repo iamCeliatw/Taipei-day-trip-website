@@ -187,7 +187,6 @@ function closeSignDialog() {
   signinPlace.style.display = "none";
   signupPlace.style.display = "none";
   alertPlace.style.display = "none";
-  updatePlace.style.display = "none";
   lay.classList.add("hide");
 }
 //顯示提示框框
