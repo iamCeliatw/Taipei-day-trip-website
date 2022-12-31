@@ -105,9 +105,7 @@ signinBtn.addEventListener("click", (e) => {
       } else {
         closeSignDialog();
         signinText.classList.add("hide");
-
         userIcon.classList.remove("hide");
-
         showAlertDialog("登入成功");
       }
     });

@@ -51,7 +51,7 @@ def login_get():
     try:
         resp = request.cookies.get("token")
         if resp is None:
-            return {"data": None}
+            return {"error": True, "message": "請先登入會員"}, 403
         result = Validation.decode_jwt(resp)
         return {"data": result}
     except Exception as e:

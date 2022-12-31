@@ -44,9 +44,10 @@ select(".copy-button").addEventListener("click", () => {
     copyButton.classList.remove("copied-button");
   }, 2000);
 });
-//click usericon
+
+//點擊會員icon跳轉
 userIcon.addEventListener("click", () => {
-  fetch(`${location.href}api/user/auth`, {
+  fetch(`api/user/auth`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -61,6 +62,7 @@ userIcon.addEventListener("click", () => {
       }
     });
 });
+
 function remindMsg() {
   copyButton.textContent = "點此複製編號";
   copyButton.style.border = "";
