@@ -133,7 +133,6 @@ function getUser() {
       } else if (data.data) {
         reservationText.classList.remove("hide");
         signinText.classList.add("hide");
-
         userIcon.classList.remove("hide");
       }
     });

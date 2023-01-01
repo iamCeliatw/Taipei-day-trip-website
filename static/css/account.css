@@ -538,8 +538,8 @@ main .order-history .order-place .order-text div .text-question {
     left: 0px;
   }
   main .all-info .member-info .file-box .file {
-    bottom: -20px;
-    left: 0px;
+    bottom: 0px;
+    left: 5px;
   }
   main .all-info .order-history {
     width: 100%;

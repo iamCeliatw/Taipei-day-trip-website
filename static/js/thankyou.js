@@ -21,7 +21,7 @@ const userIcon = document.querySelector(".usericon");
 thankMessage.insertAdjacentHTML(
   "beforeEnd",
   `<span>您的訂單編號是</span> <span class="number">${orderNumber}</span>
-    <p>請記下此訂單編號，以利追蹤查詢</p>`
+    <p>請前往會員中心查看訂單！</p>`
 );
 
 window.addEventListener("load", () => {

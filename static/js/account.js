@@ -36,8 +36,10 @@ fileUploader.addEventListener("change", (e) => {
   })
     .then((res) => res.json())
     .then((data) => {
-      //未登入
-      console.log(data);
+      //   console.log(data);
+      const imageUrl = URL.createObjectURL(file);
+      selfImage.src = imageUrl;
+      showAlertDialog("更新成功！");
     })
     .catch((error) => {
       console.log(error);
@@ -53,14 +55,11 @@ window.addEventListener("load", () => {
 function getImg() {
   fetch(`/api/user/image`, {
     method: "GET",
-    // headers: {
-    //   "Content-Type": "application/json",
-    // },
   })
     .then((res) => res.json())
     .then((data) => {
       if (data.error) {
-        console.log(data.message);
+        showAlertDialog(data.message);
         selfImage.classList.remove("hide");
       } else {
         const imageURL = data.data;
@@ -73,18 +72,6 @@ function getImg() {
       console.log(error);
     });
 }
-
-//照片欄位
-fileInput.addEventListener("change", () => {
-  // 獲取選擇的圖片文件
-  const file = fileInput.files[0];
-  // 建立圖像 URL
-  const imageUrl = URL.createObjectURL(file);
-  // 設定圖像元素的 src 屬性
-  selfImage.src = imageUrl;
-  //   imageContainer.classList.add("hide");
-  showAlertDialog("更新成功！");
-});
 
 // 載入頁面取得登入資訊
 function getUser() {
@@ -114,10 +101,7 @@ function getHistory() {
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
       for (let i = 0; i < data.length; i++) {
-        console.log(data[i].grouping.length);
-
         if (data[i].grouping.length > 1) {
         }
         orderHistory.insertAdjacentHTML(
@@ -158,7 +142,6 @@ function getHistory() {
                   <div>
                     <span class="text-question">時間：</span>
                     ${data[i].grouping[j].time}
-                    
                   </div>
                   <div>
                     <span class="text-question">費用：</span>

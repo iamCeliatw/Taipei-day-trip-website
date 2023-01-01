@@ -27,6 +27,8 @@ const alertText = document.querySelector(".alertText");
 const fas = document.querySelectorAll(".fas");
 const updateText = document.querySelector(".updateText");
 const updatePlace = document.querySelector("#updatePlace");
+const userIcon = document.querySelector(".usericon");
+
 let eachPrice;
 let timeValue;
 let spotName;
@@ -68,6 +70,23 @@ signupBtn.addEventListener("click", (e) => {
 function backHomePage() {
   window.location = "/";
 }
+//點擊會員icon跳轉
+userIcon.addEventListener("click", () => {
+  fetch(`${location.origin}/api/user/auth`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (!data.data) {
+        showSigninDialog();
+      } else {
+        window.location.href = `${location.origin}/account`;
+      }
+    });
+});
 
 // 登入按鈕
 signinBtn.addEventListener("click", (e) => {
@@ -91,7 +110,8 @@ signinBtn.addEventListener("click", (e) => {
         closeSignDialog();
         console.log(data);
         signinText.classList.add("hide");
-        location.reload(true);
+        userIcon.classList.remove("hide");
+        location.reload();
       }
     });
 });
@@ -276,6 +296,7 @@ function getUser() {
       } else if (data.data) {
         reservationText.classList.remove("hide");
         signinText.classList.add("hide");
+        userIcon.classList.remove("hide");
       }
     });
 }
