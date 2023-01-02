@@ -47,7 +47,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
         list-style: none;
         display: inline-block;
         font-size: 20px;
-        margin-right: 3px;
+        margin-right: 5px;
         button {
           background: none;
           color: #666666;
@@ -57,7 +57,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
           outline: inherit;
           .shopcart-img {
             width: 35px;
-            vertical-align: middle;
+            vertical-align: bottom;
+          }
+          .user-img {
+            width: 35px;
+            vertical-align: bottom;
           }
         }
       }

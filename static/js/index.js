@@ -11,7 +11,6 @@ const btn = document.querySelector(".btn");
 const close = document.querySelector(".close");
 const signinPlace = document.querySelector("#signinPlace");
 const signupPlace = document.querySelector("#signupPlace");
-const changeNameText = document.querySelector(".changeNameText");
 
 const lay = document.querySelector(".lay");
 const spotInput = document.querySelector("#spotInput");
@@ -26,7 +25,6 @@ const signupBtn = document.querySelector("#signupBtn");
 const signinPassword = document.querySelector("#signinPassword");
 const signupPassword = document.querySelector("#signupPassword");
 const signinText = document.querySelector(".signinText");
-const logoutText = document.querySelector(".logoutText");
 const msg = document.querySelector(".msg");
 const signinMsg = document.querySelector(".signinMsg");
 const signupMsg = document.querySelector(".signupMsg");
@@ -35,9 +33,7 @@ const noItem = document.createElement("img");
 const fas = document.querySelectorAll(".fas");
 const alertPlace = document.querySelector("#alertPlace");
 const alertText = document.querySelector(".alertText");
-const updateText = document.querySelector(".updateText");
-const updatePlace = document.querySelector("#updatePlace");
-const changeNameBtn = document.querySelector("#changeNameBtn");
+const userIcon = document.querySelector(".usericon");
 window.addEventListener("load", () => {
   console.log("網頁已加載成功");
   fetch(`${location.href}api/categories`)
@@ -109,47 +105,15 @@ signinBtn.addEventListener("click", (e) => {
       } else {
         closeSignDialog();
         signinText.classList.add("hide");
-        logoutText.classList.remove("hide");
-        changeNameText.classList.remove("hide");
+        userIcon.classList.remove("hide");
         showAlertDialog("登入成功");
       }
     });
-});
-//更改按鍵
-changeNameBtn.addEventListener("click", (e) => {
-  //   e.preventDefault();
-  let updateNameValue = document.querySelector("#updateNameValue").value;
-  fetch(`${location.origin}/api/user/auth`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ name: updateNameValue }),
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      updatePlace.style.display = "block";
-      if (!data.data) {
-        updateText.textContent = "更新失敗，請重試一次";
-        updateText.style.color = "red";
-        window.setTimeout(hideMsg, 2000);
-      }
-      updateText.textContent = "更新成功";
-      updateText.style.color = "green";
-      window.setTimeout(hideMsg, 2000);
-    });
-});
-
-//按下更改
-changeNameText.addEventListener("click", (e) => {
-  e.preventDefault();
-  updatePlace.style.display = "block";
 });
 
 function hideMsg() {
   signupMsg.style.display = "none";
   signinMsg.style.display = "none";
-  updateText.style.display = "none";
 }
 
 // get user
@@ -165,13 +129,11 @@ function getUser() {
       //未登入
       if (!data.data) {
         reservationText.classList.remove("hide");
-        logoutText.classList.add("hide");
         signinText.classList.remove("hide");
       } else if (data.data) {
         reservationText.classList.remove("hide");
         signinText.classList.add("hide");
-        logoutText.classList.remove("hide");
-        changeNameText.classList.remove("hide");
+        userIcon.classList.remove("hide");
       }
     });
 }
@@ -215,7 +177,6 @@ function closeSignDialog() {
   signinPlace.style.display = "none";
   signupPlace.style.display = "none";
   alertPlace.style.display = "none";
-  updatePlace.style.display = "none";
   lay.classList.add("hide");
   location.reload;
 }
@@ -238,11 +199,6 @@ function spotSearch() {
   });
 }
 
-function updateNameDialog() {
-  updatePlace.style.display = "block";
-  lay.classList.remove("hide");
-}
-
 //顯示提示框框
 function showAlertDialog(text) {
   alertPlace.style.display = "block";
@@ -250,26 +206,23 @@ function showAlertDialog(text) {
   lay.classList.remove("hide");
 }
 
-//點擊登出系統
-logoutText.addEventListener("click", () => {
-  fetch(`${location.href}api/user/auth`, {
-    method: "DELETE",
+//點擊會員icon跳轉
+userIcon.addEventListener("click", () => {
+  fetch(`api/user/auth`, {
+    method: "GET",
     headers: {
       "Content-Type": "application/json",
     },
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
-      if (data.ok) {
-        location.reload();
-        logoutText.classList.add("hide");
-        changeNameText.classList.add("hide");
-        signinText.classList.remove("hide");
+      if (!data.data) {
+        showSigninDialog();
+      } else {
+        window.location.href = `${location.origin}/account`;
       }
     });
 });
-
 //取得首頁景點資訊
 async function getData() {
   try {
@@ -332,7 +285,6 @@ async function getData() {
         box.appendChild(aItem);
         box.appendChild(nameItem);
         box.appendChild(mrtCat);
-
         liItem.appendChild(box);
         fragment.appendChild(liItem);
       });

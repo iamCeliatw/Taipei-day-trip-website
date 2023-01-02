@@ -38,9 +38,10 @@
                 登入/註冊
               </button>
             </li>
-            <li class="signupBtn">
-              <button class="logoutText hide">登出</button>
-              <button class="changeNameText hide">更改姓名</button>
+            <li>
+              <button class="usericon hide">
+                <img class="user-img" src="../image/member-card.png" alt="" />
+              </button>
             </li>
           </ul>
         </nav>
@@ -150,26 +151,6 @@
         <p class="alertText"></p>
       </div>
     </div>
-
-    <div class="signPlace" id="updatePlace">
-      <div class="greenBar"></div>
-      <div class="dialog">
-        <h3>更改姓名</h3>
-        <input
-          id="updateNameValue"
-          class="inputArea"
-          placeholder="輸入新姓名"
-          type="text"
-          required
-        />
-        <div class="close" onclick="closeSignDialog()">
-          <img src="../image/icon_close.png" alt="" />
-        </div>
-        <p class="updateText"></p>
-        <button class="btn" id="changeNameBtn">更新</button>
-      </div>
-    </div>
-
     <main>
       <!-- 可供更改的部分 -->
       {% block main %}{% endblock %}

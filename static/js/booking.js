@@ -7,13 +7,11 @@ const lay = document.querySelector(".lay");
 const alertPlace = document.querySelector("#alertPlace");
 const alertText = document.querySelector(".alertText");
 const signinText = document.querySelector(".signinText");
-const logoutText = document.querySelector(".logoutText");
+
 const main = document.querySelector(".main");
 const totalPriceValue = document.querySelector(".totalPrice");
 const noReservation = document.createElement("div");
 const noReserText = document.createElement("h4");
-const changeNameText = document.querySelector(".changeNameText");
-const changeNameBtn = document.querySelector("#changeNameBtn");
 const updateText = document.querySelector(".updateText");
 const updatePlace = document.querySelector("#updatePlace");
 const bookingButton = document.querySelector(".booking-button");
@@ -21,6 +19,7 @@ const bookingButton = document.querySelector(".booking-button");
 const contactName = document.querySelector("#contact-name");
 const contactMail = document.querySelector("#contact-mail");
 const contactPhone = document.querySelector("#contact-phone");
+const userIcon = document.querySelector(".usericon");
 // let attractionIdResult;
 let deleteButtons;
 let deleteId;
@@ -31,60 +30,11 @@ window.addEventListener("load", () => {
   getBookData();
 });
 
-//點擊登出系統
-logoutText.addEventListener("click", () => {
-  fetch(`${location.origin}/api/user/auth`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      if (data.ok) {
-        logoutText.classList.add("hide");
-        signinText.classList.remove("hide");
-        changeNameText.classList.add("hide");
-        getUser();
-      }
-    });
-});
-
-//更改按鍵
-changeNameBtn.addEventListener("click", (e) => {
-  //   e.preventDefault();
-  let updateNameValue = document.getElementById("updateNameValue").value;
-  fetch(`${location.origin}/api/user/auth`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ name: updateNameValue }),
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      updatePlace.style.display = "block";
-      if (!data.data) {
-        updateText.textContent = "更新失敗，請重試一次";
-        updateText.style.color = "red";
-        window.setTimeout(hideMsg, 2000);
-      }
-      updateText.textContent = "更新成功";
-      updateText.style.color = "green";
-      window.setTimeout(hideMsg, 2000);
-    });
-});
 function hideMsg() {
   signupMsg.style.display = "none";
   signinMsg.style.display = "none";
   updateText.style.display = "none";
 }
-
-//按下更改
-changeNameText.addEventListener("click", (e) => {
-  e.preventDefault();
-  updatePlace.style.display = "block";
-});
 
 function showNoData() {
   noReservation.classList.add("booking-top");
@@ -106,7 +56,6 @@ function getBookData() {
         showNoData();
       } else {
         allOrderId = data.data.map((element) => element.id);
-
         if (data.multiple_date.length > 0) {
           showAlertDialog(
             `您目前有重複預定日期為：${data.multiple_date}，請留意訂單資訊是否正確`
@@ -196,11 +145,26 @@ function getUser() {
       } else {
         reservationText.classList.remove("hide");
         signinText.classList.add("hide");
-        logoutText.classList.remove("hide");
-        changeNameText.classList.remove("hide");
+        userIcon.classList.remove("hide");
       }
     });
 }
+userIcon.addEventListener("click", () => {
+  fetch(`api/user/auth`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (!data.data) {
+        showSigninDialog();
+      } else {
+        window.location.href = `${location.origin}/account`;
+      }
+    });
+});
 
 //回首頁
 function backHomePage() {
@@ -223,7 +187,6 @@ function closeSignDialog() {
   signinPlace.style.display = "none";
   signupPlace.style.display = "none";
   alertPlace.style.display = "none";
-  updatePlace.style.display = "none";
   lay.classList.add("hide");
 }
 //顯示提示框框
@@ -304,32 +267,25 @@ TPDirect.card.setup({
     endIndex: 11,
   },
 });
-//打字的時候就會跑這個函式
+
 TPDirect.card.onUpdate(function (update) {
   if (update.canGetPrime) {
     bookingButton.removeAttribute("disabled");
   } else {
-    if (update.status.number === 2) {
-      showAlertDialog("卡號輸入有誤");
-    } else if (update.status.expiry === 2) {
-      showAlertDialog("過期時間輸入有誤");
-    } else if (update.status.ccv === 2) {
-      showAlertDialog("驗證碼輸入有誤");
-    }
+    bookingButton.setAttribute("disabled", true);
   }
 });
 
 function onSubmit(event) {
   event.preventDefault();
+  // 取得 TapPay Fields 的 status
+  const tappayStatus = TPDirect.card.getTappayFieldsStatus();
+  // 確認是否可以 getPrime
+  if (tappayStatus.canGetPrime === false) {
+    showAlertDialog("無法處理請求，請再試一次");
+    return;
+  }
   TPDirect.card.getPrime((result) => {
-    if (
-      contactName.value === "" ||
-      contactPhone.value === "" ||
-      contactMail.value === ""
-    ) {
-      showAlertDialog("請填寫完整資訊");
-      return;
-    }
     console.log("get prime 成功，prime: " + result.card.prime);
     postOrders(result.card.prime);
   });
@@ -352,9 +308,10 @@ function postOrders(prime) {
   })
     .then((res) => res.json())
     .then((data) => {
-      if (data.error) {
-        console.log(data.message);
+      if (data.data.error) {
+        showAlertDialog(data.data.payment.message);
       } else if (data.data.number) {
+        bookingButton.setAttribute("disabled", true);
         window.location.href = `/thankyou?number=${data.data.number}`;
       }
     });

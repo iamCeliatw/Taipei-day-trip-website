@@ -50,7 +50,7 @@ input[type=date]::-webkit-calendar-picker-indicator {
   list-style: none;
   display: inline-block;
   font-size: 20px;
-  margin-right: 3px;
+  margin-right: 5px;
 }
 .title .bg .navbar li button {
   background: none;
@@ -62,7 +62,11 @@ input[type=date]::-webkit-calendar-picker-indicator {
 }
 .title .bg .navbar li button .shopcart-img {
   width: 35px;
-  vertical-align: middle;
+  vertical-align: bottom;
+}
+.title .bg .navbar li button .user-img {
+  width: 35px;
+  vertical-align: bottom;
 }
 
 .signPlace {
