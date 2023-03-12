@@ -1,6 +1,6 @@
 # Taipei-day-trip-website
 
-Taipei Day Trip is a E-commerce Website,provide over 50 torist spot can reserved.
+Taipei Day Trip is an e-commerce website that offers over 50 travel destinations for users to choose from. It provides services for users to book multiple attractions and make online payments.
 
 Test Account:
 | Account | Password |
@@ -19,48 +19,66 @@ Test Card:
   - [Main Features](#main-features)
   - [Front-end Technique](#front-end-technique)
   - [Back-end Technique](#back-end-technique)
+    - [Framework](#framework)
+    - [Database](#database)
+  - [Cloud Service](#cloud-service)
   - [Third Party Payment](#third-party-payment)
   - [Contact](#contact)
 
 ## Main Features
 
-GIF 或 照片
-
 - Infinite Scroll
+  <br/>
   <img src="./infinite-scroll.gif"/>
   <br/>
 - keyword Search
+  <br/>
   <img src="./key-search.gif"/>
   <br/>
-
 - Shopping Cart
--
-- Payment System
+  <br/>
+  <img src="./shop-cart.gif"/>
+
 - Carousel Slider
+  <br/>
+  <img src="./carousel-slider.gif"/>
 - Order History
+  <br/>
   <img src="./order-history.gif"/>
 - RWD
+  <br/>
+  <img src="./deviceframes.jpeg"/>
 
 ## Front-end Technique
 
-- HTML
-- SCSS
-- JavaScript
+- Created Infinite Scroll and Carousel Slider by pure JavaScript.
+- Supported RWD by using CSS Media Queries, Flex and Grid.
+- Applied AJAX to fetch RESTful APIs from back-end.
 
 ## Back-end Technique
 
-- Framework
-  - Python Flask
-- Database
-  - MySQL
-  <br/>
-  <p>
-  <img src="./tpdaytrip-mysql.png"/>
-  </p>
+### Framework
+
+- Python Flask
+
+### Database
+
+- MySQL
+<br/>
+<p>
+<img src="./tpdaytrip-mysql.png"/>
+</p>
+
+## Cloud Service
+
+- AWS EC2 (Ubuntu)
+  - deployed
+- AWS S3
+  - Stored user's image.
 
 ## Third Party Payment
 
-- Tappay
+- TapPay
 
 ## Contact
 
