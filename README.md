@@ -47,6 +47,8 @@ Test Card:
   <img src="./order-history.gif"/>
 - RWD
   <br/>
+  Support desktop, tablet, and mobile devices.
+  <br/>
   <img src="./deviceframes.jpeg"/>
 
 ## Front-end Technique
@@ -72,9 +74,7 @@ Test Card:
 ## Cloud Service
 
 - AWS EC2 (Ubuntu)
-  - deployed
 - AWS S3
-  - Stored user's image.
 
 ## Third Party Payment
 
