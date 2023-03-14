@@ -173,7 +173,7 @@
 .signPlace .dialog .sign-page #checkEye2 {
   position: absolute;
   right: 4%;
-  bottom: 40%;
+  bottom: 41%;
 }
 .signPlace .dialog .sign-page .remindMessage {
   color: #666666;
@@ -218,7 +218,6 @@ main .all-info .member-info {
 main .all-info .member-info .self-image-container {
   border-radius: 5px;
   border: 1px dashed cadetblue;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
 }
@@ -304,18 +303,10 @@ main .all-info .info__field .form__group .form__field {
 main .all-info .info__field .form__group .form__field::-moz-placeholder {
   color: transparent;
 }
-main .all-info .info__field .form__group .form__field:-ms-input-placeholder {
-  color: transparent;
-}
 main .all-info .info__field .form__group .form__field::placeholder {
   color: transparent;
 }
 main .all-info .info__field .form__group .form__field:-moz-placeholder-shown ~ .form__label {
-  font-size: 20px;
-  cursor: text;
-  top: 20px;
-}
-main .all-info .info__field .form__group .form__field:-ms-input-placeholder ~ .form__label {
   font-size: 20px;
   cursor: text;
   top: 20px;
@@ -447,7 +438,6 @@ main .order-history .order-place button[aria-expanded=true] .icon::after {
 }
 main .order-history .order-place button[aria-expanded=true] + .order-detail {
   opacity: 1;
-  max-height: -webkit-fit-content;
   max-height: -moz-fit-content;
   max-height: fit-content;
   transition: all 200ms linear;
