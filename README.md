@@ -29,21 +29,28 @@ Test Card:
 
 - Infinite Scroll
   <br/>
+  Improving user experience.
+  <br/>
   <img src="./infinite-scroll.gif"/>
   <br/>
 - keyword Search
+  <br/>
+  Improve search speed, no need to search item by item.
   <br/>
   <img src="./key-search.gif"/>
   <br/>
 - Shopping Cart
   <br/>
+  Convenient management of purchase items.
   <img src="./shop-cart.gif"/>
 
 - Carousel Slider
   <br/>
+  Easy for users to browse photos.
   <img src="./carousel-slider.gif"/>
 - Order History
   <br/>
+  Easy access to past order records without worrying about forgetting the details.
   <img src="./order-history.gif"/>
 - RWD
   <br/>
