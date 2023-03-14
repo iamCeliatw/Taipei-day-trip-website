@@ -2,6 +2,8 @@
 
 Taipei Day Trip is an e-commerce website that offers over 50 travel destinations for users to choose from. It provides services for users to book multiple attractions and make online payments.
 
+🔗 Website URL : http://tpdaytrip.ddns.net:3000/
+
 Test Account:
 | Account | Password |
 | --------------- | -------- |
@@ -43,7 +45,7 @@ Test Card:
   <br/>
   Convenient management of purchase items.
   <img src="./shop-cart.gif"/>
-
+  <br/>
 - Carousel Slider
   <br/>
   Easy for users to browse photos.
