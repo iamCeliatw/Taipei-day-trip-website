@@ -1,6 +1,5 @@
 "use strict";
 
-//取網址最後一個字當作id值
 const id = location.pathname.substring(location.pathname.lastIndexOf("/") + 1);
 const carousel__nav = document.querySelector(".carousel__nav");
 
@@ -34,7 +33,6 @@ let timeValue;
 let spotName;
 let spotAddress;
 let bookImg;
-// 註冊按鈕
 signupBtn.addEventListener("click", (e) => {
   e.preventDefault();
   const signupEmail = document.querySelector("#signupEmail").value;
@@ -66,11 +64,10 @@ signupBtn.addEventListener("click", (e) => {
     });
 });
 
-//點台北一日遊 回到首頁
 function backHomePage() {
   window.location = "/";
 }
-//點擊會員icon跳轉
+
 userIcon.addEventListener("click", () => {
   fetch(`${location.origin}/api/user/auth`, {
     method: "GET",
@@ -88,7 +85,6 @@ userIcon.addEventListener("click", () => {
     });
 });
 
-// 登入按鈕
 signinBtn.addEventListener("click", (e) => {
   e.preventDefault();
   const signinEmail = document.querySelector("#signinEmail").value;
@@ -108,7 +104,6 @@ signinBtn.addEventListener("click", (e) => {
         window.setTimeout(hideMsg, 2000);
       } else {
         closeSignDialog();
-        console.log(data);
         signinText.classList.add("hide");
         userIcon.classList.remove("hide");
         location.reload();
@@ -126,33 +121,30 @@ window.addEventListener("load", () => {
   getData();
 });
 
-// 點擊登入 跳出視窗
 function showSigninDialog() {
   signupPlace.style.display = "none";
   signinPlace.style.display = "block";
   lay.classList.remove("hide");
 }
 
-// 點擊 點此註冊 隱藏登入框 顯示註冊框
 function showSignupDialog() {
   signinPlace.style.display = "none";
   signupPlace.style.display = "block";
 }
-// 關閉註冊登入
+
 function closeSignDialog() {
   lay.classList.add("hide");
   signinPlace.style.display = "none";
   signupPlace.style.display = "none";
   alertPlace.style.display = "none";
 }
-//顯示提示框框
+
 function showAlertDialog(text) {
   alertPlace.style.display = "block";
   alertText.textContent = text;
   lay.classList.remove("hide");
 }
 
-// 取得景點資訊
 function getData() {
   fetch(url + id)
     .then((response) => response.json())
@@ -171,7 +163,6 @@ function getData() {
           `<button class="carousel__indicator"></button>`
         );
       }
-      // 第一個li & button 加上 current-slide
       let firstSlide = document.getElementsByClassName("carousel__slide")[0];
       let carousel__indicator = document.getElementsByClassName(
         "carousel__indicator"
@@ -212,20 +203,17 @@ function getData() {
       const prevButton = document.querySelector(".carousel__button--left");
       const dotsNav = document.querySelector(".carousel__nav");
       const dots = Array.from(dotsNav.children);
-      //取得圖片大小
+
       const slideWidth = slides[0].getBoundingClientRect().width;
 
-      //給定每個slide left
       slides.forEach(function (slide, index) {
         slide.style.left = slideWidth * index + "px";
       });
 
-      // 點擊左邊的按鈕往左滑
       prevButton.addEventListener("click", (e) => {
-        //當前照片
         let currentSlide = track.querySelector(".current-slide");
         let prevSlide = currentSlide.previousElementSibling;
-        //當前小點點
+
         let currentDot = dotsNav.querySelector(".current-slide");
         let prevDot = currentDot.previousElementSibling;
 
@@ -235,23 +223,21 @@ function getData() {
         hideShowArrows(slides, prevButton, nextButton, prevIndex);
       });
 
-      // 點擊右邊按鈕往右滑
       nextButton.addEventListener("click", () => {
         let currentSlide = track.querySelector(".current-slide");
         let nextSlide = currentSlide.nextElementSibling;
         let currentDot = dotsNav.querySelector(".current-slide");
-        //下一個元素
+
         let nextDot = currentDot.nextElementSibling;
         let nextIndex = slides.findIndex((slide) => slide === nextSlide);
         moveToslide(track, currentSlide, nextSlide);
         updateDots(currentDot, nextDot);
         hideShowArrows(slides, prevButton, nextButton, nextIndex);
       });
-      // 點擊移動點點
+
       dotsNav.addEventListener("click", (e) => {
-        //what indicator was click on?
         let targetDot = e.target.closest("button");
-        //stop the function
+
         if (!targetDot) return;
         let currentSlide = track.querySelector(".current-slide");
         let currentDot = dotsNav.querySelector(".current-slide");
@@ -263,8 +249,6 @@ function getData() {
         hideShowArrows(slides, prevButton, nextButton, targetIndex);
       });
       let hideShowArrows = (slides, prevButton, nextButton, targetIndex) => {
-        console.log(targetIndex);
-
         if (!targetIndex) {
           prevButton.classList.add("is-hidden");
           nextButton.classList.remove("is-hidden");
@@ -279,7 +263,6 @@ function getData() {
     });
 }
 
-// 載入頁面取得登入資訊
 function getUser() {
   fetch(`${location.origin}/api/user/auth`, {
     method: "GET",
@@ -289,7 +272,6 @@ function getUser() {
   })
     .then((res) => res.json())
     .then((data) => {
-      //未登入
       if (!data.data) {
         reservationText.classList.remove("hide");
         signinText.classList.remove("hide");
@@ -301,30 +283,27 @@ function getUser() {
     });
 }
 
-//上半天顯示價錢
 oneHalfDay.addEventListener("click", (e) => {
   eachPrice = 2000;
   totalPrice.textContent = `新台幣${eachPrice}元`;
 });
-// 下半天顯示價錢
+
 nextHalfDay.addEventListener("click", (e) => {
   eachPrice = 2500;
   totalPrice.textContent = `新台幣${eachPrice}元`;
 });
 
-// Get the current date
 const currentDate = new Date();
 
 document.getElementById("myDateInput").min = currentDate
   .toISOString()
   .split("T")[0];
 
-//post景點資料 存資料庫
 function postBookData() {
   let oneDayRadio = document.querySelector("#day1");
   let dateValue = document.querySelector(".date").value;
   let priceValue = document.querySelector(".totalPrice").textContent;
-  //把字串中的金額提取出來傳到後端
+
   eachPrice = priceValue.replace(/[^\d]/g, " ");
   if (oneDayRadio.checked) {
     timeValue = oneHalfDay.textContent;
@@ -373,12 +352,10 @@ function booking() {
     });
 }
 
-//開始預定行程
 reservation.addEventListener("click", () => {
   postBookData();
 });
 
-//查看密碼小眼睛
 for (let eye of fas) {
   eye.addEventListener("click", (e) => {
     if (e.target.classList.contains("fa-eye-slash")) {

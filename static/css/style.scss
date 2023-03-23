@@ -365,7 +365,6 @@ header {
     line-height: 13px;
   }
 }
-/*當螢幕寬度小於1200px時，套用此設定*/
 @media screen and (max-width: 1200px) {
   header {
     max-width: 100%;
@@ -446,7 +445,6 @@ header {
     }
   }
 
-  /*當螢幕寬度小於370px時，套用此設定*/
   @media screen and (max-width: 400px) {
     .title {
       h3 {

@@ -51,7 +51,6 @@ window.addEventListener("load", () => {
   getUser();
 });
 
-// sign up
 signupBtn.addEventListener("click", (e) => {
   e.preventDefault();
   let signupName = document.querySelector("#signupName").value;
@@ -84,7 +83,6 @@ signupBtn.addEventListener("click", (e) => {
     });
 });
 
-// signin
 signinBtn.addEventListener("click", (e) => {
   e.preventDefault();
   let signinEmail = document.querySelector("#signinEmail").value;
@@ -116,7 +114,6 @@ function hideMsg() {
   signinMsg.style.display = "none";
 }
 
-// get user
 function getUser() {
   fetch(`${location.href}api/user/auth`, {
     method: "GET",
@@ -126,7 +123,6 @@ function getUser() {
   })
     .then((res) => res.json())
     .then((data) => {
-      //未登入
       if (!data.data) {
         reservationText.classList.remove("hide");
         signinText.classList.remove("hide");
@@ -138,11 +134,10 @@ function getUser() {
     });
 }
 
-//點台北一日遊 回到首頁
 function backHomePage() {
   window.location = "/";
 }
-//點擊預定行程跳轉
+
 function booking() {
   fetch(`${location.href}api/user/auth`, {
     method: "GET",
@@ -160,19 +155,18 @@ function booking() {
     });
 }
 
-//點擊登入 跳出視窗
 function showSigninDialog() {
   signupPlace.style.display = "none";
   signinPlace.style.display = "block";
 
   lay.classList.remove("hide");
 }
-// 點擊 點此註冊 隱藏登入框 顯示註冊框
+
 function showSignupDialog() {
   signinPlace.style.display = "none";
   signupPlace.style.display = "block";
 }
-//關閉註冊登入
+
 function closeSignDialog() {
   signinPlace.style.display = "none";
   signupPlace.style.display = "none";
@@ -181,7 +175,6 @@ function closeSignDialog() {
   location.reload;
 }
 
-//搜尋景點分類框
 function spotSearch() {
   catPlace.style.display = "flex";
   let cat = catPlace.getElementsByTagName("span");
@@ -199,14 +192,12 @@ function spotSearch() {
   });
 }
 
-//顯示提示框框
 function showAlertDialog(text) {
   alertPlace.style.display = "block";
   alertText.textContent = text;
   lay.classList.remove("hide");
 }
 
-//點擊會員icon跳轉
 userIcon.addEventListener("click", () => {
   fetch(`api/user/auth`, {
     method: "GET",
@@ -223,7 +214,7 @@ userIcon.addEventListener("click", () => {
       }
     });
 });
-//取得首頁景點資訊
+
 async function getData() {
   try {
     isLoad = true;
@@ -241,7 +232,7 @@ async function getData() {
       noItem.replaceChildren();
       let result = data.data;
       lens = result.length;
-      //虛擬對象
+
       const fragment = document.createDocumentFragment();
       result.forEach((item) => {
         const preloadLink = document.createElement("link");
@@ -301,7 +292,6 @@ async function getData() {
   }
 }
 
-//點擊搜尋按鈕 觸發search
 function search() {
   page = 0;
   keyword = spotInput.value;
@@ -311,16 +301,13 @@ function search() {
   getData();
 }
 
-// 偵測滾動 載入更多
 let options = {
-  root: null, // document viewport
+  root: null,
   rootMargin: "0px",
-  threshold: 0.3, // 進入畫面的比例
+  threshold: 0.3,
 };
 let observer = new IntersectionObserver(callback, options);
-//觀察footer
 observer.observe(footer);
-// callback
 function callback(entires) {
   if (entires[0].isIntersecting) {
     ct++;
@@ -333,7 +320,6 @@ function callback(entires) {
   }
 }
 
-//查看密碼小眼睛
 for (let eye of fas) {
   eye.addEventListener("click", (e) => {
     if (e.target.classList.contains("fa-eye-slash")) {

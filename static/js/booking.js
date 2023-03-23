@@ -20,7 +20,7 @@ const contactName = document.querySelector("#contact-name");
 const contactMail = document.querySelector("#contact-mail");
 const contactPhone = document.querySelector("#contact-phone");
 const userIcon = document.querySelector(".usericon");
-// let attractionIdResult;
+
 let deleteButtons;
 let deleteId;
 let allOrderId;
@@ -42,7 +42,7 @@ function showNoData() {
   noReservation.append(noReserText);
   noReserText.textContent = "暫無預定行程喔！";
 }
-//載入頁面取得訂單資訊
+
 function getBookData() {
   fetch(`${location.origin}/api/booking`, {
     method: "GET",
@@ -112,7 +112,6 @@ function getBookData() {
     });
 }
 
-//跳登入顯示框顯示三秒跳轉首頁
 let countdownDuration = 3;
 function countDown() {
   let countdownTimer = setInterval(function () {
@@ -127,7 +126,7 @@ function countDown() {
     );
   }, 1000);
 }
-//取得用戶 未登入跳轉
+
 function getUser() {
   fetch(`${location.origin}/api/user/auth`, {
     method: "GET",
@@ -166,36 +165,34 @@ userIcon.addEventListener("click", () => {
     });
 });
 
-//回首頁
 function backHomePage() {
   window.location = "/";
 }
-// 點擊登入 跳出視窗
+
 function showSigninDialog() {
   signupPlace.style.display = "none";
   signinPlace.style.display = "block";
   lay.classList.remove("hide");
 }
 
-// 點擊 點此註冊 隱藏登入框 顯示註冊框
 function showSignupDialog() {
   signinPlace.style.display = "none";
   signupPlace.style.display = "block";
 }
-// 關閉註冊登入
+
 function closeSignDialog() {
   signinPlace.style.display = "none";
   signupPlace.style.display = "none";
   alertPlace.style.display = "none";
   lay.classList.add("hide");
 }
-//顯示提示框框
+
 function showAlertDialog(text) {
   alertPlace.style.display = "block";
   alertText.textContent = text;
   lay.classList.remove("hide");
 }
-//刪除景點
+
 function deleteBooking() {
   deleteButtons = document.querySelectorAll(".delete-img");
   for (let button of deleteButtons) {
@@ -228,12 +225,10 @@ TPDirect.setupSDK(
 
 var fields = {
   number: {
-    // css selector
     element: "#card-number",
     placeholder: "**** **** **** ****",
   },
   expirationDate: {
-    // DOM object
     element: "#card-expiration-date",
     placeholder: "MM / YY",
   },
@@ -260,7 +255,6 @@ TPDirect.card.setup({
       },
     },
   },
-  // 此設定會顯示卡號輸入正確後，會顯示前六後四碼信用卡卡號
   isMaskCreditCardNumber: true,
   maskCreditCardNumberRange: {
     beginIndex: 6,
@@ -278,9 +272,8 @@ TPDirect.card.onUpdate(function (update) {
 
 function onSubmit(event) {
   event.preventDefault();
-  // 取得 TapPay Fields 的 status
   const tappayStatus = TPDirect.card.getTappayFieldsStatus();
-  // 確認是否可以 getPrime
+
   if (tappayStatus.canGetPrime === false) {
     showAlertDialog("無法處理請求，請再試一次");
     return;

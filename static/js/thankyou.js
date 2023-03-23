@@ -27,8 +27,6 @@ thankMessage.insertAdjacentHTML(
 window.addEventListener("load", () => {
   getUser();
 });
-
-//navigator.clipboard.writeText(copyableText.textContent) ubuntu不支援
 const select = (DOM) => document.querySelector(DOM);
 const range = document.createRange();
 const texts = select(".number");
@@ -45,7 +43,6 @@ select(".copy-button").addEventListener("click", () => {
   }, 2000);
 });
 
-//點擊會員icon跳轉
 userIcon.addEventListener("click", () => {
   fetch(`api/user/auth`, {
     method: "GET",
@@ -87,7 +84,6 @@ function booking() {
     });
 }
 
-// 載入頁面取得登入資訊
 function getUser() {
   fetch(`${location.origin}/api/user/auth`, {
     method: "GET",
@@ -97,7 +93,6 @@ function getUser() {
   })
     .then((res) => res.json())
     .then((data) => {
-      //未登入
       if (!data.data) {
         reservationText.classList.remove("hide");
         signinText.classList.remove("hide");
@@ -109,12 +104,10 @@ function getUser() {
     });
 }
 
-//點台北一日遊 回到首頁
 function backHomePage() {
   window.location = "/";
 }
 
-// 登入按鈕
 signinBtn.addEventListener("click", (e) => {
   e.preventDefault();
   const signinEmail = document.querySelector("#signinEmail").value;
@@ -147,33 +140,30 @@ function hideMsg() {
   signinMsg.style.display = "none";
 }
 
-// 點擊登入 跳出視窗
 function showSigninDialog() {
   signupPlace.style.display = "none";
   signinPlace.style.display = "block";
   lay.classList.remove("hide");
 }
 
-// 點擊 點此註冊 隱藏登入框 顯示註冊框
 function showSignupDialog() {
   signinPlace.style.display = "none";
   signupPlace.style.display = "block";
 }
-// 關閉註冊登入
+
 function closeSignDialog() {
   signinPlace.style.display = "none";
   signupPlace.style.display = "none";
   alertPlace.style.display = "none";
   lay.classList.add("hide");
 }
-//顯示提示框框
+
 function showAlertDialog(text) {
   alertPlace.style.display = "block";
   alertText.textContent = text;
   lay.classList.remove("hide");
 }
 
-//查看密碼小眼睛
 for (let eye of fas) {
   eye.addEventListener("click", (e) => {
     if (e.target.classList.contains("fa-eye-slash")) {

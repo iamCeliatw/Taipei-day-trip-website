@@ -26,7 +26,7 @@ const fileUploader = document.querySelector("#file-uploader");
 
 fileUploader.addEventListener("change", (e) => {
   const file = e.target.files[0];
-  console.log(file); // get file object
+  console.log(file);
   let data = new FormData();
   data.append("files", file);
   console.log(data);
@@ -36,7 +36,6 @@ fileUploader.addEventListener("change", (e) => {
   })
     .then((res) => res.json())
     .then((data) => {
-      //   console.log(data);
       const imageUrl = URL.createObjectURL(file);
       selfImage.src = imageUrl;
       showAlertDialog("更新成功！");
@@ -73,7 +72,6 @@ function getImg() {
     });
 }
 
-// 載入頁面取得登入資訊
 function getUser() {
   fetch(`${location.origin}/api/user/auth`, {
     method: "GET",
@@ -83,7 +81,6 @@ function getUser() {
   })
     .then((res) => res.json())
     .then((data) => {
-      //未登入
       if (!data.data) {
         reservationText.classList.remove("hide");
         signinText.classList.remove("hide");
@@ -181,7 +178,6 @@ function getHistory() {
               </div>`
         );
       }
-      // FAQ欄位
       const items = document.querySelectorAll(".order-place button");
       function toggleAccordion() {
         const itemToggle = this.getAttribute("aria-expanded");
@@ -197,7 +193,6 @@ function getHistory() {
     });
 }
 
-//點擊預定行程跳轉
 function booking() {
   fetch(`api/user/auth`, {
     method: "GET",
@@ -215,9 +210,7 @@ function booking() {
     });
 }
 
-//更改按鍵
 updateButton.addEventListener("click", (e) => {
-  //   e.preventDefault();
   let updateNameValue = updateName.value;
   fetch(`${location.origin}/api/user/auth`, {
     method: "PATCH",
@@ -236,12 +229,10 @@ updateButton.addEventListener("click", (e) => {
     });
 });
 
-//點台北一日遊 回到首頁
 function backHomePage() {
   window.location = "/";
 }
 
-// 登入按鈕
 signinBtn.addEventListener("click", (e) => {
   e.preventDefault();
   const signinEmail = document.querySelector("#signinEmail").value;
@@ -263,7 +254,6 @@ signinBtn.addEventListener("click", (e) => {
         closeSignDialog();
         console.log(data);
         signinText.classList.add("hide");
-        // logoutText.classList.remove("hide");
         location.reload();
       }
     });
@@ -274,33 +264,30 @@ function hideMsg() {
   signinMsg.style.display = "none";
 }
 
-// 點擊登入 跳出視窗
 function showSigninDialog() {
   signupPlace.style.display = "none";
   signinPlace.style.display = "block";
   lay.classList.remove("hide");
 }
 
-// 點擊 點此註冊 隱藏登入框 顯示註冊框
 function showSignupDialog() {
   signinPlace.style.display = "none";
   signupPlace.style.display = "block";
 }
-// 關閉註冊登入
+
 function closeSignDialog() {
   signinPlace.style.display = "none";
   signupPlace.style.display = "none";
   alertPlace.style.display = "none";
   lay.classList.add("hide");
 }
-//顯示提示框框
+
 function showAlertDialog(text) {
   alertPlace.style.display = "block";
   alertText.textContent = text;
   lay.classList.remove("hide");
 }
 
-// 點擊登出系統;
 logoutButton.addEventListener("click", (e) => {
   fetch(`${location.origin}/api/user/auth`, {
     method: "DELETE",
@@ -319,7 +306,6 @@ logoutButton.addEventListener("click", (e) => {
     });
 });
 
-//跳登入顯示框顯示三秒跳轉首頁
 let countdownDuration = 3;
 function countDown() {
   let countdownTimer = setInterval(function () {
@@ -335,7 +321,6 @@ function countDown() {
   }, 1000);
 }
 
-//查看密碼小眼睛
 for (let eye of fas) {
   eye.addEventListener("click", (e) => {
     if (e.target.classList.contains("fa-eye-slash")) {

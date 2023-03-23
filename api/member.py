@@ -1,4 +1,3 @@
-# import jwt
 import boto3
 from flask import *
 from flask_bcrypt import Bcrypt
@@ -7,8 +6,6 @@ from model.member import *
 import os
 import base64
 import botocore
-
-# from PIL import Image
 
 member = Blueprint("user", __name__)
 bcrypt = Bcrypt()
@@ -20,7 +17,6 @@ client = boto3.client(
 )
 
 
-# 註冊
 @member.post("/api/user")
 def user():
     try:
@@ -45,7 +41,6 @@ def user():
         return {"error": True, "message": "伺服器內部錯誤"}, 500
 
 
-# get user
 @member.get("/api/user/auth")
 def login_get():
     try:
@@ -59,7 +54,6 @@ def login_get():
         return {"error": True, "message": "伺服器內部錯誤"}, 500
 
 
-# 登入
 @member.put("/api/user/auth")
 def login_put():
     try:
@@ -75,9 +69,7 @@ def login_put():
         result = Member.signin_put(data)
         if not result:
             return {"error": True, "message": "Email不存在"}, 400
-        # hash後的密碼
         hashed_password = result["password"]
-        # 和輸入的密碼做比對
         check_password = bcrypt.check_password_hash(hashed_password, password)
         if not check_password:
             return {"error": True, "message": "密碼錯誤"}, 400
@@ -126,7 +118,6 @@ def user_image():
     parts[1] = "jpg"
     file.filename = ".".join(parts)
     client.upload_fileobj(file, "tpdaytripbucket", file.filename)
-    # ACL='public-read'
     return {"ok": True}
 
 

@@ -36,8 +36,6 @@ class Booking:
             email FROM member INNER JOIN booking ON member.email = booking.user_email WHERE member.email = %s AND order_number IS NULL  "
             val = ["%Y-%m-%d", result["email"]]
             cursor.execute(sql, val)
-            # array
-            # cursor.execute(sql,val)
             book_result = cursor.fetchall()
             dates = [i["date"] for i in book_result]
             counts = Counter(dates)
