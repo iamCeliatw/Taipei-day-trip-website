@@ -1,9 +1,7 @@
-# import jwt
 from flask import *
-
 from data.database import db
 
-# from model.validate import *
+
 class Member:
     def check_signup(data):
         conn = db.connection.get_connection()

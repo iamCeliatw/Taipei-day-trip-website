@@ -26,7 +26,6 @@ def post_order():
         now = datetime.now(t_zone)
         order_number = now.strftime("%Y%m%d%H%M%S")
 
-        # 查詢booking是否已存在訂單編號
         for id in data["id"]:
             sql = "SELECT order_number FROM booking WHERE id = %s"
             val = [id]
@@ -44,14 +43,13 @@ def post_order():
         cursor.execute(sql, val)
         conn.commit()
 
-        # 串接付款金流 api網址
         api_url = "https://sandbox.tappaysdk.com/tpc/payment/pay-by-prime"
-        # HTTP request header
+
         headers = {
             "Content-Type": "application/json",
             "x-api-key": os.getenv("partner_key"),
         }
-        # request body
+
         post_data = {
             "prime": prime,
             "amount": price,
@@ -60,7 +58,6 @@ def post_order():
             "details": name + "'s booking",
             "cardholder": {"name": name, "email": email, "phone_number": phone},
         }
-        # 發送請求
         response = requests.post(api_url, json=post_data, headers=headers).json()
         pay_status = response["status"]
         if pay_status == 0:
@@ -84,7 +81,6 @@ def post_order():
             return {
                 "data": {
                     "error": True,
-                    # "number": order_number,
                     "payment": {"status": pay_status, "message": "付款失敗"},
                 }
             }, 400
@@ -131,17 +127,14 @@ def get_history():
             nested_dicts = []
             for grouping in grouping_list:
                 key_value_pairs = grouping.split(",")
-                # print(key_value_pairs)
                 nested_dict = {}
                 for kv in key_value_pairs:
                     key, value = kv.rsplit(":", 1)
                     nested_dict[key] = value
                 nested_dicts.append(nested_dict)
 
-            # 經處理資料放回grouping
             order_result[i]["grouping"] = nested_dicts
         json_data = json.dumps(order_result)
-        # Return the JSON object to the frontend
         return json_data
 
     except Exception as e:

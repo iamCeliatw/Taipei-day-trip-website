@@ -276,7 +276,6 @@ main {
           height: 30px;
           position: absolute;
           opacity: 0;
-          //   margin: 10px 0px 0px 10px;
           bottom: 0px;
           left: 0px;
           margin-left: 5px;
@@ -316,7 +315,6 @@ main {
           padding: 7px 0;
           background: transparent;
           transition: border-color 0.2s;
-          // margin-bottom: 25px;
           &::placeholder {
             color: transparent;
           }
@@ -354,7 +352,6 @@ main {
           border-image-slice: 1;
         }
 
-        /* reset input */
         .form__field {
           &:required,
           &:invalid {

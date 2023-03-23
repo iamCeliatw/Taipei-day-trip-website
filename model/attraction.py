@@ -47,7 +47,6 @@ class Attraction:
         conn = db.connection.get_connection()
         cursor = conn.cursor(buffered=True, dictionary=True)
         try:
-            # perpage = 13
             offset = page * (perpage - 1)
             sql = "SELECT sid,id,name,cat,description,direction,mrt,address,latitude,longitude, image \
                    FROM `spots` WHERE `cat` = %s or name LIKE %s LIMIT %s OFFSET %s"
@@ -95,7 +94,6 @@ class Attraction:
                 cursor = conn.cursor(buffered=True, dictionary=True)
                 cursor.execute(sql, val)
                 all_result = cursor.fetchone()
-                # 新增照片網址的陣列
                 all_result.setdefault("image", arrImg)
                 return all_result
         except Exception as e:

@@ -58,7 +58,7 @@ Test Card:
   <br/>
   Support desktop, tablet, and mobile devices.
   <br/>
-  <img src="./deviceframes.jpeg"/>
+  <img src="./deviceframes.png"/>
 
 ## Front-end Technique
 
